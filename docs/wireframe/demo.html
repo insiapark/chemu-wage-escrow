@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>체무 1분 시연</title>
+<!--
+  체무 1분 시연 v12
+
+  앱 경로는 바로 아래 WORKER_APP, OWNER_APP 두 상수입니다. 마지막 판에서는 같은 폴더의 worker.html, owner.html로 바꿉니다.
+  화면 번호(?i=N)는 panelx.mjs로 뽑은 v10 PANEL 목록(알바생 앱 80개, 사장님 앱 47개)에서 가져왔습니다.
+  경로를 바꾸면 panelx.mjs를 다시 돌려 아래 번호가 그대로인지 확인합니다.
+
+  단계 | 말하는 앱 | flows.json 화면 이름       | v10 이름 | 번호 | 다른 휴대폰 화면                  | 번호 | 다른 휴대폰 근거
+  1    | 사장님    | 근로계약 올리기             | 같음     | o1   | 알바생 계약 확인: 주휴수당 빠짐   | w6   | cross 짝
+  2    | 알바생    | 계약 확인: 주휴수당 빠짐    | 같음     | w6   | 사장님 근로계약 올리기            | o1   | cross 짝
+  3    | 알바생    | 출근하기                    | 같음     | w11  | 사장님 근로계약 올리기            | o1   | 짝 없음, 앞 단계 화면 유지
+  4    | 사장님    | 근무 확정                   | 같음     | o9   | 알바생 퇴근, 일당 보관            | w15  | cross 짝
+  5    | 알바생    | 퇴근, 일당 보관             | 같음     | w15  | 사장님 근무 확정                  | o9   | cross 짝
+  6    | 사장님    | 시간 고치기                 | 같음     | o13  | 알바생 사장님이 시간을 고침       | w18  | cross 짝
+  7    | 알바생    | 사장님이 시간을 고침        | 같음     | w18  | 사장님 시간 고치기                | o13  | cross 짝
+  8    | 알바생    | 급여일 자동 입금            | 같음     | w33  | 사장님 자동 입금 완료             | o28  | cross 짝
+  9    | 알바생    | 오늘: 안 들어온 돈          | 같음     | w36  | 사장님 아직 보관 못 한 돈         | o40  | cross 짝
+  10   | 사장님    | 아직 보관 못 한 돈          | 같음     | o40  | 알바생 오늘: 안 들어온 돈         | w36  | cross 짝
+  11   | 알바생    | 돈이 움직이는 길            | 같음     | w52  | 사장님 아직 보관 못 한 돈         | o40  | 짝 없음, 앞 단계 화면 유지
+  12   | 사장님    | 기록 대조                   | 같음     | o39  | 알바생 돈이 움직이는 길           | w52  | 짝 없음, 앞 단계 화면 유지
+
+  바꾼 이름: 없음. flows.json demo의 12개 이름이 모두 v10 목록에 그대로 있습니다.
+  자막: 조율 담당이 준 확정 자막 두 줄씩. 0은 시작 화면, 13은 끝 화면.
+  주소 끝 ?step=N(0~13)으로 열면 그 단계에서 멈춘 채 열립니다(캡처용).
+-->
+<script>
+const WORKER_APP = 'worker.html';
+const OWNER_APP = 'owner.html';
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --font:'IBM Plex Sans KR','Noto Sans KR',-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+  --fg-neutral:#19181d;
+  --fg-neutral-secondary:#47454f;
+  --fg-neutral-muted:#66636e;
+  --fg-neutral-inverted:#ffffff;
+  --fg-brand:#5b4bdb;
+  --fg-disabled:#66636e;
+  --bg-layer-basement:#f4f3f0;
+  --bg-layer-default:#ffffff;
+  --bg-neutral-solid:#19181d;
+  --bg-neutral-solid-pressed:#000000;
+  --bg-neutral-weak:#ecebe8;
+  --bg-neutral-weak-alpha:rgba(25,24,29,.07);
+  --bg-neutral-weak-alpha-pressed:rgba(25,24,29,.12);
+  --bg-neutral-strong:#8a8792;
+  --bg-brand-solid:#5b4bdb;
+  --bg-brand-weak:#ece9fd;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;
+  --radius-s:8px;--radius-m:16px;--radius-l:24px;--radius-full:9999px;
+  --type-t1:1.875rem;--type-t2:1.625rem;--type-t3:1.375rem;--type-t5:1.0625rem;--type-t6:.9375rem;--type-t7:.8125rem;
+  --ps:.64;            /* 휴대폰 배율, 스크립트가 무대 높이에 맞춰 바꿈 */
+  --fade:240ms;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--bg-layer-basement);color:var(--fg-neutral);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* 판 전체: 무대, 자막, 조작 */
+.player{height:100vh;display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:var(--space-4);padding:20px var(--space-6) 20px}
+
+/* 무대 */
+.stage{grid-row:1;grid-column:1;position:relative;min-height:0;display:flex;align-items:center;justify-content:center}
+.rig{display:flex;align-items:center;justify-content:center;gap:var(--space-6);transition:opacity var(--fade) ease}
+.side{width:120px;display:flex;flex-direction:column;gap:var(--space-1);font-size:var(--type-t5);font-weight:600;color:var(--fg-neutral-muted);transition:color var(--fade) ease}
+.side-l{text-align:right}
+.side.on{color:var(--fg-neutral);font-weight:700}
+.side .mark{align-self:flex-end;width:24px;height:4px;border-radius:var(--radius-full);background:transparent}
+.side-r .mark{align-self:flex-start}
+.side.on .mark{background:var(--bg-brand-solid)}
+.pair{display:flex;gap:56px}
+
+.phone{position:relative;flex:none;width:calc(440px * var(--ps));height:calc(900px * var(--ps));transition:opacity var(--fade) ease}
+.phone.dim{opacity:.35}
+.frames{position:absolute;inset:0}
+.frames iframe{position:absolute;left:0;top:0;width:440px;height:900px;border:0;background:transparent;
+  transform:scale(var(--ps));transform-origin:0 0;
+  /* 앱이 440x900에서 그리는 휴대폰 틀만 남기고 앱 바탕은 잘라 냄 */
+  clip-path:inset(14px 12px 14px 11px round 68px);
+  opacity:0;transition:opacity 200ms ease;pointer-events:none}
+.frames iframe.on{opacity:1;z-index:1}
+.frames iframe.top{z-index:2}
+
+/* 시작 화면과 끝 화면 */
+.card{grid-row:1 / 3;grid-column:1;display:none;align-items:center;justify-content:center;text-align:center;padding:0 var(--space-6)}
+.card p{font-size:2.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.3}
+.player[data-mode="title"] .card,.player[data-mode="end"] .card{display:flex}
+.player[data-mode="title"] .rig,.player[data-mode="end"] .rig{opacity:0}
+
+/* 자막 */
+.caption{grid-row:2;grid-column:1;min-height:104px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--space-2)}
+.caption .meta{display:flex;align-items:center;gap:var(--space-2);min-height:28px;font-size:var(--type-t6);font-weight:600;color:var(--fg-neutral-secondary)}
+.caption .app{display:inline-flex;align-items:center;min-height:28px;padding:0 var(--space-3);border-radius:var(--radius-full);background:var(--bg-neutral-weak);color:var(--fg-neutral-secondary);font-size:var(--type-t7);font-weight:700}
+.caption .lines{font-size:1.5rem;font-weight:700;line-height:1.4;letter-spacing:-.02em;color:var(--fg-neutral)}
+.caption .lines span{display:block}
+.player[data-mode="title"] .caption .meta,.player[data-mode="end"] .caption .meta,
+.player[data-mode="title"] .caption .lines,.player[data-mode="end"] .caption .lines{visibility:hidden}
+
+/* 조작 */
+.controls{grid-row:3;grid-column:1;display:flex;align-items:center;justify-content:center;gap:var(--space-6);width:100%;max-width:960px;margin:0 auto}
+.btns{display:flex;gap:var(--space-2);flex:none}
+.btn{min-width:72px;min-height:48px;padding:0 var(--space-4);border-radius:var(--radius-m);background:var(--bg-neutral-weak-alpha);font-size:var(--type-t6);font-weight:700;color:var(--fg-neutral)}
+.btn:hover{background:var(--bg-neutral-weak-alpha-pressed)}
+.btn.primary{min-width:96px;background:var(--bg-neutral-solid);color:var(--fg-neutral-inverted)}
+.btn.primary:hover{background:var(--bg-neutral-solid-pressed)}
+.btn[aria-disabled="true"]{background:var(--bg-neutral-weak);color:var(--fg-disabled);cursor:default}
+.btn[hidden]{display:none}
+
+.progress{position:relative;flex:1 1 auto;min-width:528px}
+.track{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;border-radius:var(--radius-full);background:var(--bg-neutral-weak);overflow:hidden}
+.fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:var(--radius-full);background:var(--bg-brand-solid)}
+.dots{position:relative;display:flex;list-style:none}
+.dots li{flex:1 1 0;display:flex;justify-content:center;min-width:44px}
+.dots button{width:44px;height:44px;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center}
+.dots button:hover{background:var(--bg-neutral-weak-alpha)}
+.dots .d{width:10px;height:10px;border-radius:var(--radius-full);background:var(--bg-neutral-strong)}
+.dots .done .d{background:var(--bg-brand-solid)}
+.dots .cur .d{width:16px;height:16px;background:var(--bg-brand-solid);box-shadow:0 0 0 3px var(--bg-layer-basement),0 0 0 5px var(--bg-brand-solid)}
+.time{flex:none;min-width:96px;font-size:var(--type-t6);font-weight:600;color:var(--fg-neutral-secondary);text-align:right}
+
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--fg-brand);outline-offset:2px}
+
+@media (max-width:900px){
+  .side{display:none}
+  .controls{flex-wrap:wrap;gap:var(--space-3)}
+  .progress{order:3;flex-basis:100%;min-width:0;overflow-x:auto}
+  .dots{min-width:528px}
+}
+@media (prefers-reduced-motion: reduce){
+  :root{--fade:0ms}
+  *{transition:none!important;animation:none!important}
+}
+/* ?step=N 캡처: 움직임 없이 끝난 상태로 */
+.cap *,.cap *::before,.cap *::after{transition:none!important;animation:none!important}
+</style>
+</head>
+<body>
+<main class="player" id="player" data-mode="title">
+  <div class="stage" id="stage">
+    <div class="rig" id="rig">
+      <div class="side side-l" id="sideW" aria-hidden="true"><span>알바생 앱</span><span class="mark"></span></div>
+      <div class="pair">
+        <div class="phone" id="phW" role="img" aria-label="알바생 앱">
+          <div class="frames" inert>
+            <iframe title="알바생 앱 화면" tabindex="-1"></iframe>
+            <iframe title="알바생 앱 화면" tabindex="-1"></iframe>
+          </div>
+        </div>
+        <div class="phone" id="phO" role="img" aria-label="사장님 앱">
+          <div class="frames" inert>
+            <iframe title="사장님 앱 화면" tabindex="-1"></iframe>
+            <iframe title="사장님 앱 화면" tabindex="-1"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="side side-r" id="sideO" aria-hidden="true"><span>사장님 앱</span><span class="mark"></span></div>
+    </div>
+  </div>
+  <div class="card" aria-hidden="true"><p id="cardText">체무 1분 시연</p></div>
+
+  <section class="caption" aria-live="polite" aria-atomic="true">
+    <p class="meta"><span class="num" id="capNum">1 / 12</span><span class="app" id="capApp">사장님 앱</span></p>
+    <p class="lines"><span id="capL1"></span><span id="capL2"></span></p>
+    <p class="sr" id="capSr">체무 1분 시연</p>
+  </section>
+
+  <div class="controls" role="group" aria-label="시연 조작">
+    <div class="btns">
+      <button class="btn" id="bPrev" type="button">이전</button>
+      <button class="btn primary" id="bPlay" type="button">재생</button>
+      <button class="btn" id="bNext" type="button">다음</button>
+    </div>
+    <div class="progress">
+      <div class="track" aria-hidden="true"><div class="fill" id="fill"></div></div>
+      <ol class="dots" id="dots" aria-label="단계"></ol>
+    </div>
+    <span class="time num" id="time">0:00 / 1:00</span>
+  </div>
+</main>
+
+<script>
+/* 단계표: 위 주석 표와 같음. w, o는 각 앱의 ?i 번호 */
+const W_LABEL = { 6: '계약 확인: 주휴수당 빠짐', 11: '출근하기', 15: '퇴근, 일당 보관', 18: '사장님이 시간을 고침', 33: '급여일 자동 입금', 36: '오늘: 안 들어온 돈', 52: '돈이 움직이는 길' };
+const O_LABEL = { 1: '근로계약 올리기', 9: '근무 확정', 13: '시간 고치기', 28: '자동 입금 완료', 39: '기록 대조', 40: '아직 보관 못 한 돈' };
+const STEPS = [
+  { app: 'owner',  w: 6,  o: 1,  t: ['사장님이 근로계약을 올려요', '주휴수당은 자동으로 들어가요'] },
+  { app: 'worker', w: 6,  o: 1,  t: ['₩37,152이 빠진 계약은', '동의하기 전에 바로 보여요'] },
+  { app: 'worker', w: 11, o: 1,  t: ['가게 30m 안에서만', '출근이 눌려요'] },
+  { app: 'owner',  w: 15, o: 9,  t: ['사장님이 근무를 확정하면', '그날 일당 ₩92,880을 보관해요'] },
+  { app: 'worker', w: 15, o: 9,  t: ['₩92,880 보관했어요', '급여일 전에는 사장님도 못 꺼내요'] },
+  { app: 'owner',  w: 18, o: 13, t: ['퇴근을 오전 7:30으로 고치면', 'A님께 바로 알림이 가요'] },
+  { app: 'worker', w: 18, o: 13, t: ['다르다고 알리면', '차액 ₩5,160만 따로 남겨 둬요'] },
+  { app: 'worker', w: 33, o: 28, t: ['12월 10일 오전 9시', '이체 없이 ₩984,528이 들어왔어요'] },
+  { app: 'worker', w: 36, o: 40, t: ['일당이 안 들어오면', '다음 날 아침에 알아요'] },
+  { app: 'owner',  w: 36, o: 40, t: ['돈이 모자란 사장님은', '일부만 채우거나 날짜를 알려요'] },
+  { app: 'worker', w: 52, o: 40, t: ['임금 책임은 사장님에게 있어요', '체무는 보관과 기록을 맡아요'] },
+  { app: 'owner',  w: 52, o: 39, t: ['링크를 받은 사람은', '원본과 고친 기록을 대조해요'] },
+];
+const TITLE_TEXT = '체무 1분 시연';
+const END_TEXT = '일한 날마다 먼저 보관되는 임금';
+const APP_NAME = { worker: '알바생 앱', owner: '사장님 앱' };
+const STEP_MS = 5000, TITLE_MS = 2500, READY_MS = 700, LAST = STEPS.length + 1;
+
+const $ = s => document.querySelector(s);
+const params = new URLSearchParams(location.search);
+const FROZEN = params.has('step');
+if (FROZEN) document.documentElement.classList.add('cap');
+const rmq = matchMedia('(prefers-reduced-motion: reduce)');
+let RM = rmq.matches;
+
+/* 휴대폰 하나: iframe 두 개를 번갈아 써서, 다음 화면을 뒤에서 다 그린 뒤에 바꿈 */
+function Phone(root, base, labels, appName) {
+  const frames = [...root.querySelectorAll('iframe')];
+  let front = 0, cur = -1, backIdx = -1, backReady = false, want = -1, next = -1, token = 0, fadeT = 0, fading = false;
+  const settle = () => {
+    clearTimeout(fadeT); fading = false;
+    frames.forEach((f, j) => { f.classList.remove('top'); if (j !== front) f.classList.remove('on'); });
+  };
+  const swap = () => {
+    settle();
+    const nf = frames[1 - front], old = cur;
+    nf.classList.add('on', 'top');            /* 새 화면을 위에서 서서히 보이고, 옛 화면은 그 아래 그대로 둠 */
+    front = 1 - front; cur = want; backIdx = old; backReady = old >= 0;
+    fading = true;
+    fadeT = setTimeout(() => { settle(); pump(); }, RM ? 0 : 220);
+    root.setAttribute('aria-label', `${appName}, ${labels[cur] || ''} 화면`);
+  };
+  const loadBack = i => {
+    if (fading) settle();
+    const b = frames[1 - front], t = ++token;
+    backIdx = i; backReady = false;
+    b.onload = () => setTimeout(() => { if (t !== token) return; backReady = true; pump(); }, READY_MS);
+    b.src = `${base}?i=${i}`;
+  };
+  const pump = () => {
+    if (want >= 0 && want !== cur) {
+      if (backIdx === want) { if (backReady) { swap(); pump(); } return; }
+      loadBack(want); return;
+    }
+    if (!FROZEN && !fading && next >= 0 && next !== cur && next !== backIdx) loadBack(next);
+  };
+  this.show = i => { want = i; pump(); };
+  this.preload = i => { next = i; pump(); };
+  this.ready = () => cur === want;
+  this.root = root;
+}
+
+const phW = new Phone($('#phW'), WORKER_APP, W_LABEL, APP_NAME.worker);
+const phO = new Phone($('#phO'), OWNER_APP, O_LABEL, APP_NAME.owner);
+
+/* 진행 점 */
+const dots = $('#dots');
+STEPS.forEach((st, k) => {
+  const li = document.createElement('li');
+  const lab = st.app === 'worker' ? W_LABEL[st.w] : O_LABEL[st.o];
+  li.innerHTML = `<button type="button" aria-label="${k + 1}단계, ${APP_NAME[st.app]} ${lab}"><span class="d"></span></button>`;
+  li.firstChild.addEventListener('click', () => go(k + 1));
+  dots.appendChild(li);
+});
+
+let step = 0, playing = false, elapsed = 0, last = null, clock = 0;
+
+function render() {
+  const p = $('#player');
+  p.dataset.mode = step === 0 ? 'title' : step === LAST ? 'end' : 'step';
+  if (step >= 1 && step <= STEPS.length) {
+    const st = STEPS[step - 1];
+    phW.show(st.w); phO.show(st.o);
+    phW.root.classList.toggle('dim', st.app !== 'worker');
+    phO.root.classList.toggle('dim', st.app !== 'owner');
+    $('#sideW').classList.toggle('on', st.app === 'worker');
+    $('#sideO').classList.toggle('on', st.app === 'owner');
+    $('#capNum').textContent = `${step} / ${STEPS.length}`;
+    $('#capApp').textContent = APP_NAME[st.app];
+    $('#capL1').textContent = st.t[0];
+    $('#capL2').textContent = st.t[1];
+    $('#capSr').textContent = '';
+    $('#rig').removeAttribute('aria-hidden');
+  } else {
+    if (step === 0) { phW.show(STEPS[0].w); phO.show(STEPS[0].o); }
+    const txt = step === 0 ? TITLE_TEXT : END_TEXT;
+    $('#cardText').textContent = txt;
+    $('#capSr').textContent = txt;
+    $('#capL1').textContent = ''; $('#capL2').textContent = '';
+    $('#rig').setAttribute('aria-hidden', 'true');
+  }
+  /* 다음 단계 화면을 뒤에서 미리 그려 둠 */
+  const nx = step >= 1 && step < STEPS.length ? STEPS[step] : step === LAST ? STEPS[0] : null;
+  if (nx) { phW.preload(nx.w); phO.preload(nx.o); }
+  $('#bPrev').setAttribute('aria-disabled', String(step === 0));
+  $('#bNext').setAttribute('aria-disabled', String(step === LAST));
+  [...dots.children].forEach((li, k) => {
+    const b = li.firstChild, n = k + 1;
+    b.classList.toggle('done', n < step);
+    b.classList.toggle('cur', n === step);
+    if (n === step) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+  });
+  draw();
+}
+
+function draw() {
+  let f = 0, sec = 0;
+  if (step >= 1 && step <= STEPS.length) {
+    const fr = Math.min(elapsed / STEP_MS, 1);
+    f = (step - 1 + fr) / STEPS.length;
+    sec = Math.floor((step - 1) * STEP_MS / 1000 + fr * STEP_MS / 1000);
+  } else if (step === LAST) { f = 1; sec = STEPS.length * STEP_MS / 1000; }
+  $('#fill').style.width = (f * 100).toFixed(2) + '%';
+  const tot = STEPS.length * STEP_MS / 1000;
+  const mm = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+  $('#time').textContent = `${mm(sec)} / ${mm(tot)}`;
+}
+
+function go(n) {
+  step = Math.max(0, Math.min(LAST, n));
+  elapsed = 0;
+  if (step === LAST) setPlaying(false);
+  render();
+}
+function next() { if (step < LAST) go(step + 1); }
+function prev() { if (step > 0) go(step - 1); }
+
+function tick() {
+  if (!playing) return;
+  const now = performance.now();
+  const dt = last == null ? 0 : now - last; last = now;
+  if (phW.ready() && phO.ready()) elapsed += dt;   /* 화면이 다 바뀐 뒤부터 셈 */
+  const dur = step === 0 ? TITLE_MS : STEP_MS;
+  if (elapsed >= dur) go(step + 1); else draw();
+}
+function setPlaying(on) {
+  playing = on && !RM;
+  $('#bPlay').textContent = playing ? '멈추기' : '재생';
+  last = null;
+  if (playing && !clock) clock = setInterval(tick, 50);
+  if (!playing && clock) { clearInterval(clock); clock = 0; }
+}
+function toggle() {
+  if (playing) { setPlaying(false); return; }
+  if (step === LAST) go(1);
+  setPlaying(true);
+}
+function applyRM() {
+  RM = rmq.matches;
+  $('#bPlay').hidden = RM;
+  if (RM) setPlaying(false);
+}
+
+$('#bPlay').addEventListener('click', toggle);
+$('#bNext').addEventListener('click', () => { if (step < LAST) next(); });
+$('#bPrev').addEventListener('click', () => { if (step > 0) prev(); });
+addEventListener('keydown', e => {
+  if (e.altKey || e.ctrlKey || e.metaKey) return;
+  if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  else if (e.key === ' ' || e.code === 'Space') {
+    if (e.target.closest && e.target.closest('button')) return;   /* 버튼 위에서는 그 버튼이 눌림 */
+    e.preventDefault();
+    if (RM) next(); else toggle();
+  }
+});
+rmq.addEventListener('change', applyRM);
+
+/* 휴대폰 배율: 무대 높이와 너비에 맞춤 */
+function fit() {
+  const st = $('#stage');
+  const sideW = innerWidth > 900 ? 2 * (120 + 24) : 0;
+  const s = Math.min(1, st.clientHeight / 900, (st.clientWidth - sideW - 56) / 880);
+  document.documentElement.style.setProperty('--ps', Math.max(.2, s).toFixed(4));
+}
+new ResizeObserver(fit).observe($('#stage'));
+fit();
+
+applyRM();
+const start = FROZEN ? Math.max(0, Math.min(LAST, parseInt(params.get('step'), 10) || 0)) : 0;
+go(start);
+if (!FROZEN && !RM) setPlaying(true);
+</script>
+</body>
+</html>
