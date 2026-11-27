@@ -1,0 +1,14 @@
+{
+  "capturedAt": "2026-11-27T18:18:36.781Z",
+  "scope": "Fresh Edge browser, live Sepolia RPC, historical record queries only. No connected wallet or transaction submission.",
+  "recordId": "0x7f4797e5719cee910cd022637023bdb003c75395110024114921af2e2827c815",
+  "employer": "0xF247C360744D9e7c8b9E96717F705B1d4fe7e8a2",
+  "employee": "0x75Ab1fA1337dFaF22124Cd2e8b0c6027A4eD727A",
+  "availableAtCapture": "28,480 KRWt",
+  "verifiedFiles": [
+    "chemu-sepolia-0.json",
+    "chemu-sepolia-3.json"
+  ],
+  "mobileHorizontalOverflow": false,
+  "errors": []
+}

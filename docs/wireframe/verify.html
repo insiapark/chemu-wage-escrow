@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>체무 기록 대조</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* =========================================================
+   체무 기록 대조 웹 페이지 v11
+   토큰은 ../v9/TOKENS.md, tokens.json 값 그대로. 접근성은 ../v10/A11Y_owner.md 방식
+   (44px 누르는 대상, :focus-visible 2px 보라 테두리, 아이콘 svg aria-hidden, 움직임 줄이기)
+   ========================================================= */
+:root{
+  /* 글자와 아이콘 (fg) */
+  --fg-neutral:#19181d;
+  --fg-neutral-secondary:#47454f;
+  --fg-neutral-muted-on-basement:#66636e;
+  --fg-neutral-muted:var(--fg-neutral-muted-on-basement);
+  --fg-neutral-muted-on-layer:#6e6b76;
+  --fg-neutral-ui:#8a8792;
+  --fg-neutral-inverted:#ffffff;
+  --fg-neutral-inverted-muted:rgba(255,255,255,.7);
+  --fg-neutral-inverted-subtle:rgba(255,255,255,.6);
+  --fg-brand:#5b4bdb;
+  --fg-brand-on-dark:#a89dff;
+  --fg-informative:#0a6658;
+  --fg-informative-icon:#0f8574;
+  --fg-warning:#8f5200;
+  --fg-warning-icon:#c27200;
+  --fg-critical:#d6383e;
+  --fg-critical-on-weak:#c02a30;
+  --fg-positive:var(--fg-informative);
+  --fg-positive-icon:var(--fg-informative-icon);
+  --fg-disabled:var(--fg-neutral-muted-on-basement);
+  /* 바탕 (bg) */
+  --bg-layer-basement:#f4f3f0;
+  --bg-layer-default:#ffffff;
+  --bg-layer-default-pressed:#fafaf8;
+  --bg-layer-floating:#ffffff;
+  --bg-neutral-solid:#19181d;
+  --bg-neutral-solid-pressed:#000000;
+  --bg-neutral-inverted:rgba(25,24,29,.94);
+  --bg-neutral-weak:#ecebe8;
+  --bg-neutral-weak-alpha:rgba(25,24,29,.07);
+  --bg-neutral-weak-alpha-pressed:rgba(25,24,29,.12);
+  --bg-neutral-strong:#8a8792;
+  --bg-brand-solid:#5b4bdb;
+  --bg-brand-weak:#ece9fd;
+  --bg-informative-solid:#0f8574;
+  --bg-informative-weak:#e1f2ef;
+  --bg-positive-weak:var(--bg-informative-weak);
+  --bg-positive-solid:var(--bg-informative-solid);
+  --bg-warning-weak:#faefdc;
+  --bg-critical-solid:#d6383e;
+  --bg-critical-weak:#fbe8e8;
+  --bg-overlay:rgba(25,24,29,.45);
+  /* 선 (stroke) */
+  --stroke-neutral-weak:#e6e4df;
+  --stroke-neutral-subtle:#efede9;
+  --stroke-neutral-strong:#8a8792;
+  --stroke-neutral-solid:#19181d;
+  --stroke-informative:#0f8574;
+  --stroke-inverted-subtle:rgba(255,255,255,.12);
+  /* 간격 */
+  --space-gutter:24px; --space-gutter-table:20px; --space-component:12px; --space-section:24px; --space-screen-bottom:56px;
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px;
+  /* 모서리 */
+  --radius-s:8px; --radius-m:16px; --radius-l:24px; --radius-full:9999px;
+  /* 글자 크기: 일곱 단계, rem */
+  --type-t1:1.875rem; --type-t2:1.625rem; --type-t3:1.375rem; --type-t4:1.25rem;
+  --type-t5:1.0625rem; --type-t6:.9375rem; --type-t7:.8125rem;
+  --font:'IBM Plex Sans KR', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  --mono:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+/* 흰 카드 위 보조 글자는 흰 바탕용 값, 옅은 색 상자 위는 화면 바탕용 값 */
+.card{--fg-neutral-muted:var(--fg-neutral-muted-on-layer)}
+.quote,.res,.hx code,.json pre,.steps-box{--fg-neutral-muted:var(--fg-neutral-muted-on-basement)}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{min-height:100vh;font-family:var(--font);background:var(--bg-layer-basement);color:var(--fg-neutral);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;line-height:1.5}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit}
+[hidden]{display:none!important}
+.i{flex:none;display:block}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* 키보드 포커스 [FF-a11y, SEED-Inclusive] */
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--fg-brand);outline-offset:2px}
+[tabindex="-1"]:focus-visible{outline:none}
+.skip{position:absolute;z-index:100;left:var(--space-2);top:-200px;display:inline-flex;align-items:center;min-height:44px;padding:0 var(--space-4);border-radius:var(--radius-m);background:var(--bg-neutral-solid);color:var(--fg-neutral-inverted);font-size:var(--type-t6);font-weight:600;text-decoration:none}
+.skip:focus{top:var(--space-2)}
+
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 var(--space-gutter)}
+
+/* 상단 바 */
+.topbar{border-bottom:1px solid var(--stroke-neutral-weak)}
+.bar{display:flex;align-items:center;gap:var(--space-3);min-height:56px}
+.brand{display:inline-flex;align-items:center;gap:6px;font-size:var(--type-t5);font-weight:700;letter-spacing:-.02em}
+.brand .i{color:var(--fg-brand)}
+.bar-t{padding-left:var(--space-3);border-left:1px solid var(--stroke-neutral-weak);font-size:var(--type-t6);font-weight:500;color:var(--fg-neutral-secondary)}
+
+/* 맨 위 한 메시지 + 3D 히어로 하나 (그림을 6% 밝혀 darken으로 섞어 화면 바탕과 같은 색) */
+.intro{padding:var(--space-6) 0}
+.hero{display:flex;justify-content:center;margin-bottom:var(--space-4);isolation:isolate;background:var(--bg-layer-basement)}
+.hero img{display:block;width:200px;height:200px;object-fit:contain;filter:brightness(1.06);mix-blend-mode:darken}
+.intro h1{font-size:var(--type-t3);font-weight:700;line-height:1.4;letter-spacing:-.02em}
+.intro .s{margin-top:var(--space-2);font-size:var(--type-t5);line-height:1.5;color:var(--fg-neutral-secondary)}
+.intro .tags{margin-top:var(--space-3)}
+
+/* 두 열 (데스크톱): 왼쪽 기록, 오른쪽 대조 */
+.cols{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-component)}
+.col{display:flex;flex-direction:column;gap:var(--space-component);min-width:0}
+.col-h{margin:var(--space-3) 0 0;font-size:var(--type-t6);font-weight:700;color:var(--fg-neutral-secondary)}
+.col-h:first-child{margin-top:0}
+
+/* 카드 */
+.card{padding:var(--space-4);border-radius:var(--radius-m);background:var(--bg-layer-default)}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2)}
+.card-h{font-size:var(--type-t5);font-weight:700;line-height:1.4;letter-spacing:-.01em}
+.card-s{margin-top:var(--space-1);font-size:var(--type-t6);line-height:1.55;color:var(--fg-neutral-secondary)}
+.k{font-size:var(--type-t6);font-weight:500;color:var(--fg-neutral-muted)}
+.big{margin-top:var(--space-1);font-size:var(--type-t2);font-weight:700;line-height:1.3;letter-spacing:-.03em}
+.sub{margin-top:var(--space-1);font-size:var(--type-t5);line-height:1.5;color:var(--fg-neutral-secondary)}
+.note{margin-top:var(--space-3);font-size:var(--type-t7);line-height:1.55;color:var(--fg-neutral-muted)}
+
+/* 배지 [TDS-Badge]: 상태는 늘 글자로 */
+.tags{display:flex;flex-wrap:wrap;gap:var(--space-2) 6px}
+.card > .tags{margin-top:var(--space-3)}
+.tag{display:inline-flex;align-items:center;min-height:1.5rem;padding:0 var(--space-2);border-radius:var(--radius-full);font-size:var(--type-t7);font-weight:600;line-height:1.3;white-space:nowrap;background:var(--bg-neutral-weak);color:var(--fg-neutral-secondary)}
+.tag.ok{background:var(--bg-positive-weak);color:var(--fg-positive)}
+.tag.warn{background:var(--bg-warning-weak);color:var(--fg-warning)}
+.tag.acc{background:var(--bg-brand-weak);color:var(--fg-brand)}
+
+/* 이름과 값 줄 */
+.kvs{margin-top:var(--space-3)}
+.kvs > div{display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-3);padding:var(--space-2) 0;border-top:1px solid var(--stroke-neutral-subtle);font-size:var(--type-t6)}
+.kvs dt{flex:none;color:var(--fg-neutral-muted)}
+.kvs dd{font-weight:600;text-align:right}
+.mono{font-family:var(--mono);font-weight:500;letter-spacing:0}
+
+/* 원본과 고친 기록 비교표 */
+.cmp{width:100%;margin-top:var(--space-3);border-collapse:collapse;font-size:var(--type-t6);font-variant-numeric:tabular-nums}
+.cmp th,.cmp td{padding:var(--space-3) var(--space-2);text-align:left;vertical-align:top;border-bottom:1px solid var(--stroke-neutral-subtle)}
+.cmp thead th{padding-top:0;font-size:var(--type-t7);font-weight:600;color:var(--fg-neutral-muted)}
+.cmp tbody th{width:27%;padding-left:0;font-weight:500;color:var(--fg-neutral-muted)}
+.cmp tbody th small{display:block;font-size:var(--type-t7);line-height:1.4}
+.cmp td{width:36.5%;font-weight:600}
+.cmp tbody tr:last-child > *{border-bottom:0}
+.cmp td.chg{background:var(--bg-warning-weak);color:var(--fg-warning);font-weight:700}
+.cmp td.chg .i{display:inline-block;margin-left:2px;vertical-align:-2px;color:var(--fg-warning-icon)}
+.cmp thead th:last-child{color:var(--fg-warning)}
+
+.line{display:flex;align-items:flex-start;gap:var(--space-3);margin-top:var(--space-3);font-size:var(--type-t6);line-height:1.5;color:var(--fg-neutral-secondary)}
+.line .i{margin-top:1px;color:var(--fg-neutral-secondary)}
+.line b{margin-left:auto;flex:none;color:var(--fg-neutral);font-weight:700}
+.quote{margin-top:var(--space-3);padding:var(--space-4);border-radius:var(--radius-m);background:var(--bg-layer-basement)}
+.quote p{margin-top:var(--space-2);font-size:var(--type-t6);font-weight:600;line-height:1.55}
+.quote .tags + p{margin-top:var(--space-2)}
+.quote p:first-child{margin-top:0}
+.quote small{display:block;margin-top:var(--space-1);font-size:var(--type-t7);color:var(--fg-neutral-muted)}
+
+/* 목록 [TDS-ListRow] */
+.list{list-style:none;margin-top:var(--space-2)}
+.row{position:relative;display:flex;align-items:center;gap:var(--space-3);min-height:56px;padding:var(--space-3) 0}
+.row + .row{border-top:1px solid var(--stroke-neutral-subtle)}
+.av{flex:none;width:40px;height:40px;border-radius:var(--radius-full);display:grid;place-items:center;background:var(--bg-neutral-solid);color:var(--fg-neutral-inverted);font-size:var(--type-t6);font-weight:700}
+.av.soft{background:var(--bg-neutral-weak);color:var(--fg-neutral-secondary)}
+.ri{flex:none;width:24px;height:24px;display:grid;place-items:center;color:var(--fg-neutral-secondary)}
+.rm{flex:1;min-width:0;display:flex;flex-direction:column}
+.rt{font-size:var(--type-t6);font-weight:600;line-height:1.4}
+.rs{font-size:var(--type-t7);line-height:1.45;color:var(--fg-neutral-muted)}
+
+/* 단계: 24px 원과 가는 선 */
+.steps{display:flex;flex-direction:column;margin-top:var(--space-2)}
+.step{position:relative;display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-3) 0}
+.step::before{content:'';position:absolute;left:11.5px;top:36px;bottom:-12px;width:1px;background:var(--stroke-neutral-weak)}
+.step:last-child::before{display:none}
+.st-c{position:relative;z-index:1;flex:none;width:24px;height:24px;border-radius:var(--radius-full);display:grid;place-items:center;background:var(--bg-neutral-weak);color:var(--fg-neutral-muted)}
+.step.warn .st-c{background:var(--bg-warning-weak);color:var(--fg-warning-icon)}
+.st-m{flex:1;min-width:0}
+.st-t{font-size:var(--type-t6);font-weight:600;line-height:1.6}
+.step.next .st-t{font-weight:500;color:var(--fg-neutral-secondary)}
+.st-s{font-size:var(--type-t7);line-height:1.5;color:var(--fg-neutral-muted)}
+
+/* 기록 지문 */
+.hrec{margin-top:var(--space-4);padding-top:var(--space-4);border-top:1px solid var(--stroke-neutral-subtle)}
+.hrec-h{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);font-size:var(--type-t6);font-weight:700}
+.hx dt{margin-top:var(--space-2);font-size:var(--type-t7);color:var(--fg-neutral-muted)}
+.hx dd{margin-top:var(--space-1)}
+code,.json pre{font-family:var(--mono);letter-spacing:0}
+.hx code{display:block;padding:var(--space-2) var(--space-3);border-radius:var(--radius-s);background:var(--bg-layer-basement);font-size:var(--type-t7);line-height:1.5;color:var(--fg-neutral-secondary);word-break:break-all;overflow-wrap:anywhere}
+.hx code.wait{font-family:var(--font);color:var(--fg-neutral-muted)}
+.hlink{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);margin-top:var(--space-4);padding-top:var(--space-3);border-top:1px solid var(--stroke-neutral-subtle);font-size:var(--type-t6);font-weight:600}
+.json{border-top:1px solid var(--stroke-neutral-subtle)}
+.hlink + .json{margin-top:var(--space-3)}
+.json summary{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);min-height:48px;cursor:pointer;list-style:none;font-size:var(--type-t6);font-weight:600;color:var(--fg-brand)}
+.json summary::-webkit-details-marker{display:none}
+.json summary .i{color:var(--fg-neutral-ui);transition:transform .2s}
+.json[open] summary .i{transform:rotate(180deg)}
+.json pre{margin-bottom:var(--space-3);padding:var(--space-3);border-radius:var(--radius-s);background:var(--bg-layer-basement);font-size:var(--type-t7);line-height:1.55;color:var(--fg-neutral-secondary);white-space:pre-wrap;word-break:break-all;overflow-wrap:anywhere}
+
+/* 버튼 [TDS-Button]: 채운 버튼은 화면에 하나, 나머지는 옅은 버튼 */
+.actions{display:flex;gap:var(--space-2);margin-top:var(--space-4)}
+.btn{flex:1;display:flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:56px;padding:var(--space-2) var(--space-3);border-radius:var(--radius-m);background:var(--bg-neutral-solid);color:var(--fg-neutral-inverted);font-size:var(--type-t5);font-weight:600;line-height:1.3;text-align:center;white-space:nowrap;transition:transform .12s,background .12s}
+.btn:active{transform:scale(.98);background:var(--bg-neutral-solid-pressed)}
+.btn.sec{background:var(--bg-neutral-weak-alpha);color:var(--fg-neutral)}
+.btn.sec:active{background:var(--bg-neutral-weak-alpha-pressed)}
+.res .btn{min-height:52px}
+
+/* 파일로 대조하기 */
+.drop{transition:box-shadow .15s}
+.drop.over{box-shadow:inset 0 0 0 2px var(--stroke-neutral-strong)}
+.privacy{display:flex;align-items:flex-start;gap:var(--space-2);margin-top:var(--space-3);font-size:var(--type-t7);line-height:1.55;color:var(--fg-neutral-secondary)}
+.privacy .i{color:var(--fg-informative-icon)}
+.res-wait{margin-top:var(--space-4);font-size:var(--type-t6);color:var(--fg-neutral-muted)}
+
+/* 결과 틀 (v13): 제목, 돈이 어디 있는지, 바로 푸는 버튼, 닫기. 주황은 확인, 초록은 안내와 일치 */
+.res{margin-top:var(--space-4);padding:var(--space-4);border-radius:var(--radius-m);background:var(--bg-informative-weak)}
+.res.warn{background:var(--bg-warning-weak)}
+.res-h{display:flex;align-items:flex-start;gap:var(--space-3)}
+.res-h .i{color:var(--fg-informative-icon)}
+.res.warn .res-h .i{color:var(--fg-warning-icon)}
+.res h3{font-size:var(--type-t5);font-weight:700;line-height:1.45;color:var(--fg-informative)}
+.res.warn h3{color:var(--fg-warning)}
+.res-b{padding-left:36px}
+.res-money{margin-top:var(--space-1);font-size:var(--type-t6);font-weight:600;line-height:1.5;color:var(--fg-neutral)}
+.res-s{margin-top:var(--space-1);font-size:var(--type-t6);line-height:1.55;color:var(--fg-neutral-secondary)}
+.res dl{margin-top:var(--space-3)}
+.res dl > div{padding:var(--space-2) 0;border-top:1px solid rgba(25,24,29,.08)}
+.res dt{font-size:var(--type-t7);color:var(--fg-neutral-muted)}
+.res dd{margin-top:2px;font-size:var(--type-t6);font-weight:600;line-height:1.5}
+.res dd span{display:block}
+.res dd span em{font-style:normal;font-weight:500;color:var(--fg-neutral-muted)}
+.res dd code{display:block;font-size:var(--type-t7);font-weight:500;line-height:1.5;color:var(--fg-neutral-secondary);word-break:break-all;overflow-wrap:anywhere}
+.res .diff-n{margin-top:var(--space-3);font-size:var(--type-t7);font-weight:700;color:var(--fg-neutral)}
+.res .diff-n + dl{margin-top:var(--space-1)}
+.res .actions{margin-top:var(--space-4)}
+
+/* 링크 기간 지남 (한 화면 한 메시지) */
+.gone{max-width:520px;padding:var(--space-6) 0 var(--space-screen-bottom)}
+.r-ic{width:56px;height:56px;border-radius:var(--radius-full);display:grid;place-items:center;margin:var(--space-6) 0;background:var(--bg-warning-weak);color:var(--fg-warning-icon)}
+.gone h1{font-size:var(--type-t2);font-weight:700;line-height:1.3;letter-spacing:-.03em}
+.gone .money{margin-top:var(--space-2);font-size:var(--type-t5);font-weight:600;line-height:1.5}
+.gone .s{margin-top:var(--space-1);font-size:var(--type-t5);line-height:1.5;color:var(--fg-neutral-secondary)}
+.gone .quote{margin-top:var(--space-6);background:var(--bg-layer-default);--fg-neutral-muted:var(--fg-neutral-muted-on-layer)}
+.gone .actions{margin-top:var(--space-6)}
+
+.foot{padding:var(--space-6) 0 var(--space-screen-bottom);font-size:var(--type-t7);line-height:1.55;color:var(--fg-neutral-muted)}
+.noscript{margin:var(--space-4) 0;padding:var(--space-4);border-radius:var(--radius-m);background:var(--bg-warning-weak);font-size:var(--type-t6)}
+
+/* 토스트 [TDS-Toast]: 아래에서 200ms */
+.toast{position:fixed;z-index:50;left:50%;bottom:24px;width:min(calc(100% - 48px),480px);display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);border-radius:var(--radius-m);background:var(--bg-neutral-solid);color:var(--fg-neutral-inverted);font-size:var(--type-t6);line-height:1.45;opacity:0;transform:translate(-50%,8px);pointer-events:none;transition:opacity .2s,transform .2s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* 데스크톱 1280: 두 열, 히어로는 제목 왼쪽 */
+@media (min-width:960px){
+  .intro{display:grid;grid-template-columns:200px minmax(0,1fr);align-items:center;gap:var(--space-6);padding:var(--space-6) 0 var(--space-6)}
+  .hero{margin:0}
+  .intro h1{font-size:var(--type-t2);line-height:1.3;letter-spacing:-.03em}
+  .cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-6);align-items:start}
+  .gone{margin:0 auto}
+}
+/* 휴대폰: 결과 상자 안 글자와 버튼을 상자 너비 그대로 */
+@media (max-width:599px){.res-b{padding-left:0}.res-h{margin-bottom:var(--space-1)}}
+/* 좁은 화면에서 버튼 글자가 넘치면 세로로 쌓음 */
+@media (max-width:359px){.actions{flex-direction:column}.btn{white-space:normal}}
+
+/* 움직임 줄이기 */
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 가기</a>
+
+<header class="topbar">
+  <div class="wrap bar">
+    <span class="brand"><span data-ic="shield" data-s="24"></span>체무</span>
+    <span class="bar-t">기록 대조</span>
+  </div>
+</header>
+
+<main id="main">
+  <noscript><div class="wrap"><p class="noscript">이 페이지는 브라우저에서 기록 지문을 계산해요. 자바스크립트를 켜면 맞춰 볼 수 있어요.</p></div></noscript>
+
+  <!-- 기록 대조 (기본) -->
+  <div id="page" class="wrap">
+    <section class="intro" aria-labelledby="pageTitle">
+      <div class="hero"><img src="../assets/iso/iso_12_verify.png" width="200" height="200" alt="줄지어 놓인 투명한 기록 상자 위를 보라색 돋보기가 비추고, 돋보기 안에 체크 표시가 보이는 그림"></div>
+      <div>
+        <h1 id="pageTitle">기록 지문을 맞춰 보는 중이에요</h1>
+        <p class="s">링크를 받은 사람만 볼 수 있어요. 이름과 계좌는 가려져요.</p>
+        <div class="tags"><span class="tag" id="pageTag">맞춰 보는 중</span></div>
+      </div>
+    </section>
+
+    <div class="cols">
+      <!-- 왼쪽: 기록 -->
+      <div class="col" role="region" aria-label="근무 기록">
+        <section class="card" aria-labelledby="sumT">
+          <p class="k">A님 · 11월 14일 (토) 근무</p>
+          <h2 class="big num" id="sumT">₩87,720 보관돼 있어요</h2>
+          <p class="sub">₩5,160은 이의가 정리될 때까지 따로 남겨 둬요.</p>
+          <div class="tags"><span class="tag warn">이의 제기 중</span><span class="tag">고친 기록 1건</span></div>
+          <dl class="kvs">
+            <div><dt>가게</dt><dd>새싹편의점 연희점</dd></div>
+            <div><dt>받을 곳</dt><dd>국민은행 ***-21-3021</dd></div>
+          </dl>
+        </section>
+
+        <section class="card" aria-labelledby="recT">
+          <h2 class="card-h" id="recT">원본 기록과 고친 기록</h2>
+          <table class="cmp">
+            <caption class="sr">11월 14일 근무의 원본 기록과 고친 기록. 퇴근, 일한 시간, 일당을 고쳤어요.</caption>
+            <thead><tr><th scope="col"><span class="sr">항목</span></th><th scope="col">원본 기록</th><th scope="col">고친 기록</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">출근</th><td>오후 10:00</td><td>오후 10:00</td></tr>
+              <tr><th scope="row">퇴근</th><td>오전 8:00</td><td class="chg">오전 7:30<span data-ic="edit" data-s="16"></span><span class="sr"> (고침)</span></td></tr>
+              <tr><th scope="row">일한 시간<small>쉬는 1시간 빼고</small></th><td>9시간</td><td class="chg">8.5시간<span data-ic="edit" data-s="16"></span><span class="sr"> (고침)</span></td></tr>
+              <tr><th scope="row">일당</th><td>₩92,880</td><td class="chg">₩87,720<span data-ic="edit" data-s="16"></span><span class="sr"> (고침)</span></td></tr>
+              <tr><th scope="row">남긴 사람</th><td>A님</td><td>박정민 사장님</td></tr>
+            </tbody>
+          </table>
+          <p class="line"><span data-ic="clock" data-s="20"></span><span>30분 줄었어요 · 시급 ₩10,320 × 0.5시간</span><b class="num">−₩5,160</b></p>
+          <p class="line"><span data-ic="pin" data-s="20"></span><span>원본은 가게 30m 안에서 A님이 직접 눌렀어요.</span></p>
+          <div class="quote">
+            <div class="tags"><span class="tag warn">고친 이유</span></div>
+            <p>"다음 근무자와 교대했어요"</p>
+            <small>박정민 사장님 · 11월 15일 오전 9:40</small>
+          </div>
+          <p class="note">원본 기록은 지워지지 않고, 고친 기록이 그 뒤에 덧붙어요.</p>
+        </section>
+
+        <section class="card" aria-labelledby="sigT">
+          <h2 class="card-h" id="sigT">서명 2개</h2>
+          <ul class="list">
+            <li class="row"><span class="av" aria-hidden="true">A</span><span class="rm"><span class="rt">A님</span><span class="rs">원본 기록 · 11월 15일 오전 8:00</span></span><span class="tag ok">서명함</span></li>
+            <li class="row"><span class="av soft" aria-hidden="true">박</span><span class="rm"><span class="rt">박정민 사장님</span><span class="rs">고친 기록 · 11월 15일 오전 9:40</span></span><span class="tag ok">서명함</span></li>
+          </ul>
+        </section>
+
+        <section class="card" aria-labelledby="dspT">
+          <div class="tags"><span class="tag warn">이의 제기 중</span></div>
+          <h2 class="card-h" id="dspT" style="margin-top:var(--space-2)">A님이 고친 퇴근 시간에 이의를 보냈어요</h2>
+          <div class="quote">
+            <p>"다음 근무자가 늦게 와서 8시까지 있었어요"</p>
+            <small>A님이 남긴 말</small>
+          </div>
+          <div class="steps">
+            <div class="step warn"><span class="st-c" data-ic="clock" data-s="16"></span><div class="st-m"><div class="st-t">박정민 사장님의 답을 기다리고 있어요</div></div></div>
+            <div class="step next"><span class="st-c" data-ic="user" data-s="16"></span><div class="st-m"><div class="st-t">A님 기록으로 바뀌면</div><div class="st-s">₩5,160도 A님 몫으로 보관돼요</div></div></div>
+            <div class="step next"><span class="st-c" data-ic="store" data-s="16"></span><div class="st-m"><div class="st-t">사장님 기록을 유지하면</div><div class="st-s">₩5,160은 사장님이 채워 둔 돈으로 돌아가요</div></div></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 오른쪽: 대조 -->
+      <div class="col" role="region" aria-label="기록 대조">
+        <section class="card" aria-labelledby="hashT">
+          <div class="card-top"><h2 class="card-h" id="hashT">기록 지문</h2><span class="tag" id="hashTag">맞춰 보는 중</span></div>
+          <p class="card-s">지문은 기록 글자로 계산한 SHA-256 해시예요. 글자 하나만 바뀌어도 지문이 완전히 달라져요.</p>
+
+          <div class="hrec">
+            <div class="hrec-h"><span>원본 기록</span><span class="tag" data-res="original">맞춰 보는 중</span></div>
+            <dl class="hx">
+              <dt>남겨 둔 지문</dt><dd><code id="hOrigKept"></code></dd>
+              <dt>이 브라우저에서 계산한 지문</dt><dd><code id="hOrigCalc" class="wait">계산하는 중이에요</code></dd>
+            </dl>
+          </div>
+          <div class="hrec">
+            <div class="hrec-h"><span>고친 기록</span><span class="tag" data-res="edited">맞춰 보는 중</span></div>
+            <dl class="hx">
+              <dt>남겨 둔 지문</dt><dd><code id="hEditKept"></code></dd>
+              <dt>이 브라우저에서 계산한 지문</dt><dd><code id="hEditCalc" class="wait">계산하는 중이에요</code></dd>
+            </dl>
+          </div>
+          <div class="hlink"><span>고친 기록 안의 원본 지문</span><span class="tag" data-res="prev">맞춰 보는 중</span></div>
+
+          <details class="json">
+            <summary>원본 기록 JSON 보기<span data-ic="chevD" data-s="20"></span></summary>
+            <pre id="jOrig"></pre>
+          </details>
+          <details class="json">
+            <summary>고친 기록 JSON 보기<span data-ic="chevD" data-s="20"></span></summary>
+            <pre id="jEdit"></pre>
+          </details>
+          <p class="note">키 이름 순서로 줄 세우고 빈칸 없이 이은 글자를 UTF-8로 계산해요.</p>
+        </section>
+
+        <section class="card drop" id="fileCard" aria-labelledby="fileT">
+          <h2 class="card-h" id="fileT">가진 파일과 맞춰 보기</h2>
+          <p class="card-s">체무에서 받은 기록 파일(.json)을 고르면 지문을 바로 맞춰 봐요.</p>
+          <p class="privacy"><span data-ic="lock" data-s="16"></span><span>고른 파일은 이 브라우저 안에서만 계산하고 어디에도 보내지 않아요.</span></p>
+          <div class="actions" id="fileActions">
+            <button type="button" class="btn sec" id="dlBtn">원본 JSON 받기</button>
+            <button type="button" class="btn" id="pickBtn">파일로 대조하기</button>
+          </div>
+          <input type="file" id="fileIn" accept=".json,application/json" hidden>
+          <div id="fileResult" aria-live="polite"></div>
+        </section>
+
+        <section class="card" aria-labelledby="chainT">
+          <div class="card-top"><h2 class="card-h" id="chainT">블록체인 기록</h2><span class="tag acc">테스트넷 예시</span></div>
+          <dl class="kvs">
+            <div><dt>기록 번호</dt><dd class="mono" id="chainTx">0x4be1…92af</dd></div>
+            <div><dt>블록</dt><dd class="num" id="chainBlock">18,204,117</dd></div>
+          </dl>
+          <p class="note">시연용 모의 값이에요. 실제 체인에 남긴 값이 아니에요.</p>
+        </section>
+
+        <section class="card" aria-labelledby="linkT">
+          <h2 class="card-h" id="linkT">공유 링크</h2>
+          <ul class="list">
+            <li class="row"><span class="ri" data-ic="clock" data-s="24"></span><span class="rm"><span class="rt">만든 날부터 7일 동안 열려요</span><span class="rs">7일은 예시예요</span></span></li>
+            <li class="row"><span class="ri" data-ic="link" data-s="24"></span><span class="rm"><span class="rt">링크 끄기는 링크를 만든 사람만 할 수 있어요</span><span class="rs">받은 사람은 링크를 끌 수 없어요</span></span></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <p class="foot">사장님과 알바생이 같은 기록을 봐요. 분쟁이 생기면 이 페이지를 그대로 보여 주세요.</p>
+  </div>
+
+  <!-- 링크 기간 지남 -->
+  <div id="gone" class="wrap" hidden>
+    <section class="gone" aria-labelledby="goneT">
+      <span class="r-ic" data-ic="clock" data-s="24"></span>
+      <h1 id="goneT" tabindex="-1">링크를 열 수 있는 기간이 지났어요</h1>
+      <p class="money">기록과 보관된 돈은 그대로 있어요.</p>
+      <p class="s">링크는 만든 날부터 7일(예시) 동안 열려요. 링크를 보낸 사람에게 새 링크를 받으면 다시 볼 수 있어요.</p>
+      <div class="quote">
+        <div class="tags"><span class="tag">보낼 문구</span></div>
+        <p id="askText">체무 기록 대조 링크 기간이 지났어요. 새 링크를 보내 주세요.</p>
+        <small>복사해서 링크를 보낸 사람에게 보내면 돼요</small>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn sec" id="goneClose">닫기</button>
+        <button type="button" class="btn" id="goneCopy">요청 문구 복사하기</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 기록 원본 (이름과 계좌는 가린 값으로 남김) -->
+<script type="application/json" id="recOriginal">
+{
+  "v": 1,
+  "kind": "original",
+  "recordId": "A-2026-11-14",
+  "worker": "A님",
+  "payTo": "국민은행 ***-21-3021",
+  "store": "새싹편의점 연희점",
+  "workDate": "2026-11-14",
+  "clockIn": "2026-11-14T22:00+09:00",
+  "clockOut": "2026-11-15T08:00+09:00",
+  "breakMinutes": 60,
+  "hours": 9,
+  "hourlyWage": 10320,
+  "pay": 92880,
+  "pressedBy": "A님",
+  "pressedWithin": "가게 30m 안",
+  "signedBy": "A님",
+  "signedAt": "2026-11-15T08:00+09:00"
+}
+</script>
+<script type="application/json" id="recEdited">
+{
+  "v": 1,
+  "kind": "edit",
+  "recordId": "A-2026-11-14",
+  "prev": "09863cec7ebcab4784560de6ed50766da50c52f0897c45fa87e2650e040a967e",
+  "field": "clockOut",
+  "from": "2026-11-15T08:00+09:00",
+  "clockOut": "2026-11-15T07:30+09:00",
+  "hours": 8.5,
+  "pay": 87720,
+  "diff": -5160,
+  "reason": "다음 근무자와 교대했어요",
+  "editedBy": "박정민 사장님",
+  "signedBy": "박정민 사장님",
+  "signedAt": "2026-11-15T09:40+09:00"
+}
+</script>
+<!-- 남겨 둔 지문과 블록체인 기록 (테스트넷 예시, 모의 값) -->
+<script type="application/json" id="recKept">
+{
+  "original": "09863cec7ebcab4784560de6ed50766da50c52f0897c45fa87e2650e040a967e",
+  "edited": "4238732e7642f46dbd2a3baf41e5f1223a004a45a6070b408dacb8d3482ea8e7",
+  "chain": { "network": "테스트넷 예시", "tx": "0x4be1…92af", "block": 18204117 }
+}
+</script>
+
+<script>
+/* 아이콘: 성재 님 v3 그대로 (owner_v10.html과 같은 선) */
+const ICONS = {
+  shield:'<path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/>',
+  check:'<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  alert:'<path d="M12 4 21 19.5H3z"/><path d="M12 10v4M12 16.8v.2"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.8v.2"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  lock:'<rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
+  link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+  pin:'<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/>',
+  store:'<path d="M3 9.5 4.5 4h15L21 9.5"/><path d="M3 9.5a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12.5V20h14v-7.5"/>',
+  chevD:'<path d="m6 9 6 6 6-6"/>',
+};
+const ic = (n, size = 24) =>
+  `<svg class="i" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${ICONS[n]}</svg>`;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[c]);
+const won = n => (n < 0 ? '−' : '') + '₩' + Math.abs(n).toLocaleString('ko-KR');
+const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function paintIcons(root = document) {
+  root.querySelectorAll('[data-ic]').forEach(el => { el.insertAdjacentHTML('afterbegin', ic(el.dataset.ic, +el.dataset.s || 24)); el.removeAttribute('data-ic'); });
+}
+
+/* 기록 지문: 키 이름 순서로 줄 세우고 빈칸 없이 이은 글자(UTF-8)의 SHA-256 */
+const canon = v => Array.isArray(v) ? '[' + v.map(canon).join(',') + ']'
+  : (v && typeof v === 'object') ? '{' + Object.keys(v).sort().map(k => JSON.stringify(k) + ':' + canon(v[k])).join(',') + '}'
+  : JSON.stringify(v);
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf), b => b.toString(16).padStart(2, '0')).join('');
+}
+
+const REC = { original: JSON.parse($('#recOriginal').textContent), edited: JSON.parse($('#recEdited').textContent) };
+const KEPT = JSON.parse($('#recKept').textContent);
+const CANON = { original: canon(REC.original), edited: canon(REC.edited) };
+const CALC = {};
+const FILE_NAME = '체무_원본기록_A_1114.json';
+const MONEY_LINE = `보관된 ${won(REC.edited.pay)}과 따로 남겨 둔 ${won(-REC.edited.diff)}은 그대로 있어요.`;
+
+function setTag(el, state, text) {
+  el.className = 'tag' + (state === 'ok' ? ' ok' : state === 'warn' ? ' warn' : '');
+  el.textContent = text;
+}
+
+async function checkPage() {
+  $('#hOrigKept').textContent = KEPT.original;
+  $('#hEditKept').textContent = KEPT.edited;
+  $('#jOrig').textContent = CANON.original;
+  $('#jEdit').textContent = CANON.edited;
+  if (!(window.crypto && crypto.subtle)) {
+    for (const id of ['#hOrigCalc', '#hEditCalc']) $(id).textContent = '이 브라우저에서는 계산할 수 없어요';
+    document.querySelectorAll('[data-res]').forEach(el => setTag(el, 'warn', '계산 못 함'));
+    setTag($('#hashTag'), 'warn', '계산 못 함'); setTag($('#pageTag'), 'warn', '계산 못 함');
+    $('#pageTitle').textContent = '이 브라우저에서는 기록 지문을 계산할 수 없어요';
+    $('#pickBtn').disabled = true;
+    return;
+  }
+  CALC.original = await sha256Hex(CANON.original);
+  CALC.edited = await sha256Hex(CANON.edited);
+  for (const [id, k] of [['#hOrigCalc', 'original'], ['#hEditCalc', 'edited']]) { const el = $(id); el.textContent = CALC[k]; el.classList.remove('wait'); }
+  const ok = { original: CALC.original === KEPT.original, edited: CALC.edited === KEPT.edited, prev: REC.edited.prev === CALC.original };
+  for (const k of Object.keys(ok)) setTag($(`[data-res="${k}"]`), ok[k] ? 'ok' : 'warn', ok[k] ? '일치' : '다름');
+  const all = Object.values(ok).every(Boolean);
+  document.documentElement.dataset.check = all ? 'match' : 'mismatch';
+  setTag($('#hashTag'), all ? 'ok' : 'warn', all ? '모두 일치' : '다른 곳 있음');
+  setTag($('#pageTag'), all ? 'ok' : 'warn', all ? '기록 지문 일치' : '기록 지문 다름');
+  $('#pageTitle').textContent = all ? '원본은 그대로 있고 고친 기록이 함께 남아 있어요' : '이 페이지의 기록이 남겨 둔 지문과 달라요';
+}
+
+/* 파일로 대조하기: 파일은 이 브라우저 안에서만 읽음 */
+const LABEL = { v:'형식 번호', kind:'기록 종류', recordId:'기록 이름', worker:'알바생', payTo:'받을 곳', store:'가게', workDate:'근무일',
+  clockIn:'출근', clockOut:'퇴근', breakMinutes:'쉬는 시간', hours:'일한 시간', hourlyWage:'시급', pay:'일당', pressedBy:'누른 사람',
+  pressedWithin:'누른 곳', signedBy:'서명한 사람', signedAt:'서명 시각', prev:'원본 지문', field:'고친 항목', from:'고치기 전',
+  diff:'차액', reason:'고친 이유', editedBy:'고친 사람' };
+const ampm = (h, m) => `${h < 12 ? '오전' : '오후'} ${h % 12 || 12}:${m}`;
+const fmtTime = s => { const m = /T(\d{2}):(\d{2})/.exec(s); return m ? ampm(+m[1], m[2]) : s; };
+const fmtDate = s => { const m = /^\d{4}-(\d{2})-(\d{2})/.exec(s); return m ? `${+m[1]}월 ${+m[2]}일` : s; };
+const FMT = { clockIn:fmtTime, clockOut:fmtTime, from:fmtTime, workDate:fmtDate, signedAt: s => `${fmtDate(s)} ${fmtTime(s)}`,
+  pay:won, hourlyWage:won, diff:won, hours: v => `${v}시간`, breakMinutes: v => `${v}분`, prev: v => `${String(v).slice(0, 10)}…` };
+function show(k, v) {
+  if (v === undefined) return '없음';
+  try { if (FMT[k] && (typeof v === 'string' || typeof v === 'number')) return FMT[k](v); } catch (e) {}
+  const s = typeof v === 'string' ? v : JSON.stringify(v);
+  return s.length > 48 ? s.slice(0, 48) + '…' : s;
+}
+function diffs(obj) {
+  const base = obj.kind === 'edit' ? REC.edited : REC.original;
+  const keys = [...new Set([...Object.keys(base), ...Object.keys(obj)])];
+  return { base, list: keys.filter(k => canon(obj[k]) !== canon(base[k])).map(k => ({ k, file: obj[k], kept: base[k] })) };
+}
+
+const resultBox = () => $('#fileResult');
+function showActions(on) { $('#fileActions').hidden = !on; }
+function render(html, demo) {
+  const box = resultBox();
+  box.innerHTML = html;
+  paintIcons(box);
+  const h = box.querySelector('h3');
+  if (demo) box.scrollIntoView({ block: 'center', behavior: 'auto' });
+  else if (h) h.focus();
+}
+const actions = (primary) => `<div class="actions"><button type="button" class="btn sec" data-act="close">닫기</button>${primary}</div>`;
+const metaRows = (file, hash) => `<dl>
+    <div><dt>고른 파일</dt><dd>${esc(file.name)}</dd></div>
+    ${hash ? `<div><dt>파일 지문</dt><dd><code id="fileHash">${hash}</code></dd></div>` : ''}
+  </dl>`;
+
+function renderMatch(file, hash, which, demo) {
+  const name = which === 'original' ? '원본 기록' : '고친 기록';
+  render(`<div class="res" role="group" aria-labelledby="resT" data-result="match">
+    <div class="res-h"><span data-ic="check" data-s="24"></span><h3 id="resT" tabindex="-1">고른 파일이 ${name}과 같아요</h3></div>
+    <div class="res-b">
+      <p class="res-s">파일 지문이 남겨 둔 ${name} 지문과 한 글자도 다르지 않아요.</p>
+      ${metaRows(file, hash)}
+      ${actions('<button type="button" class="btn sec" data-act="pick">다른 파일 고르기</button>')}
+    </div></div>`, demo);
+}
+function renderMismatch(file, hash, obj, demo) {
+  const { list } = diffs(obj);
+  const shown = list.slice(0, list.length > 4 ? 3 : 4);
+  const rest = list.length - shown.length;
+  render(`<div class="res warn" role="group" aria-labelledby="resT" data-result="mismatch">
+    <div class="res-h"><span data-ic="alert" data-s="24"></span><h3 id="resT" tabindex="-1">고른 파일이 남겨 둔 기록과 달라요</h3></div>
+    <div class="res-b">
+      <p class="res-money">${MONEY_LINE}</p>
+      <p class="res-s">파일이 고쳐졌거나 다른 근무의 기록일 수 있어요.</p>
+      ${list.length ? `<p class="diff-n">다른 곳 ${list.length}개</p><dl>${shown.map(d => `<div><dt>${esc(LABEL[d.k] || d.k)}</dt><dd><span><em>파일</em> ${esc(show(d.k, d.file))}</span><span><em>남겨 둔 기록</em> ${esc(show(d.k, d.kept))}</span></dd></div>`).join('')}${rest ? `<div><dt>그 밖에</dt><dd>${rest}곳 더 달라요</dd></div>` : ''}</dl>` : ''}
+      ${metaRows(file, hash)}
+      ${actions('<button type="button" class="btn" data-act="pick">다른 파일 고르기</button>')}
+    </div></div>`, demo);
+}
+function renderBad(file, demo) {
+  render(`<div class="res" role="group" aria-labelledby="resT" data-result="badfile">
+    <div class="res-h"><span data-ic="info" data-s="24"></span><h3 id="resT" tabindex="-1">체무 기록 파일(.json)만 맞춰 볼 수 있어요</h3></div>
+    <div class="res-b">
+      <p class="res-s">체무 앱의 기록 내보내기나 이 페이지의 원본 JSON 받기로 받은 파일을 골라 주세요.</p>
+      ${metaRows(file, '')}
+      ${actions('<button type="button" class="btn" data-act="pick">다른 파일 고르기</button>')}
+    </div></div>`, demo);
+}
+
+async function compareFile(file, demo = false) {
+  if (!file) return;
+  showActions(false);
+  resultBox().innerHTML = '<p class="res-wait">파일 지문을 계산하는 중이에요</p>';
+  let obj;
+  try {
+    if (file.size > 1024 * 1024) throw new Error('size');
+    const text = new TextDecoder('utf-8', { fatal: true }).decode(await file.arrayBuffer()).replace(/^﻿/, '');
+    obj = JSON.parse(text);
+  } catch (e) { return renderBad(file, demo); }
+  if (!obj || typeof obj !== 'object' || Array.isArray(obj) || !('recordId' in obj || 'kind' in obj)) return renderBad(file, demo);
+  const hash = await sha256Hex(canon(obj));
+  if (hash === KEPT.original) renderMatch(file, hash, 'original', demo);
+  else if (hash === KEPT.edited) renderMatch(file, hash, 'edited', demo);
+  else renderMismatch(file, hash, obj, demo);
+}
+function closeResult() {
+  resultBox().innerHTML = '';
+  showActions(true);
+  $('#pickBtn').focus();
+}
+function pick() { const inp = $('#fileIn'); inp.value = ''; inp.click(); }
+
+function downloadOriginal() {
+  const url = URL.createObjectURL(new Blob([CANON.original], { type: 'application/json' }));
+  const a = document.createElement('a');
+  a.href = url; a.download = FILE_NAME; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  toast('원본 JSON을 받았어요. 이 파일로 바로 대조해 볼 수 있어요');
+}
+
+let toastT;
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* 링크 기간 지남 */
+function showGone(demo) {
+  $('#page').hidden = true; $('#gone').hidden = false;
+  document.title = '링크 기간이 지났어요 · 체무 기록 대조';
+  if (!demo) $('#goneT').focus();
+}
+async function copyAsk() {
+  const text = $('#askText').textContent;
+  let done = false;
+  try { await navigator.clipboard.writeText(text); done = true; } catch (e) {
+    const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select(); try { done = document.execCommand('copy'); } catch (e2) {} ta.remove();
+  }
+  toast(done ? '요청 문구를 복사했어요' : '문구를 길게 눌러 복사해 주세요');
+}
+function closePage() {
+  window.close();
+  setTimeout(() => { if (!window.closed) { if (history.length > 1) history.back(); else toast('이 탭을 닫으면 돼요'); } }, 150);
+}
+
+/* 연결 */
+paintIcons();
+$('#pickBtn').addEventListener('click', pick);
+$('#dlBtn').addEventListener('click', downloadOriginal);
+$('#fileIn').addEventListener('change', e => compareFile(e.target.files[0]));
+resultBox().addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  if (b.dataset.act === 'pick') pick();
+  if (b.dataset.act === 'close') closeResult();
+});
+const card = $('#fileCard');
+card.addEventListener('dragover', e => { e.preventDefault(); card.classList.add('over'); });
+card.addEventListener('dragleave', () => card.classList.remove('over'));
+card.addEventListener('drop', e => { e.preventDefault(); card.classList.remove('over'); compareFile(e.dataTransfer.files[0]); });
+$('#goneCopy').addEventListener('click', copyAsk);
+$('#goneClose').addEventListener('click', closePage);
+
+/* 시연 상태: ?state=match | mismatch | expired | badfile (같은 계산 경로를 탐) */
+(async () => {
+  const state = new URLSearchParams(location.search).get('state');
+  if (state === 'expired') return showGone(true);
+  await checkPage();
+  if (state === 'match') compareFile(new File([CANON.original], FILE_NAME, { type: 'application/json' }), true);
+  if (state === 'mismatch') {
+    const changed = Object.assign({}, REC.original, { clockOut: REC.edited.clockOut });
+    compareFile(new File([JSON.stringify(changed, null, 2)], FILE_NAME, { type: 'application/json' }), true);
+  }
+  if (state === 'badfile') compareFile(new File(['%PDF-1.7\n'], '근무기록.pdf', { type: 'application/pdf' }), true);
+})();
+</script>
+</body>
+</html>

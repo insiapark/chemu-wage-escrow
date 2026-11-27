@@ -1,0 +1,36 @@
+{
+  "original": {
+    "schema": "chemu-work-record-v1",
+    "employer": "0xF247C360744D9e7c8b9E96717F705B1d4fe7e8a2",
+    "employee": "0x75Ab1fA1337dFaF22124Cd2e8b0c6027A4eD727A",
+    "contract": {
+      "hourlyWage": 10320,
+      "weeklyHours": 18,
+      "includesWeeklyAllowance": true
+    },
+    "attendance": {
+      "workDate": "2026-11-29",
+      "checkIn": "2026-11-29T22:00:00+09:00",
+      "checkOut": "2026-11-30T08:00:00+09:00",
+      "breakMinutes": 60
+    },
+    "grossWage": 92880,
+    "payday": "2026-11-27T17:30:00.000Z"
+  },
+  "record": {
+    "employer": "0xF247C360744D9e7c8b9E96717F705B1d4fe7e8a2",
+    "employee": "0x75Ab1fA1337dFaF22124Cd2e8b0c6027A4eD727A",
+    "grossWage": "92880",
+    "payday": "1795800600",
+    "nonce": "3",
+    "workRecordHash": "0x9f6a9f037c66db0143199072a0d486523e4bb63ef41a6d8aec3abd21b66c4cd2"
+  },
+  "recordId": "0x7f4797e5719cee910cd022637023bdb003c75395110024114921af2e2827c815",
+  "signatures": {
+    "employee": "0x2d31f1d46f51d3e55c66c834441b21d4d37c6e656213792032906b38dafd8071692180a0f2f51048dff7aee832506eceb31f037a4fad875f5c851ecd05bc7a991b",
+    "employer": "0xa2866fce2cf5e3306de2def08ed110700ebd842cefa3eb3c0c4e4cd7fb52592e24d10f0fce1952c0ba7314bb9e629ed0c6cb6aef6b67679221f3edc5e04ec4b61b"
+  },
+  "format": "chemu-sepolia-work-v1",
+  "chainId": 11155111,
+  "escrow": "0x2342ef5F31BDa58Eb84F7f422Fd1ad7005fF4C19"
+}

@@ -1,0 +1,6 @@
+{
+  "checkedAt": "2026-11-27T18:20:35.285Z",
+  "scope": "Git candidate files only. Ignored private environment files were not opened. Pattern scan is not a complete security audit.",
+  "candidateFiles": 71,
+  "findings": []
+}

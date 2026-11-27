@@ -1,0 +1,41 @@
+
+> chemu-demo-app@0.1.0 test
+> tsx --test tests/domain.test.ts tests/sepolia.test.ts
+
+✔ fixture reconciles nine shifts, four weekly allowances, and today's increment (1.7635ms)
+✔ contract revision is necessary before agreement when allowance is missing (5.5705ms)
+✔ check-in requires an agreed contract and a finite distance within 30m (0.6815ms)
+✔ complete signed flow locks exactly once and releases only at payday (154.7221ms)
+✔ insufficient funds leave record and money unchanged; deposit enables retry (98.2721ms)
+✔ unsigned or altered records cannot be confirmed (59.3843ms)
+✔ role substitution and fabricated signature digests are rejected (40.3135ms)
+✔ concurrent confirmations cannot double debit the mock balance (69.1401ms)
+✔ failed requests preserve state and the next retry succeeds (0.8835ms)
+✔ deposits reject invalid numbers (0.8902ms)
+✔ separate reference hash detects changes even when file hash is rewritten (55.5962ms)
+✔ verification rejects malformed and oversized files (0.6216ms)
+✔ WorkRecord matches delivered ABI, includes payday/hash and separates hash from signatures (22.4125ms)
+✔ tampering original, payday, nonce, signature or record ID is detected (14.3769ms)
+✔ fund awaits approval before funding with zero-decimal amounts (1.9651ms)
+✔ existing allowance avoids redundant approval; insufficient tokens avoid writes (1.0884ms)
+✔ wrong wallet and network are blocked (0.4087ms)
+✔ delegated account accepts a matching EOA signature only after ERC-1271 validation (13.824ms)
+✔ delegated account rejecting a signature cannot create a signed record (16.5611ms)
+✔ ERC-1271 read failures do not accept a delegated account signature (9.3737ms)
+✔ smart account accepting ERC-1271 cannot bypass the expected EOA signer (9.3529ms)
+✔ lock rechecks smart account validation after delegation changes (21.6304ms)
+✔ nonce changes and wallet rejection cannot create a signed record (4.8956ms)
+✔ lock passes actual tuple and two signatures and only succeeds after receipt (19.7468ms)
+✔ missing signature blocks lock and cancellation never reports confirmation (19.1499ms)
+✔ release uses chain time; local relayer signing account is retained (3.0695ms)
+✔ anchoring checks original hash against an actual WageLocked event (13.0516ms)
+✔ deployment mismatch blocks integration (0.2985ms)
+✔ nested contract errors retain an actionable reason (0.3961ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2966.2891

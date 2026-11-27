@@ -1,0 +1,12 @@
+{
+  "testnetOnly": true,
+  "network": "sepolia",
+  "chainId": "11155111",
+  "deployedAt": "2026-11-27T04:09:14.160Z",
+  "blockNumber": 12221002,
+  "deployer": "0x53b988444beF6c0b4AF942b4c027D0Fdd0D9b2C9",
+  "contracts": {
+    "MockKRWt": "0xBdA115167ff594E6Fdc87e24AE6B995EDeD131c9",
+    "DailyWageEscrow": "0x2342ef5F31BDa58Eb84F7f422Fd1ad7005fF4C19"
+  }
+}
