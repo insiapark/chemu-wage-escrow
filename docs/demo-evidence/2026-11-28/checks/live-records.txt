@@ -1,0 +1,9 @@
+
+> chemu-demo-app@0.1.0 evidence:verify
+> tsx scripts/verify-evidence.ts --live
+
+Live Sepolia read-only verification. No transactions will be sent.
+PASS nonce=0 record=0xa935a146c7917a7df581817b00b87b62725cdea2704fa93a8501786aeff2a876
+  WageLocked=0xb75cfc9f875008de757e6b93dbe8b4c4621e3333c1b96e49140eca805c3c4479 released=true
+PASS nonce=3 record=0x7f4797e5719cee910cd022637023bdb003c75395110024114921af2e2827c815
+  WageLocked=0x52bc45f3590b832fc40f57ed04743ee7755e7e5e2816a368bcbaf2a7e274b7df released=true

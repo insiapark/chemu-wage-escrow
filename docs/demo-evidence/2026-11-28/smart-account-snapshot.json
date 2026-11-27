@@ -1,0 +1,39 @@
+{
+  "scope": "Read-only live Sepolia RPC. No keys, signatures, or transaction submission.",
+  "checkedAt": "2026-11-27T16:17:57.270Z",
+  "chainId": 11155111,
+  "blockNumber": "12224379",
+  "owner": "0x53b988444beF6c0b4AF942b4c027D0Fdd0D9b2C9",
+  "decimals": 0,
+  "accounts": [
+    {
+      "address": "0xF247C360744D9e7c8b9E96717F705B1d4fe7e8a2",
+      "eth": "0.046453492965053384",
+      "wei": "46453492965053384",
+      "krwt": "101800000",
+      "code": "0xef010063c0c19a282a1b52b07dd5a65b58948a07dae32b",
+      "ordinaryAccount": false
+    },
+    {
+      "address": "0x75Ab1fA1337dFaF22124Cd2e8b0c6027A4eD727A",
+      "eth": "0",
+      "wei": "0",
+      "krwt": "92880",
+      "code": "0x",
+      "ordinaryAccount": true
+    }
+  ],
+  "available": "107120",
+  "nonce": "1",
+  "allowance": "0",
+  "dailyWage": 92880,
+  "canCoverWage": true,
+  "contractSignatureSupport": {
+    "signer": "0xF247C360744D9e7c8b9E96717F705B1d4fe7e8a2",
+    "recordId": "0xa935a146c7917a7df581817b00b87b62725cdea2704fa93a8501786aeff2a876",
+    "publicSignatureSource": "0xb75cfc9f875008de757e6b93dbe8b4c4621e3333c1b96e49140eca805c3c4479",
+    "transactionTarget": "0xdb9b1e94b5b69df7e401ddbede43491141047db3",
+    "result": "0x1626ba7e",
+    "accepted": true
+  }
+}

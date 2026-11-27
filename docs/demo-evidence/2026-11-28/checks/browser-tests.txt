@@ -1,0 +1,26 @@
+
+> chemu-demo-app@0.1.0 test:e2e
+> playwright test
+
+
+Running 9 tests using 1 worker
+
+npm.cmd : (node:32076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+위치 줄:2 문자:1
++ npm.cmd run test:e2e *> '../docs/demo-evidence/2026-11-28/checks/brow ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:32076) Wa... env being set.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [desktop] › tests\e2e\demo.spec.ts:34:1 › contract, shared attendance, two signatures, lock, verification, persistence, payday (29.1s)
+  ok 2 [desktop] › tests\e2e\demo.spec.ts:57:1 › outside location blocks attendance, request failure can be retried (5.7s)
+  ok 3 [desktop] › tests\e2e\demo.spec.ts:74:1 › mobile navigation fits and reset requires confirmation (3.1s)
+  ok 4 [desktop] › tests\e2e\demo.spec.ts:94:1 › desktop reference screenshot (1.5s)
+  ok 5 [desktop] › tests\e2e\demo.spec.ts:99:1 › injected wallet signs the same EIP-712 record and handles user rejection (5.6s)
+  ok 6 [desktop] › tests\e2e\sepolia.spec.ts:135:1 › Sepolia UI approves, funds, signs, locks, verifies original and releases with confirmed receipts (5.4s)
+  ok 7 [desktop] › tests\e2e\sepolia.spec.ts:172:1 › submitted approval survives reload and is reconciled without sending it twice (2.7s)
+  ok 8 [desktop] › tests\e2e\sepolia.spec.ts:186:1 › delegated employer signs and locks only when its ERC-1271 check accepts the signature (4.1s)
+  ok 9 [desktop] › tests\e2e\sepolia.spec.ts:209:1 › switching accounts enables signing without a background wallet-client probe (2.0s)
+
+  9 passed (1.1m)

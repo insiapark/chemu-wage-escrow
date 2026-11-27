@@ -1,0 +1,36 @@
+{
+  "name": "chemu-demo-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/prepare-assets.mjs",
+    "dev": "next dev --hostname 127.0.0.1",
+    "prebuild": "node scripts/prepare-assets.mjs",
+    "build": "next build --webpack",
+    "start": "next start --hostname 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/domain.test.ts tests/sepolia.test.ts",
+    "release:watch": "tsx scripts/watch-payday.ts",
+    "evidence:verify": "tsx scripts/verify-evidence.ts",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-sans-kr": "^5.2.0",
+    "@wagmi/core": "^2.22.1",
+    "@tanstack/react-query": "^5.90.0",
+    "lucide-react": "^0.468.0",
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "viem": "^2.38.0",
+    "wagmi": "^2.19.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "scope": "Read-only live Sepolia RPC. No keys, signatures, or transaction submission.",
+  "checkedAt": "2026-11-27T17:58:47.143Z",
+  "chainId": 11155111,
+  "blockNumber": "12224854",
+  "owner": "0x53b988444beF6c0b4AF942b4c027D0Fdd0D9b2C9",
+  "decimals": 0,
+  "accounts": [
+    {
+      "address": "0xF247C360744D9e7c8b9E96717F705B1d4fe7e8a2",
+      "eth": "0.042078985919515988",
+      "wei": "42078985919515988",
+      "krwt": "101600000",
+      "code": "0xef010063c0c19a282a1b52b07dd5a65b58948a07dae32b",
+      "ordinaryAccount": false
+    },
+    {
+      "address": "0x75Ab1fA1337dFaF22124Cd2e8b0c6027A4eD727A",
+      "eth": "0",
+      "wei": "0",
+      "krwt": "278640",
+      "code": "0x",
+      "ordinaryAccount": true
+    }
+  ],
+  "available": "28480",
+  "nonce": "4",
+  "allowance": "0",
+  "dailyWage": 92880,
+  "canCoverWage": true,
+  "payments": [
+    {
+      "recordId": "0xa935a146c7917a7df581817b00b87b62725cdea2704fa93a8501786aeff2a876",
+      "amount": "92880",
+      "payday": "1795795200",
+      "workRecordHash": "0x17ac26036d6fa81b8b08fa392a4789095efece235d5a72d501a1e2d560363f27",
+      "lockTransaction": "0xb75cfc9f875008de757e6b93dbe8b4c4621e3333c1b96e49140eca805c3c4479",
+      "releaseTransaction": "0x94612b81c5835f22672edad687a69451823392c89b40a1c8a72c339a6d77dc0f",
+      "releaseTimestamp": "1795795272",
+      "releaseDelaySeconds": "72",
+      "notBeforePayday": true,
+      "released": true,
+      "independentlyVerified": true
+    },
+    {
+      "recordId": "0xde1f69707a29b791f32aaf9006c09758c22eae46ab4d49341c500a5f7e38cb32",
+      "amount": "92880",
+      "payday": "1795797720",
+      "workRecordHash": "0x78aee691789191e21a5823d0271d41e28e5d79453b2e9a66c33770df2ceac2db",
+      "lockTransaction": "0x6c3c50e63ffa35daf01ed5fe668dfc03bcea46c11b6d5ae2d1706d6dc10f81a8",
+      "releaseTransaction": null,
+      "releaseTimestamp": null,
+      "releaseDelaySeconds": null,
+      "notBeforePayday": false,
+      "released": false,
+      "independentlyVerified": false
+    },
+    {
+      "recordId": "0x090da4fbcc43788b915861253bfa235e8ad0d511811fedf632bf4d5bf3de88ae",
+      "amount": "92880",
+      "payday": "1795798500",
+      "workRecordHash": "0x4e13d605f065922e7f7d31c9a3b96f7acdc6906c892a0bc398832a7f6424a29a",
+      "lockTransaction": "0xa9fbf7b2f296c4ee7fda0fe9e9851cf68efeb51e9b9fe0cdb39f2376e59f822b",
+      "releaseTransaction": "0x1d5a2b9a35619c80294ea77db10bb6d106f7432823a4514b6c8b9051a1f1a335",
+      "releaseTimestamp": "1795798968",
+      "releaseDelaySeconds": "468",
+      "notBeforePayday": true,
+      "released": true,
+      "independentlyVerified": true
+    },
+    {
+      "recordId": "0x7f4797e5719cee910cd022637023bdb003c75395110024114921af2e2827c815",
+      "amount": "92880",
+      "payday": "1795800600",
+      "workRecordHash": "0x9f6a9f037c66db0143199072a0d486523e4bb63ef41a6d8aec3abd21b66c4cd2",
+      "lockTransaction": "0x52bc45f3590b832fc40f57ed04743ee7755e7e5e2816a368bcbaf2a7e274b7df",
+      "releaseTransaction": "0x7cac06425db3c2a1cba0f12ba02e5cc188179ac1c15a930ebcc779f65f2aae86",
+      "releaseTimestamp": "1795800612",
+      "releaseDelaySeconds": "12",
+      "notBeforePayday": true,
+      "released": true,
+      "independentlyVerified": true
+    }
+  ]
+}

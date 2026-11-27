@@ -1,0 +1,7 @@
+
+> chemu-demo-app@0.1.0 evidence:verify
+> tsx scripts/verify-evidence.ts
+
+Offline verification: original hash, record ID and both signatures. No chain query.
+PASS nonce=0 record=0xa935a146c7917a7df581817b00b87b62725cdea2704fa93a8501786aeff2a876
+PASS nonce=3 record=0x7f4797e5719cee910cd022637023bdb003c75395110024114921af2e2827c815

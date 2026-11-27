@@ -1,0 +1,3 @@
+# Keep evidence hashes identical after checkout on Windows, macOS and Linux.
+docs/demo-evidence/** text eol=lf
+docs/demo-evidence/**/*.png binary
