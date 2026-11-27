@@ -5,29 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>체무 1분 시연</title>
 <!--
-  체무 1분 시연 v12
+  체무 1분 시연 v40 (v12 판에서 새로 만듦)
 
-  앱 경로는 바로 아래 WORKER_APP, OWNER_APP 두 상수입니다. 마지막 판에서는 같은 폴더의 worker.html, owner.html로 바꿉니다.
-  화면 번호(?i=N)는 panelx.mjs로 뽑은 v10 PANEL 목록(알바생 앱 80개, 사장님 앱 47개)에서 가져왔습니다.
-  경로를 바꾸면 panelx.mjs를 다시 돌려 아래 번호가 그대로인지 확인합니다.
+  앱 경로는 바로 아래 WORKER_APP, OWNER_APP 두 상수입니다. 같은 폴더의 worker.html, owner.html을 씁니다.
+  화면 번호(?i=N)는 두 앱 v40 PANEL 목록(알바생 앱 104개, 사장님 앱 69개)의 번호입니다. 새 화면은 PANEL 끝에 붙어 옛 번호가 그대로라,
+  v12 STEPS 번호가 지금도 같은 화면인지 PANEL 이름으로 하나씩 확인했습니다(v40/_작업메모/worker.md 시연 단계 표).
 
-  단계 | 말하는 앱 | flows.json 화면 이름       | v10 이름 | 번호 | 다른 휴대폰 화면                  | 번호 | 다른 휴대폰 근거
-  1    | 사장님    | 근로계약 올리기             | 같음     | o1   | 알바생 계약 확인: 주휴수당 빠짐   | w6   | cross 짝
-  2    | 알바생    | 계약 확인: 주휴수당 빠짐    | 같음     | w6   | 사장님 근로계약 올리기            | o1   | cross 짝
-  3    | 알바생    | 출근하기                    | 같음     | w11  | 사장님 근로계약 올리기            | o1   | 짝 없음, 앞 단계 화면 유지
-  4    | 사장님    | 근무 확정                   | 같음     | o9   | 알바생 퇴근, 일당 보관            | w15  | cross 짝
-  5    | 알바생    | 퇴근, 일당 보관             | 같음     | w15  | 사장님 근무 확정                  | o9   | cross 짝
-  6    | 사장님    | 시간 고치기                 | 같음     | o13  | 알바생 사장님이 시간을 고침       | w18  | cross 짝
-  7    | 알바생    | 사장님이 시간을 고침        | 같음     | w18  | 사장님 시간 고치기                | o13  | cross 짝
-  8    | 알바생    | 급여일 자동 입금            | 같음     | w33  | 사장님 자동 입금 완료             | o28  | cross 짝
-  9    | 알바생    | 오늘: 안 들어온 돈          | 같음     | w36  | 사장님 아직 보관 못 한 돈         | o40  | cross 짝
-  10   | 사장님    | 아직 보관 못 한 돈          | 같음     | o40  | 알바생 오늘: 안 들어온 돈         | w36  | cross 짝
-  11   | 알바생    | 돈이 움직이는 길            | 같음     | w52  | 사장님 아직 보관 못 한 돈         | o40  | 짝 없음, 앞 단계 화면 유지
-  12   | 사장님    | 기록 대조                   | 같음     | o39  | 알바생 돈이 움직이는 길           | w52  | 짝 없음, 앞 단계 화면 유지
+  단계 | 말하는 앱 | 말하는 화면 (PANEL 이름)      | 번호 | 다른 휴대폰 화면                 | 번호
+  1    | 사장님    | 근로계약 올리기                | o1   | 알바생 계약 확인: 주휴수당 빠짐  | w6
+  2    | 알바생    | 계약 확인: 주휴수당 빠짐       | w6   | 사장님 근로계약 올리기           | o1
+  3    | 알바생    | 출근하기                       | w11  | 사장님 근로계약 올리기           | o1
+  4    | 사장님    | 근무 확정                      | o9   | 알바생 퇴근, 일당 보관           | w15
+  5    | 알바생    | 퇴근, 일당 보관                | w15  | 사장님 근무 확정                 | o9
+  6    | 사장님    | 시간 고치기                    | o13  | 알바생 사장님이 시간을 고침      | w18
+  7    | 알바생    | 사장님이 시간을 고침           | w18  | 사장님 시간 고치기               | o13
+  8    | 알바생    | 급여일 자동 입금               | w33  | 사장님 자동 입금 완료            | o28
+  9    | 알바생    | 오늘: 안 들어온 돈             | w36  | 사장님 아직 보관 못 한 돈        | o40
+  10   | 사장님    | 아직 보관 못 한 돈             | o40  | 알바생 오늘: 안 들어온 돈        | w36
+  11   | 알바생    | 돈이 움직이는 길               | w52  | 사장님 아직 보관 못 한 돈        | o40
+  12   | 사장님    | 기록 대조 (화면 제목 기록 맞춰 보기) | o39 | 알바생 돈이 움직이는 길     | w52
 
-  바꾼 이름: 없음. flows.json demo의 12개 이름이 모두 v10 목록에 그대로 있습니다.
-  자막: 조율 담당이 준 확정 자막 두 줄씩. 0은 시작 화면, 13은 끝 화면.
-  주소 끝 ?step=N(0~13)으로 열면 그 단계에서 멈춘 채 열립니다(캡처용).
+  자막: 해요체, 한 줄 20자 안팎 두 줄, 금액은 92,880원 꼴, 님에게, 용어집 말(보관, 받을 곳, 다르다고 알리기, 차이 나는 돈, 맞춰 보기).
+  사실은 두 앱 v40 화면 글과 하나하나 맞춘 것만 씁니다(작업메모 자막 대조 표). 0은 시작 화면, 13은 끝 화면.
+  주소 끝 ?step=N(0~13)으로 열면 그 단계에서 멈춘 채 열립니다(캡처용, v40/review/demo_cap/).
 -->
 <script>
 const WORKER_APP = 'worker.html';
@@ -171,8 +171,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   <div class="card" aria-hidden="true"><p id="cardText">체무 1분 시연</p></div>
 
   <section class="caption" aria-live="polite" aria-atomic="true">
-    <p class="meta"><span class="num" id="capNum">1 / 12</span><span class="app" id="capApp">사장님 앱</span></p>
-    <p class="lines"><span id="capL1"></span><span id="capL2"></span></p>
+    <p class="meta" aria-hidden="true"><span class="num" id="capNum">1 / 12</span><span class="app" id="capApp">사장님 앱</span></p>
+    <p class="lines" aria-hidden="true"><span id="capL1"></span><span id="capL2"></span></p>
     <p class="sr" id="capSr">체무 1분 시연</p>
   </section>
 
@@ -191,29 +191,33 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 </main>
 
 <script>
-/* 단계표: 위 주석 표와 같음. w, o는 각 앱의 ?i 번호 */
+/* 단계표: 위 주석 표와 같음. w, o는 각 앱의 ?i 번호. 이름은 화면 읽기와 진행 점 이름에 씀(사장님 39는 화면 제목 기록 맞춰 보기) */
 const W_LABEL = { 6: '계약 확인: 주휴수당 빠짐', 11: '출근하기', 15: '퇴근, 일당 보관', 18: '사장님이 시간을 고침', 33: '급여일 자동 입금', 36: '오늘: 안 들어온 돈', 52: '돈이 움직이는 길' };
-const O_LABEL = { 1: '근로계약 올리기', 9: '근무 확정', 13: '시간 고치기', 28: '자동 입금 완료', 39: '기록 대조', 40: '아직 보관 못 한 돈' };
+const O_LABEL = { 1: '근로계약 올리기', 9: '근무 확정', 13: '시간 고치기', 28: '자동 입금 완료', 39: '기록 맞춰 보기', 40: '아직 보관 못 한 돈' };
 const STEPS = [
-  { app: 'owner',  w: 6,  o: 1,  t: ['사장님이 근로계약을 올려요', '주휴수당은 자동으로 들어가요'] },
-  { app: 'worker', w: 6,  o: 1,  t: ['₩37,152이 빠진 계약은', '동의하기 전에 바로 보여요'] },
-  { app: 'worker', w: 11, o: 1,  t: ['가게 30m 안에서만', '출근이 눌려요'] },
-  { app: 'owner',  w: 15, o: 9,  t: ['사장님이 근무를 확정하면', '그날 일당 ₩92,880을 보관해요'] },
-  { app: 'worker', w: 15, o: 9,  t: ['₩92,880 보관했어요', '급여일 전에는 사장님도 못 꺼내요'] },
-  { app: 'owner',  w: 18, o: 13, t: ['퇴근을 오전 7:30으로 고치면', 'A님께 바로 알림이 가요'] },
-  { app: 'worker', w: 18, o: 13, t: ['다르다고 알리면', '차액 ₩5,160만 따로 남겨 둬요'] },
-  { app: 'worker', w: 33, o: 28, t: ['12월 10일 오전 9시', '이체 없이 ₩984,528이 들어왔어요'] },
-  { app: 'worker', w: 36, o: 40, t: ['일당이 안 들어오면', '다음 날 아침에 알아요'] },
-  { app: 'owner',  w: 36, o: 40, t: ['돈이 모자란 사장님은', '일부만 채우거나 날짜를 알려요'] },
-  { app: 'worker', w: 52, o: 40, t: ['임금 책임은 사장님에게 있어요', '체무는 보관과 기록을 맡아요'] },
-  { app: 'owner',  w: 52, o: 39, t: ['링크를 받은 사람은', '원본과 고친 기록을 대조해요'] },
+  { app: 'owner',  w: 6,  o: 1,  t: ['사장님이 근로계약서를 등록해요', '주휴수당은 체무가 법에 따라 계산해요'] },
+  { app: 'worker', w: 6,  o: 1,  t: ['주휴수당 한 주 37,152원이 빠지면', '확정하기 전에 바로 보여요'] },
+  { app: 'worker', w: 11, o: 1,  t: ['가게 30m 안에서 출근하면', '기록이 A님과 사장님에게 똑같이 남아요'] },
+  { app: 'owner',  w: 15, o: 9,  t: ['사장님이 근무를 확정하면', '체무가 일당 92,880원을 보관해요'] },
+  { app: 'worker', w: 15, o: 9,  t: ['보관된 92,880원은 급여일까지', '사장님도 꺼낼 수 없어요'] },
+  { app: 'owner',  w: 18, o: 13, t: ['퇴근을 오전 7:30으로 고치면', 'A님 앱에 고친 이유까지 바로 보여요'] },
+  { app: 'worker', w: 18, o: 13, t: ['A님이 다르다고 알리면', '차이 나는 5,160원은 따로 남겨 둬요'] },
+  { app: 'worker', w: 33, o: 28, t: ['급여일 오전 9:00에 누르지 않아도', '월급 984,528원이 들어와요'] },
+  { app: 'worker', w: 36, o: 40, t: ['일당이 안 들어오면', '다음 날 오전 9:00에 알려 드려요'] },
+  { app: 'owner',  w: 36, o: 40, t: ['채울 돈이 모자라면 일부만 채우거나', '채울 날짜를 B님에게 알려요'] },
+  { app: 'worker', w: 52, o: 40, t: ['월급을 주는 사람은 사장님이에요', '체무는 돈을 보관하고 기록을 남겨요'] },
+  { app: 'owner',  w: 52, o: 39, t: ['링크를 받은 사람은', '원래 기록과 고친 기록을 맞춰 봐요'] },
 ];
 const TITLE_TEXT = '체무 1분 시연';
-const END_TEXT = '일한 날마다 먼저 보관되는 임금';
+const END_TEXT = '일한 날마다 일당을 먼저 보관해요';
 const APP_NAME = { worker: '알바생 앱', owner: '사장님 앱' };
 const STEP_MS = 5000, TITLE_MS = 2500, READY_MS = 700, LAST = STEPS.length + 1;
 
 const $ = s => document.querySelector(s);
+/* 자막 화면 읽기: 보이는 두 줄과 단계 번호는 숨기고, 시각과 거리는 말로 읽는 한 문장을 둠 (UX_WRITING_RULES 8절) */
+const say = t => t
+  .replace(/(오전|오후) (\d{1,2}):(\d\d)/g, (m, a, h, mm) => `${a} ${+h}시${+mm ? ` ${+mm}분` : ''}`)
+  .replace(/(\d+)m(?![a-z])/g, '$1미터');
 const params = new URLSearchParams(location.search);
 const FROZEN = params.has('step');
 if (FROZEN) document.documentElement.classList.add('cap');
@@ -286,7 +290,7 @@ function render() {
     $('#capApp').textContent = APP_NAME[st.app];
     $('#capL1').textContent = st.t[0];
     $('#capL2').textContent = st.t[1];
-    $('#capSr').textContent = '';
+    $('#capSr').textContent = `${STEPS.length}단계 가운데 ${step}단계, ${APP_NAME[st.app]}. ${say(st.t[0] + ' ' + st.t[1])}`;
     $('#rig').removeAttribute('aria-hidden');
   } else {
     if (step === 0) { phW.show(STEPS[0].w); phO.show(STEPS[0].o); }
