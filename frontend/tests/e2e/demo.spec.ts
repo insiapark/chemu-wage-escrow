@@ -93,6 +93,28 @@ test("mobile navigation fits and reset requires confirmation", async ({ page }) 
   await expect(page.locator(".hero-amount")).toHaveText("891,648원");
 });
 
+test("presenter bar shows the step, opens its screen, and keeps role and screen after reload", async ({ page }) => {
+  const bar = page.getByRole("region", { name: "발표자 안내" });
+  await expect(bar).toContainText("시연 1/8");
+  await bar.getByRole("button", { name: "단계 화면 열기" }).click();
+  await expect(page.getByRole("heading", { name: "A님 근로계약서를 등록해 주세요" })).toBeVisible();
+  await page.getByRole("button", { name: "근로계약 보내기", exact: true }).click();
+  await expect(bar).toContainText("시연 2/8");
+  await page.reload();
+  await expect(page.getByRole("group", { name: "앱 역할 선택" }).getByRole("button", { name: "사장님", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("heading", { name: "A님에게 근로계약을 보냈어요" })).toBeVisible();
+  await bar.getByRole("button", { name: "단계 화면 열기" }).click();
+  await expect(page.getByRole("heading", { name: "주휴수당 한 주 37,152원이 빠져 있어요" })).toBeVisible();
+  await bar.getByRole("button", { name: "처음부터 다시 하기" }).click();
+  await page.getByRole("button", { name: "처음부터 시작하기", exact: true }).click();
+  await expect(bar).toContainText("시연 1/8");
+  await page.getByRole("button", { name: "시연 설정" }).click();
+  await expect(page.getByRole("button", { name: "급여일을 20초 뒤로 정하기" })).toBeDisabled();
+  await page.getByLabel("화면 위에 시연 단계와 바로 가기 보이기").uncheck();
+  await page.getByRole("dialog").getByLabel("닫기", { exact: true }).click();
+  await expect(bar).toHaveCount(0);
+});
+
 test("desktop reference screenshot", async ({ page }) => {
   await expect(page.locator(".hero-amount")).toHaveText("891,648원");
   await page.screenshot({ path: "test-results/desktop-home.png", fullPage: true });

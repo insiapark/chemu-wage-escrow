@@ -3,6 +3,7 @@ import { test } from "node:test";
 import { createInitialState, DEMO } from "../src/lib/fixtures";
 import { transition } from "../src/lib/domain";
 import { MockEscrowGateway } from "../src/lib/gateway";
+import { demoStep, isDemoView, secondsUntil } from "../src/lib/demo-steps";
 import { monthDay, monthDayWeekday, won } from "../src/lib/format";
 
 test("money is written as 92,880원, never with the won sign", () => {
@@ -68,4 +69,30 @@ test("payday timer in a second window does not error after the first window paid
   assert.equal(first.received, DEMO.payroll);
   assert.equal(second.received, DEMO.payroll);
   assert.equal(state.receipts.filter(r => r.kind === "release").length, 1);
+});
+test("presenter step follows the 8-step script from shared state alone", () => {
+  let s = createInitialState();
+  const seen: string[] = [];
+  const mark = () => { const d = demoStep(s); seen.push(`${d.number}:${d.role ?? "-"}:${d.view}${d.done ? ":done" : ""}`); };
+  mark();
+  s = transition(s, { type: "submit-contract", hourlyWage: DEMO.hourlyWage, includesWeeklyAllowance: false }); mark();
+  s = transition(s, { type: "request-revision" }); mark();
+  s = transition(s, { type: "submit-contract", hourlyWage: DEMO.hourlyWage, includesWeeklyAllowance: true }); mark();
+  s = transition(s, { type: "agree-contract" }); mark();
+  s = transition(s, { type: "check-in", distance: 12 }); mark();
+  s = transition(s, { type: "check-out", distance: 12 }); mark();
+  s.signatures.worker = {} as never; mark();
+  s.signatures.employer = {} as never;
+  s = transition(s, { type: "lock", recordHash: "a".repeat(64), sealedRecord: "{}" }); mark();
+  s = transition(s, { type: "set-payday", value: "2026-11-29T10:00:20+09:00" }); mark();
+  s = transition(s, { type: "release", now: "2026-11-29T10:00:21+09:00" }); mark();
+  assert.deepEqual(seen, [
+    "1:employer:contract", "2:worker:contract", "3:employer:contract", "4:worker:contract",
+    "5:worker:clock", "5:worker:clock", "5:worker:clock", "6:employer:clock",
+    "7:-:verify", "8:worker:pay", "8:worker:pay:done",
+  ]);
+  assert.equal(secondsUntil("2026-11-29T10:00:20+09:00", Date.parse("2026-11-29T10:00:00.500+09:00")), 20);
+  assert.equal(secondsUntil("2026-11-29T10:00:20+09:00", Date.parse("2026-11-29T10:05:00+09:00")), 0);
+  assert.ok(isDemoView("verify"));
+  assert.ok(!isDemoView("admin"));
 });

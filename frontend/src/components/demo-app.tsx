@@ -10,9 +10,14 @@ import { monthDay, monthDayWeekday, won } from "@/lib/format";
 import { gateway, getPersistenceError, getServerSnapshot, getSnapshot, initializeStore, resetDemo, subscribe } from "@/lib/store";
 import { attendanceTypedData, verifyAttendanceSignature } from "@/lib/signatures";
 import { exportBundle, verifyBundle } from "@/lib/verification";
+import { DEMO_STEP_COUNT, demoStep, isDemoView, secondsUntil, type DemoView } from "@/lib/demo-steps";
 import type { DemoState, Role } from "@/lib/types";
 
-type View = "today" | "contract" | "clock" | "vault" | "pay" | "verify";
+type View = DemoView;
+// Per-tab screen (two windows can show two roles) and per-browser presenter preference. Both are optional conveniences.
+const UI_KEY = "chemu:demo:ui";
+const PRESENTER_KEY = "chemu:demo:presenter";
+const roleName: Record<Role, string> = { worker: "알바생", employer: "사장님" };
 type Run = (label: string, action: () => Promise<unknown>) => Promise<void>;
 const short = (value: string) => `${value.slice(0, 6)}…${value.slice(-4)}`;
 const date = (value: string) => new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", month: "long", day: "numeric", hour: "numeric", minute: "numeric" }).format(new Date(value));
@@ -50,6 +55,8 @@ export function DemoApp({ initialView = "today" }: { initialView?: View }) {
   const [settings, setSettings] = useState(false);
   const [resetting, setResetting] = useState(false);
   const [failureArmed, setFailureArmed] = useState(false);
+  const [presenter, setPresenter] = useState(true);
+  const [now, setNow] = useState(() => Date.now());
   const busy = useRef(false);
   const autoRelease = useRef(false);
   const roleRef = useRef<Role>("worker");
@@ -60,7 +67,27 @@ export function DemoApp({ initialView = "today" }: { initialView?: View }) {
   const { signTypedDataAsync } = useSignTypedData();
   const [addresses, setAddresses] = useState({ worker: state.participants.worker as string, employer: state.participants.employer as string });
 
-  useEffect(() => { initializeStore(); setReady(true); }, []);
+  useEffect(() => {
+    initializeStore();
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const saved = JSON.parse(sessionStorage.getItem(UI_KEY) ?? "null") as { role?: unknown; view?: unknown } | null;
+      const nextRole = params.get("role") ?? saved?.role;
+      if (nextRole === "worker" || nextRole === "employer") setRole(nextRole);
+      const nextView = params.get("view") ?? (initialView === "today" ? saved?.view : undefined);
+      if (isDemoView(nextView)) setView(nextView);
+      if (params.has("role") || params.has("view")) window.history.replaceState(null, "", window.location.pathname);
+      if (localStorage.getItem(PRESENTER_KEY) === "off") setPresenter(false);
+    } catch { /* storage is optional; defaults keep the demo usable */ }
+    setReady(true);
+  }, [initialView]);
+  useEffect(() => { if (!ready) return; try { sessionStorage.setItem(UI_KEY, JSON.stringify({ role, view })); } catch { /* optional */ } }, [ready, role, view]);
+  const paydayCountdown = state.attendance.status === "locked" && Date.parse(state.payday) > now;
+  useEffect(() => {
+    if (state.attendance.status !== "locked") return;
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, [state.attendance.status, state.payday]);
   useEffect(() => { setAddresses({ ...state.participants }); }, [state.participants]);
   useEffect(() => { if (!notice) return; const timer = setTimeout(() => setNotice(""), 4500); return () => clearTimeout(timer); }, [notice]);
 
@@ -93,6 +120,25 @@ export function DemoApp({ initialView = "today" }: { initialView?: View }) {
   });
 
   const navigate = (target: View) => { setView(target); setError(""); };
+  const step = demoStep(state);
+  const secondsLeft = secondsUntil(state.payday, now);
+  const setPaydaySoon = (then?: () => void) => void run("급여일을 20초 뒤로 정했어요", async () => {
+    await gateway.execute({ type: "set-payday", value: new Date(Date.now() + 20_000).toISOString() });
+    setNow(Date.now());
+    then?.();
+  });
+  const openStep = () => { if (step.role) setRole(step.role); navigate(step.view); };
+  const restart = () => {
+    resetDemo();
+    setRole("worker"); setView("today"); setDistance(12); setFailureArmed(false); setError("");
+    setNotice("시연을 처음부터 시작해요"); setResetting(false);
+  };
+  const togglePresenter = (visible: boolean) => {
+    setPresenter(visible);
+    try { localStorage.setItem(PRESENTER_KEY, visible ? "on" : "off"); } catch { /* optional */ }
+  };
+  const stepViewLabel = step.view === "clock" ? (step.role ?? role) === "worker" ? "출퇴근" : "근무 확정" : { today: "오늘", contract: "근로계약", vault: "보관함", pay: "급여", verify: "기록 맞춰 보기", clock: "" }[step.view];
+  const onStepScreen = (!step.role || step.role === role) && step.view === view;
   const nav = [
     { id: "today" as const, label: "오늘", icon: Home },
     { id: "contract" as const, label: "근로계약", icon: FileText },
@@ -117,7 +163,7 @@ export function DemoApp({ initialView = "today" }: { initialView?: View }) {
     <header className="workspace-header">
       <a className="brand" href="/" aria-label="체무 홈"><span className="brand-symbol"><LockKeyhole size={23} strokeWidth={2.2} /></span><span>체무<span className="brand-dot">.</span></span></a>
       <span className="header-caption">일한 만큼, 차곡차곡</span>
-      <div className="header-actions"><span className="mode-label">목데이터 시연</span>
+      <div className="header-actions"><span className="mode-label">시연 버전</span>
         <button className="wallet-button" type="button" disabled={!!pending} onClick={() => {
           if (account.isConnected) disconnect();
           else void run("지갑을 연결했어요", async () => { if (!connectors[0]) throw new Error("브라우저 지갑을 설치하면 실제 서명도 확인할 수 있어요. 연습 서명은 지갑 없이 쓸 수 있어요."); await connectAsync({ connector: connectors[0] }); });
@@ -138,6 +184,14 @@ export function DemoApp({ initialView = "today" }: { initialView?: View }) {
       </aside>
 
       <main id="app-content" className="main-area">
+        {ready && presenter && <section className="presenter-bar" aria-label="발표자 안내">
+          <div className="presenter-step"><span className="presenter-count">시연 {step.number}/{DEMO_STEP_COUNT}{step.done ? " · 끝" : ""}</span><strong>{step.role ? `${roleName[step.role]} · ` : ""}{stepViewLabel}</strong><span>{step.number === 8 && !step.done && paydayCountdown ? `${secondsLeft}초 뒤 자동 입금` : step.task}</span></div>
+          <div className="presenter-actions">
+            {!onStepScreen && !step.done && <button type="button" onClick={openStep}>단계 화면 열기</button>}
+            {step.number === 7 && <button type="button" className="strong" disabled={!!pending} onClick={() => setPaydaySoon(() => navigate("pay"))}>급여일 20초 뒤로</button>}
+            <button type="button" className="icon-only" aria-label="처음부터 다시 하기" title="처음부터 다시 하기" onClick={() => setResetting(true)}><RotateCcw size={18} /></button>
+          </div>
+        </section>}
         <div className="page-heading"><div><div className="eyebrow">{role === "worker" ? "A님의 체무" : "사장님의 체무"}</div><h1>{currentTitle}</h1></div><div className="store-chip"><span className="store-icon"><Store size={18} /></span><span>새싹편의점<small>연희점</small></span></div></div>
         <div className="demo-notice"><Info size={16} /><span>시연 버전 · 실제 돈 대신 연습용 돈으로 움직여요</span></div>
         <a className="chain-mode-link" href="/sepolia"><Wallet size={18} />Sepolia 실제 거래 모드 열기<ChevronRight size={16} /></a>
@@ -182,19 +236,19 @@ export function DemoApp({ initialView = "today" }: { initialView?: View }) {
           </div>}
 
           {view === "vault" && <VaultScreen state={state} role={role} run={run} disabled={!!pending} />}
-          {view === "pay" && <div className="screen-stack"><section className="card payday-card"><Badge tone="brand">{state.received ? "입금됨" : "11월분 월급"}</Badge><img className="hero-illustration" src="/assets/iso/iso_06_payday.png" alt="" /><h2>{state.received ? role === "employer" ? `A님 월급 ${won(state.received)}이 나갔어요` : `월급 ${won(state.received)}이 들어왔어요` : role === "employer" ? "급여일에 A님에게 나갈 월급" : "급여일에 받을 월급"}</h2><div className="pay-amount">{won(state.received || state.payrollAmount)}</div><p>급여일 {date(state.payday)}</p>{state.received > 0 && <p className="positive">{role === "employer" ? "체무가 보관된 돈으로 보냈어요." : "누르지 않아도 체무가 모아서 보냈어요."}</p>}</section><section className="card"><h2>월급은 이렇게 계산했어요</h2><Row label={`일당 ${won(DEMO.dailyWage)} × 9일`} value={won(DEMO.dailyWage * 9)} /><Row label={`주휴수당 한 주 ${won(DEMO.weeklyAllowance)} × 4주`} value={won(DEMO.weeklyAllowance * 4)} /><Row label="11월분 월급" value={won(state.payrollAmount)} /></section><Callout>보관된 돈 {won(state.locked)} · {role === "employer" ? "나간 돈" : "들어온 돈"} {won(state.received)}<br />이번 시연은 원화 계좌 입금 과정을 모의로 보여 줘요. 세금과 4대보험은 빼지 않은 금액이에요.</Callout><p className="helper">시연 설정에서 급여일을 20초 뒤로 정하면 이 앱이 열린 동안 누르지 않아도 들어와요.</p></div>}
+          {view === "pay" && <div className="screen-stack"><section className="card payday-card"><Badge tone="brand">{state.received ? "입금됨" : "11월분 월급"}</Badge><img className="hero-illustration" src="/assets/iso/iso_06_payday.png" alt="" /><h2>{state.received ? role === "employer" ? `A님 월급 ${won(state.received)}이 나갔어요` : `월급 ${won(state.received)}이 들어왔어요` : role === "employer" ? "급여일에 A님에게 나갈 월급" : "급여일에 받을 월급"}</h2><div className="pay-amount">{won(state.received || state.payrollAmount)}</div><p>급여일 {date(state.payday)}{paydayCountdown && secondsLeft <= 600 ? ` · ${secondsLeft}초 남음` : ""}</p>{state.received > 0 && <p className="positive">{role === "employer" ? "체무가 보관된 돈으로 보냈어요." : "누르지 않아도 체무가 모아서 보냈어요."}</p>}</section><section className="card"><h2>월급은 이렇게 계산했어요</h2><Row label={`일당 ${won(DEMO.dailyWage)} × 9일`} value={won(DEMO.dailyWage * 9)} /><Row label={`주휴수당 한 주 ${won(DEMO.weeklyAllowance)} × 4주`} value={won(DEMO.weeklyAllowance * 4)} /><Row label="11월분 월급" value={won(state.payrollAmount)} /></section><Callout>보관된 돈 {won(state.locked)} · {role === "employer" ? "나간 돈" : "들어온 돈"} {won(state.received)}<br />이번 시연은 원화 계좌 입금 과정을 모의로 보여 줘요. 세금과 4대보험은 빼지 않은 금액이에요.</Callout><p className="helper">시연 설정에서 급여일을 20초 뒤로 정하면 이 앱이 열린 동안 누르지 않아도 들어와요.</p></div>}
           {view === "verify" && <VerificationScreen state={state} />}
         </>}
       </main>
 
       <aside className="context-panel" aria-label="시연 진행 상황"><div className="context-heading"><span className="eyebrow">함께 쌓이는 기록</span><Badge tone="brand">LIVE DEMO</Badge></div><h2>오늘 일당이<br />내 몫이 되기까지</h2><p className="context-description">두 앱의 기록이 하나로 이어져요.</p><ol className="journey">{[
         ["contract", "근로계약 확인", "조건을 함께 확인하고 확정해요"], ["clock", "출근 기록", "가게 30m 안에서 시작해요"], ["clock", "퇴근과 서명", "같은 기록에 두 사람이 서명해요"], ["clock", "일당 보관", "확정한 날의 일당이 묶여요"], ["pay", "급여일 입금", "정해 둔 시각에 내 몫을 받아요"],
-      ].map(([target, title, description], index) => <li key={title} className={stage > index ? "complete" : stage === index ? "current" : ""}><span className="journey-marker">{stage > index ? <Check size={15} /> : index + 1}</span><button type="button" onClick={() => navigate(target as View)}><strong>{title}</strong><small>{description}</small></button></li>)}</ol><div className="context-divider" /><div className="context-subtitle"><h3>방금 남긴 기록</h3><Bell size={17} /></div>{state.events.length ? <ul className="event-list">{state.events.slice(0, 4).map(event => <li key={event.id}><span className="event-dot" /><div>{event.message}<small>{new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", hour: "2-digit", minute: "2-digit" }).format(new Date(event.createdAt))}</small></div></li>)}</ul> : <div className="empty-events"><FileText size={26} /><p>첫 기록을 기다리고 있어요.<br />근로계약부터 확인해 볼까요?</p></div>}<div className="context-note"><ShieldCheck size={20} /><span>같은 브라우저의 두 역할이<br />하나의 시연 데이터를 공유해요.</span></div></aside>
+      ].map(([target, title, description], index) => <li key={title} className={stage > index ? "complete" : stage === index ? "current" : ""}><span className="journey-marker">{stage > index ? <Check size={15} /> : index + 1}</span><button type="button" onClick={() => navigate(target as View)}><strong>{title}</strong><small>{description}</small></button></li>)}</ol><div className="context-divider" /><div className="context-subtitle"><h3>방금 남긴 기록</h3><Bell size={17} /></div>{state.events.length ? <ul className="event-list">{state.events.slice(0, 4).map(event => <li key={event.id}><span className="event-dot" /><div>{event.message}<small>{new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", hour: "numeric", minute: "2-digit" }).format(new Date(event.createdAt))}</small></div></li>)}</ul> : <div className="empty-events"><FileText size={26} /><p>첫 기록을 기다리고 있어요.<br />근로계약부터 확인해 볼까요?</p></div>}<div className="context-note"><ShieldCheck size={20} /><span>같은 브라우저의 두 역할이<br />하나의 시연 데이터를 공유해요.</span></div></aside>
     </div>
     {notice && <div className="toast" role="status"><Check size={18} />{notice}</div>}
 
-    {settings && <Dialog title="시연 설정" onClose={() => setSettings(false)}><p className="helper">여기에서 바꾼 값은 발표용 모의 환경에만 적용돼요.</p><label className="field-label" htmlFor="distance">가게와의 거리</label><select id="distance" value={distance ?? "unknown"} onChange={event => setDistance(event.target.value === "unknown" ? null : Number(event.target.value))}><option value="12">12m · 출퇴근할 수 있어요</option><option value="45">45m · 출퇴근할 수 없어요</option><option value="unknown">위치를 찾지 못함</option></select><div className="settings-section"><h3>급여일 입금 시연</h3><p className="helper">현재: {date(state.payday)}<br />오늘 일당을 보관한 뒤 이 앱이 열린 상태에서 실행해 주세요.</p><Button secondary disabled={!!pending || state.received > 0} onClick={() => void run("급여일을 20초 뒤로 정했어요", () => gateway.execute({ type: "set-payday", value: new Date(Date.now() + 20_000).toISOString() }))}>급여일을 20초 뒤로 정하기</Button></div><div className="settings-section"><h3>시연 다시 시작</h3><Button secondary disabled={!!pending} onClick={() => { setSettings(false); setResetting(true); }}>시연 처음부터 시작</Button></div><div className="settings-section"><h3>오류 재현</h3><Button secondary disabled={failureArmed || !!pending} onClick={() => { gateway.failNext(); setFailureArmed(true); }}>{failureArmed ? "다음 요청이 한 번 실패해요" : "다음 요청 한 번 실패시키기"}</Button></div><div className="settings-section"><h3>실제 지갑으로 서명할 때</h3><p className="helper">EIP-712 규격은 연동 전 초안이에요. 두 주소를 먼저 설정한 뒤 각 지갑으로 서명해 주세요.</p>{(["worker", "employer"] as const).map(item => <label key={item} className="field-label">{item === "worker" ? "알바생 지갑" : "사장님 지갑"}<input value={addresses[item]} onChange={event => setAddresses({ ...addresses, [item]: event.target.value })} spellCheck={false} /></label>)}<Button secondary disabled={!!pending || !!state.signatures.worker || !!state.signatures.employer} onClick={() => void run("지갑 주소를 저장했어요", () => gateway.execute({ type: "set-participants", worker: addresses.worker as Address, employer: addresses.employer as Address }))}>두 지갑 주소 저장하기</Button></div></Dialog>}
-    {resetting && <Dialog title="시연을 처음부터 시작할까요?" onClose={() => setResetting(false)}><p>이 브라우저의 계약, 근무 기록, 서명과 모의 거래가 초기화돼요.</p><div className="dialog-actions"><Button secondary onClick={() => setResetting(false)}>닫기</Button><Button disabled={!!pending} onClick={() => { resetDemo(); setRole("worker"); setView("today"); setError(""); setNotice("시연을 처음부터 시작해요"); setResetting(false); }}>처음부터 시작하기</Button></div></Dialog>}
+    {settings && <Dialog title="시연 설정" onClose={() => setSettings(false)}><p className="helper">여기에서 바꾼 값은 발표용 모의 환경에만 적용돼요.</p><label className="field-label" htmlFor="distance">가게와의 거리</label><select id="distance" value={distance ?? "unknown"} onChange={event => setDistance(event.target.value === "unknown" ? null : Number(event.target.value))}><option value="12">12m · 출퇴근할 수 있어요</option><option value="45">45m · 출퇴근할 수 없어요</option><option value="unknown">위치를 찾지 못함</option></select><div className="settings-section"><h3>급여일 입금 시연</h3><p className="helper">현재: {date(state.payday)}<br />{state.attendance.status === "locked" ? "이 앱을 열어 두면 정한 때에 누르지 않아도 들어와요." : state.received > 0 ? "이미 들어왔어요. 처음부터 다시 하면 또 정할 수 있어요." : "오늘 일당을 보관한 뒤 정할 수 있어요."}</p><Button secondary disabled={!!pending || state.attendance.status !== "locked"} onClick={() => setPaydaySoon()}>급여일을 20초 뒤로 정하기</Button></div><div className="settings-section"><h3>발표자 안내</h3><label className="checkbox-row"><input type="checkbox" checked={presenter} onChange={event => togglePresenter(event.target.checked)} />화면 위에 시연 단계와 바로 가기 보이기</label></div><div className="settings-section"><h3>시연 다시 시작</h3><Button secondary disabled={!!pending} onClick={() => { setSettings(false); setResetting(true); }}>시연 처음부터 시작</Button></div><div className="settings-section"><h3>오류 재현</h3><Button secondary disabled={failureArmed || !!pending} onClick={() => { gateway.failNext(); setFailureArmed(true); }}>{failureArmed ? "다음 요청이 한 번 실패해요" : "다음 요청 한 번 실패시키기"}</Button></div><div className="settings-section"><h3>실제 지갑으로 서명할 때</h3><p className="helper">EIP-712 규격은 연동 전 초안이에요. 두 주소를 먼저 설정한 뒤 각 지갑으로 서명해 주세요.</p>{(["worker", "employer"] as const).map(item => <label key={item} className="field-label">{item === "worker" ? "알바생 지갑" : "사장님 지갑"}<input value={addresses[item]} onChange={event => setAddresses({ ...addresses, [item]: event.target.value })} spellCheck={false} /></label>)}<Button secondary disabled={!!pending || !!state.signatures.worker || !!state.signatures.employer} onClick={() => void run("지갑 주소를 저장했어요", () => gateway.execute({ type: "set-participants", worker: addresses.worker as Address, employer: addresses.employer as Address }))}>두 지갑 주소 저장하기</Button></div></Dialog>}
+    {resetting && <Dialog title="시연을 처음부터 시작할까요?" onClose={() => setResetting(false)}><p>이 브라우저의 계약, 근무 기록, 서명과 모의 거래가 초기화돼요.</p><div className="dialog-actions"><Button secondary onClick={() => setResetting(false)}>닫기</Button><Button disabled={!!pending} onClick={restart}>처음부터 시작하기</Button></div></Dialog>}
   </div>;
 }
 

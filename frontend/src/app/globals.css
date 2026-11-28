@@ -287,3 +287,14 @@ textarea { resize: vertical; font-family: ui-monospace, SFMono-Regular, Consolas
   .chain-signature { flex-wrap: wrap; }
   .chain-workspace .header-actions { flex-wrap: wrap; }
 }
+
+/* Presenter-only helper above each screen; hide it in the 시연 설정 dialog. */
+.presenter-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; flex-wrap: wrap; padding: 10px 12px 10px 16px; margin-bottom: 20px; border: 1px dashed var(--brand-light); border-radius: 16px; background: #f5f3ff; color: var(--body); font-size: .8125rem; line-height: 1.6; }
+.presenter-step { display: flex; flex-direction: column; min-width: 0; flex: 1 1 200px; }
+.presenter-count { color: var(--brand); font-weight: 600; }
+.presenter-step strong { color: var(--ink); font-size: .9375rem; }
+.presenter-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+.presenter-actions button { min-height: 44px; padding: 6px 10px; white-space: nowrap; border: 1px solid #d8d2fa; border-radius: 8px; background: #fff; color: var(--brand); font-size: .8125rem; font-weight: 600; }
+.presenter-actions button.strong { background: var(--brand); border-color: var(--brand); color: #fff; }
+.presenter-actions button:disabled { border-color: var(--line); }
+.presenter-actions .icon-only { width: 44px; padding: 0; display: grid; place-items: center; }
