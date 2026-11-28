@@ -9,7 +9,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
 <style>
 /* =========================================================
-   체무 기록 맞춰 보기 웹 페이지 v72: 사장님 앱 v72(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 모의 사용 최종 검토 회차, 보이는 글은 v71과 같음
+   체무 기록 맞춰 보기 웹 페이지 v75: 사장님 앱 v75(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 5버전 점검 회차(vcheck audit, vfine, vsizes,
+        uxlint, 캡처 ../v75/review/verify_cap). 보이는 글과 화면은 v74와 같음
+   v74: 사장님 앱 v74(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 결정안 1(두 사람 서명):
+        서명 줄에 언제 했는지(A님은 퇴근할 때, 박** 사장님은 확정할 때). 기록 글자와 저장한 값은 그대로
+   v73: 사장님 앱 v73(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 모의 심사 (2):
+        서명 묶음에 두 서명이 묶인 하루 기록(11월 14일 토요일 근무, 기록 이름 A-2026-11-14)과 계약(새싹편의점 연희점 A님 근로계약), 같은 서명을 다른 날 기록이나 다른 가게에 다시 쓸 수 없다는 한 줄.
+        값은 기록 글자에 이미 있는 근무한 날과 가게만(새 숫자 없음). 기록 글자와 저장한 값은 그대로
+   v72: 사장님 앱 v72(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 모의 사용 최종 검토 회차, 보이는 글은 v71과 같음
    v71: 사장님 앱 v71(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 라이터 최종 검토 회차, 보이는 글은 v70과 같음
    v70: 사장님 앱 v70(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 세밀 점검 회차(vcheck audit, vfine, vsizes,
         uxlint, 캡처 ../v70/review/verify_cap). 보이는 글과 화면은 v69와 같음
@@ -359,9 +366,14 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
         <section class="card" aria-labelledby="sigT">
           <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_check.webp" width="36" height="36" alt="" aria-hidden="true"></span>
             <div class="m"><h2 class="card-h" id="sigT">두 사람이 서명했어요</h2></div></div>
+          <p class="card-s">두 서명은 이 하루 기록에만 묶여 있어요. 같은 서명을 다른 날 기록이나 다른 가게 계약에 다시 쓸 수 없어요.</p>
+          <dl class="kvs">
+            <div><dt>묶인 기록</dt><dd>11월 14일 토요일 근무</dd></div>
+            <div><dt>묶인 계약</dt><dd>새싹편의점 연희점 · A님 근로계약</dd></div>
+          </dl>
           <ul class="list">
-            <li class="row"><span class="av" aria-hidden="true">A</span><span class="rm"><span class="rt">A님</span><span class="rs">원래 기록 · 11월 15일 오전 8:00</span></span><span class="tag ok">서명함</span></li>
-            <li class="row"><span class="av soft" aria-hidden="true">박</span><span class="rm"><span class="rt">박** 사장님</span><span class="rs">고친 기록 · 11월 15일 오전 9:40</span></span><span class="tag ok">서명함</span></li>
+            <li class="row"><span class="av" aria-hidden="true">A</span><span class="rm"><span class="rt">A님</span><span class="rs">원래 기록 · 퇴근할 때 · 11월 15일 오전 8:00</span></span><span class="tag ok">서명함</span></li>
+            <li class="row"><span class="av soft" aria-hidden="true">박</span><span class="rm"><span class="rt">박** 사장님</span><span class="rs">고친 기록 · 확정할 때 · 11월 15일 오전 9:40</span></span><span class="tag ok">서명함</span></li>
           </ul>
         </section>
 

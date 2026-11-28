@@ -3,11 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
-<title>체무 사장님 앱 v72</title>
+<title>체무 사장님 앱 v75</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
 <style>
 /* =========================================================
-   체무 사장님 앱 v72: 모의 사용자 최종 검토(../v71/review/ds_review_memo_owner.md 고칠 것 7 ~ 12, 두 사장님 모의 사용).
+   체무 사장님 앱 v75: 5버전 점검 회차(v71 ~ v75). 세밀 점검(spaceaudit, typeaudit, partaudit2, sizes2, fitfold3) 0, audit 다섯 목표, isoaudit(21 네 칸 예외),
+        uxlint, 83화면 캡처 ../v75/review/owner_cap_v75, 기록 맞춰 보기 웹 캡처 ../v75/review/verify_cap. 컴포넌트 목록 ../v75/handoff/컴포넌트_사장님.md(v43 다음 판).
+        화면과 문구는 v74와 같음(../v75/_작업메모/owner.md)
+   v74: 결정안과 화면 맞추기(../../results/CTX-110 11/24 결정안 다섯 가지, 대조 표는 ../v74/_작업메모/owner.md).
+        1 근무시간 증명: 09, 12에 "두 사람 서명"(A님은 퇴근할 때 가게 30m 안에서, 사장님은 확정하기를 누를 때), 10 첫 단계 "두 사람이 서명하고 근무를 확정함",
+          04 흐름 단계 보조 줄, 39 "서명한 사람", 08 출근 줄과 알림 "가게 30m 안에서", 웹 서명 줄에 퇴근할 때와 확정할 때.
+        2 중도 퇴사: 20, 24, 46에 다음 날 오전 9:00, 62에 그만둘 때 질문. 3 장부 자동: 00 첫 화면 설명, 10 넷째 단계 "장부에 적음", 31 설명과 근무표, 임금대장 줄, 32 설명, 62 장부 질문.
+        5 급여일 시연: 28에 시연 버전 표시. 새 상태(PANEL 끝): 79 근무 확정 거래를 기다릴 때, 80 다시 보관하는 거래를 기다릴 때, 81 계약서 사진 찍기를 골랐을 때,
+          82 사건 표 E02b "A님이 11월 21일 근무 확정을 다시 요청했어요"(알림). 컨트랙트 함수 이름은 화면에 쓰지 않음
+   v73: 모의 심사(블록체인 전공 교수, 은행 실무자 질문 가운데 답할 화면이 없던 것, ../v73/review/ds_judge_questions.md 메모 세 가지).
+        (1) 17, 18 보관함에 "지금 꺼낼 수 있는 돈" 줄: 채워 둔 돈에서 450,000원, 보관된 돈에서 0원. 아래 줄 "보관된 돈은 급여일 전에 아무도 꺼낼 수 없어요"(용어집 v47 문장).
+        (2) 기록 맞춰 보기 웹 서명 묶음에 묶인 기록(11월 14일 토요일 근무)과 묶인 계약(새싹편의점 연희점 A님 근로계약), 같은 서명은 그 하루 기록에만 쓰인다는 한 줄.
+        (3) 가게 닫기(58, 64, 65)에 "가게 문을 닫아도 보관된 돈은 A님(B님) 몫이에요". 예금자 보호처럼 말하지 않음
+   v72: 모의 사용자 최종 검토(../v71/review/ds_review_memo_owner.md 고칠 것 7 ~ 12, 두 사장님 모의 사용).
         "~만 더 채우면 돼요"의 "만"을 빼고 금액 그대로(07, 18, 22, 40, 70, 75와 알림, 23 안내, 동네 식당 오늘과 보관함 제목). 23 제목은 탓하지 않게 "다음 주 인건비에 맞춰 매주 채워 둘까요?",
         채우는 금액 줄과 62 자주 묻는 질문도 "더 필요한 만큼". 04 흐름 단계를 주어와 서술어가 있는 문장으로. 42, 72 날짜 전에 나눠 채우면 바로 보인다는 것을 먼저.
         45 "B님이 그만둬서"를 빼고 돈이 언제 나가는지만(44와 같은 꼴). 54, 55 늘 받는 알림은 이유를 먼저(알바생 앱 04 v47과 같은 방식)
@@ -1083,6 +1096,8 @@ const S = {
   // v66: 입력 칸. obEdit은 가입 화면에서 칸으로 바뀐 줄(biz 사업자등록번호, wage 시급), fErr은 칸 아래 오류 줄이 보이는 칸
   obEdit:null, bizVal:'', wageVal:'10,320', partAmt:126000, fillSelf:0,
   editReason:'오전 7:30에 다음 근무자와 교대했어요', keepReason:'오전 7:30에 다음 근무자와 교대했어요', fErr:{},
+  obSeg:'write',            // v74: 근로계약 올리기 방법 (write 직접 쓰기, photo 계약서 사진 찍기)
+  reAsked:false,            // v74: A님이 확정 요청을 다시 보냄 (사건 표 E02b)
 };
 
 /* =========================================================
@@ -1332,7 +1347,7 @@ const EX_ROWS = () => [
   ['지금', won(vaultBal()), won(lockedTeam())],
   ['어떤 돈', '사장님이 사업자 계좌에서 채워 둔 돈', '확정한 근무의 일당과 주휴수당'],
   ['누구 몫', '아직 정하지 않았어요', 'A님, C님, D님 몫'],
-  ['꺼내기', '사장님이 언제든 꺼낼 수 있어요', '이미 알바생 몫이라 꺼낼 수 없어요. 알바생이 그만두면 다음 날 그 알바생에게 나가요(정산)'],
+  ['꺼내기', '사장님이 언제든 꺼낼 수 있어요', '이미 알바생 몫이라 꺼낼 수 없어요. 알바생이 그만두면 다음 날 오전 9:00에 그 알바생에게 나가요(정산)'],
   ['바뀔 때', '근무를 확정하면 그날 일당만큼 줄어요', '12월 10일 오전 9:00에 3명에게 나가요'],
 ];
 
@@ -1362,7 +1377,8 @@ function closeConds() {
 function NOTICES() {
   if (S.noNotices || S.noStaff) return [];   // v13: 알림이 없을 때, v34: 처음 연 날(알바생이 아직 없음)
   if (S.persona === 'haneul') return [
-    ...(S.shift === 'working' ? [{ k:'nw', icon:'ic_clock', tone:'', t:'A님이 출근했어요', s:'가게에서 오후 9:58에 눌렀어요', time:'방금', unread:true }] : []),
+    ...(S.reAsked ? [{ k:'nr', icon:'ic_clock', tone:'', t:'A님이 11월 21일 근무 확정을 다시 요청했어요', s:'퇴근한 지 하루가 지났어요 · 확정하면 체무가 바로 보관해요', time:'어제', go:'confirm:b1121', unread:true }] : []),   // v74: 사건 표 E02b
+    ...(S.shift === 'working' ? [{ k:'nw', icon:'ic_clock', tone:'', t:'A님이 출근했어요', s:'가게 30m 안에서 오후 9:58에 눌렀어요', time:'방금', unread:true }] : []),
     ...(S.dispute === 'open' ? [{ k:'nd', icon:'ic_scale', tone:'', t:'A님이 11월 14일 기록이 다르다고 알렸어요', s:'퇴근 시간이 달라요 · 5,160원 차이', time:'오늘', go:'dispute:h1114', unread:true }] : []),
     ...(S.team
       ? [{ k:'t0', icon:'ic_coins', tone:'', t:`다음 주 3명 인건비는 ${won(T_NEXT)}이에요`, s: teamShort() ? `${won(teamShort())}을 더 채우면 돼요` : '지금 채워 둔 돈으로 넉넉해요', time:'오늘 오전 9:00', go:'need', unread:true }]
@@ -1458,11 +1474,16 @@ const SCREENS = {
         <div class="sum mt12"><div class="sum-k">A님 · ${c.outDay ? `${c.date} ${c.wd}요일 · ` : ''}${p.store}</div><div class="sum-big num">${won(92880)}</div>
           <div class="sum-s">10시간에서 쉬는 시간 1시간을 빼고 9시간 × 시급 ${won(p.wage)}</div><div class="tags">${stTag('pending')}</div></div>
         ${late}
-        ${secH('A님이 가게에서 남긴 기록')}
+        ${secH('A님이 가게 30m 안에서 남긴 기록')}
         <div class="steps">
           ${step({ icon:'login', state:'done', t:`출근 ${c.inAt}` })}
           ${step({ icon:'exit', state:'done', t:`퇴근 ${c.outAt}` })}
           ${step({ icon:'clock', state:'done', t:'쉬는 시간 1시간', s:'계약한 대로 빼고 9시간' })}
+        </div>
+        ${secH('두 사람 서명')}
+        <div class="steps">
+          ${step({ icon:'edit', state:'done', t:'A님 서명', s:`퇴근할 때 가게 30m 안에서 했어요 · ${c.outAt}` })}
+          ${step({ icon:'edit', state:'next', t:'사장님 서명', s:'확정하기를 누르면 같은 하루 기록에 해요' })}
         </div>
         <div class="callout ok">${ic('lock', 24)}<div><b>확정하면 채워 둔 돈에서 체무가 ${won(92880)}을 A님 몫으로 보관해요</b></div></div>
         <p class="note"><span>기록이 다르면 시간을 고칠 수 있어요. 고치면 체무가 A님에게 바로 알려요.</span></p>`;
@@ -1571,8 +1592,8 @@ const SCREENS = {
         </div>
         ${agreed ? `${secH('근무부터 급여일까지')}
         <div class="steps">
-          ${step({ icon:'login', state:'done', t:'A님이 출퇴근을 눌러요', s:'가게 30m 안에서만 누를 수 있어요' })}
-          ${step({ icon:'check', state:'done', t:'사장님이 근무를 확정해요', s:'그날 일한 시간이 맞다고 정해요. 다르면 고쳐요' })}
+          ${step({ icon:'login', state:'done', t:'A님이 출퇴근을 눌러요', s:'가게 30m 안에서만 누를 수 있어요. 퇴근할 때 그날 기록에 서명해요' })}
+          ${step({ icon:'check', state:'done', t:'사장님이 근무를 확정해요', s:'그날 일한 시간이 맞으면 같은 기록에 서명해요. 다르면 고쳐요' })}
           ${step({ icon:'lock', state:'done', t:'채워 둔 돈에서 체무가 그날 일당을 보관해요', s:'급여일까지 A님 몫이에요' })}
           ${step({ icon:'bank', state:'done', t:'급여일에 따로 누르지 않아도 나가요', s:'체무가 급여명세서도 함께 만들어요' })}
         </div>` : req ? `<p class="note"><span>주휴수당을 넣으면 A님 앱에 바로 보여요. A님이 동의하면 계약이 확정돼요.</span></p>` : ''}`;
@@ -1612,6 +1633,7 @@ const SCREENS = {
       return `${moneyPair(won(bal), won(t.kept), `A님 몫 · 12월 10일 오전 9:00`)}
         
         <button class="link-btn mt8" data-go="moneyflow">돈이 움직이는 길 보기</button>
+        ${takeOut()}
         <div class="group mt16">
           ${row({ icon:'ic_coins', t:'다음 주 예상 인건비', s:o.nextWeekLabel, trail:won(o.nextWeek), trailCls:'strong' })}
           ${row({ icon:'ic_check', t:`다음 주 인건비보다 ${won(left)} 더 채워 뒀어요` })}
@@ -1735,6 +1757,7 @@ const SCREENS = {
       const items = [['shift', '근무표', '출퇴근과 확정 시각'], ['wage', '임금대장', '사람별 근무시간과 금액'], ['edit', '고친 기록 1건', '11월 14일 · 고친 이유 포함'], ['kept', '보관과 입금 기록', '날마다 보관된 돈과 급여일 입금'], ['slip', '급여명세서', 'A님에게 보낸 것과 같은 명세서']];
       return `<div class="lead-k">${O().store} · 2026년 11월</div>
         <h2 class="lead-t">${{ month:'11월', '3m':'최근 3개월', year:'올해' }[S.exportRange]} 장부가 정리돼 있어요</h2>
+        <div class="lead-s">근무를 확정할 때마다 체무가 저절로 적었어요.</div>
         <div class="seg mt16" role="radiogroup" aria-label="기간">${[['month', '11월'], ['3m', '최근 3개월'], ['year', '올해']].map(([v, l]) => `<button class="${S.exportRange === v ? 'on' : ''}" role="radio" aria-checked="${S.exportRange === v}" data-act="exRange" data-v="${v}">${l}</button>`).join('')}</div>
         ${secH('넣을 내용')}
         <div class="group">${items.map(([k, l, s]) => row({ lead:`<span class="ck ${S.exportItems.has(k) ? 'on' : ''}">${ic('check', 14)}</span>`, t:l, s, act:'exItem', attrs:`data-v="${k}" role="checkbox" aria-checked="${S.exportItems.has(k)}"`, arrow:false })).join('')}</div>`;
@@ -1752,7 +1775,7 @@ const SCREENS = {
       return `${hero('iso_29_farewell', 'md')}
         <div class="lead-k">B님 · 마지막 근무 11월 20일 금요일</div>
         <h2 class="lead-t">B님 정산 ${josa(t.kept, '이', '가')} 내일 나가요</h2>
-        <div class="lead-s">정산은 그만둔 다음 날 보관된 돈을 한 번에 보내는 일이에요. 남은 돈을 다 채우지 않아도 보관된 돈은 먼저 나가요.</div>
+        <div class="lead-s">정산은 그만둔 다음 날 오전 9:00에 보관된 돈을 한 번에 보내는 일이에요. 남은 돈을 다 채우지 않아도 보관된 돈은 먼저 나가요.</div>
         <div class="steps mt16">
           ${step({ icon:'exit', state:'done', t:'B님이 그만둔다고 알렸어요', s:'11월 21일' })}
           ${step({ icon:'lock', state:'done', t:`보관된 ${won(t.kept)} 정산`, s: S.shortPaid ? `근무 15일 ${won(630000)} + 주휴수당 3주 ${won(126000)}` : S.partPaid ? `근무 15일 ${won(630000)} + 주휴수당 2주 ${won(84000)}` : `근무 12일 ${won(504000)} + 주휴수당 2주 ${won(84000)}` })}
@@ -2023,11 +2046,12 @@ const SCREENS = {
       const r = id => { const s = TEAM[id]; return row({ lead:`<span class="av">${id}</span>`, t:`${id}님`, s:`근무 ${s.keptDays}일 + 주휴수당 ${s.keptWeeks}주`, trail:won(s.kept), trailCls:'strong' }); };
       return `<div class="lead-k">${O().store} · 11월 1일 ~ 21일</div>
         <h2 class="lead-t">인건비 ${josa(T_KEPT, '이', '가')} 쌓였어요</h2>
-        <div class="lead-s">사장님이 근무를 확정할 때마다 체무가 장부에 적어요.</div>
+        <div class="lead-s">근무를 확정할 때마다 근무표, 임금대장, 급여명세서, 인건비 리포트가 함께 쌓여요.</div>
         <div class="group mt16">${ROSTER.map(r).join('')}</div>
         ${secH('저절로 남은 기록')}
         <div class="group">
-          ${row({ icon:'ic_clock', t:'근무 기록', s:'출근, 퇴근, 확정 시각', trail:`${days}일`, trailCls:'strong' })}
+          ${row({ icon:'ic_clock', t:'근무표', s:'출근, 퇴근, 확정 시각', trail:`${days}일`, trailCls:'strong' })}
+          ${row({ icon:'ic_coins', t:'임금대장', s:'사람별 근무시간과 금액', trail:`${ROSTER.length}명`, trailCls:'strong' })}
           ${row({ icon:'ic_safe', t:'보관 기록', s:`일당 ${days}건 + 주휴수당 ${weeks}건`, trail:`${days + weeks}건`, trailCls:'strong' })}
           ${row({ icon:'ic_clock', t:'고친 기록', s:'11월 14일 · 고친 이유 포함', trail:'1건', trailCls:'strong' })}
           ${row({ icon:'ic_receipt', t:'급여명세서', s:'12월 10일에 체무가 3명 몫을 만들어요' })}
@@ -2132,6 +2156,7 @@ const SCREENS = {
         <div class="group ${cs.length > 1 ? '' : 'mt16'}">
           ${cs.map(x => row({ icon:x.icon, t:x.t, s:x.s, trail:x.trail, trailCls:'strong', go:x.go, act:x.act, attrs:x.attrs || '' })).join('')}
         </div>
+        ${totals().kept ? `<div class="callout ok">${ic('lock', 24)}<div><b>가게 문을 닫아도 보관된 돈은 ${S.persona === 'junho' ? 'B' : 'A'}님 몫이에요</b><span>${S.persona === 'junho' ? '내일 오전 9:00 정산 전에는 아무도 꺼낼 수 없어요.' : '급여일 전에는 아무도 꺼낼 수 없어요.'}</span></div></div>` : ''}
         ${S.persona === 'haneul' ? `${secH('꺼낼 수 있는 돈')}<div class="group">${row({ icon:'ic_coins', t:'채워 둔 돈', s:'꺼내면 사업자 계좌로 들어가요', trail:won(fill), trailCls:'strong' })}</div>` : ''}
         <p class="note"><span>기록은 닫기 전에 장부 내보내기로 받아 둘 수 있어요.</span></p>`;
       }
@@ -2171,6 +2196,8 @@ const FAQ = [
   ['채워 둔 돈이 모자라면 어떻게 되나요?', '다음 주 인건비보다 적으면 오전 9:00에 알려 드려요. 더 필요한 만큼 채우거나 자동 채우기를 켤 수 있어요.'],   // 22, 23, 54
   ['알바생 출퇴근 시간이 실제와 다르면요?', '확정하기 전에 시간을 고칠 수 있어요. 고친 시간과 이유는 알바생 앱에 바로 보이고, 원래 기록도 함께 남아요.'],   // 09, 13
   ['알바생이 기록이 다르다고 알리면요?', '두 기록 가운데 하나를 고르면 돼요. 그때까지 체무가 차이 나는 돈을 따로 남겨 둬요.'],   // 14
+  ['알바생이 그만두면 보관된 돈은요?', '그만둔 다음 날 오전 9:00에 알바생 받을 곳으로 나가요. 아직 보관 못 한 돈은 그만둔 날부터 14일 안에 주면 돼요.'],   // v74: 결정안 2, 20, 46
+  ['장부는 따로 써야 하나요?', '근무를 확정할 때마다 근무표, 임금대장, 급여명세서, 인건비 리포트가 저절로 쌓여요. 엑셀과 PDF로 내보낼 수 있어요.'],   // v74: 결정안 3, 31, 32
   ['주휴수당은 언제 붙나요?', '한 주 15시간 이상 일하고 계약한 날을 빠짐없이 나온 주에 붙어요. 그 주가 끝나면 체무가 주휴수당을 보관해요.'],   // 27
 ];
 
@@ -2194,7 +2221,7 @@ function todayCard() {
   if (S.shift === 'before') return `<div class="card"><div class="tags">${tag('', '오늘 밤 근무')}</div>
     <div class="c-title big">A님 오후 10:00 출근</div><div class="c-body">오전 8:00까지 · 쉬는 시간 1시간 · 출근하면 바로 알려 드려요</div></div>`;
   if (S.shift === 'working') return `<div class="card acc"><div class="tags">${tag('acc', '근무 중')}</div>
-    <div class="c-title big">A님 오후 9:58 출근</div><div class="c-body">A님이 가게에서 눌렀어요 · 퇴근 예정 오전 8:00</div></div>`;
+    <div class="c-title big">A님 오후 9:58 출근</div><div class="c-body">A님이 가게 30m 안에서 눌렀어요 · 퇴근 예정 오전 8:00</div></div>`;
   if (S.shift === 'out') return `<div class="card"><div class="tags">${tag('warn', '확정 대기')}</div>
     <div class="c-row"><div class="c-title">A님 오전 8:00 퇴근</div><div class="c-price num">${won(92880)}</div></div>
     <div class="c-body">확정하면 체무가 그날 일당을 바로 보관해요</div>
@@ -2274,17 +2301,22 @@ function teamContract(s) {
       ${row({ icon:'ic_safe', t:'11월 보관된 돈', s:`근무 ${s.keptDays}일 + 주휴수당 ${s.keptWeeks}주`, trail:won(s.kept), trailCls:'strong' })}
     </div>`;
 }
+// v73: 모의 심사 (1). 지금 꺼낼 수 있는 돈은 채워 둔 돈뿐이고 보관된 돈에서는 0원(급여일 전에는 아무도 꺼낼 수 없음)
+function takeOut(go = '') {
+  return `<div class="group mt16">${row({ icon:'ic_bankbook', t:'지금 꺼낼 수 있는 돈', s:`채워 둔 돈에서 ${won(vaultBal())} · 보관된 돈에서 ${won(0)}`, trail:won(vaultBal()), trailCls:'strong', go })}</div>
+    <p class="note"><span>보관된 돈은 급여일 전에 아무도 꺼낼 수 없어요.</span></p>`;
+}
 function teamVault() {
   // v6: 두 돈의 차이를 버튼 뒤에 숨기지 않고 맨 위에 늘 보이게
   return `${moneyPair(won(vaultBal()), won(lockedTeam()), 'A님, C님, D님 몫 · 12월 10일 오전 9:00')}
     
         <button class="link-btn mt8" data-go="moneyflow">돈이 움직이는 길 보기</button>
+    ${takeOut('withdraw')}
     ${teamShortCallout(true)}
     <div class="group mt12">
       ${row({ icon:'ic_safe', t:'확정하면 바로 보관', s:'사업자 계좌가 아니라 채워 둔 돈에서 옮겨요', trail:'<span class="sw on" role="img" aria-label="켜져 있어요"></span>' })}
       ${row({ icon:'ic_repeat', t:'자동 채우기', s:`매주 월요일 오전 · ${S.autoFill ? '켜짐' : '꺼짐'}`, trail:`<span class="sw ${S.autoFill ? 'on' : ''}" role="img" aria-label="${S.autoFill ? '켜져 있어요' : '꺼져 있어요'}"></span>`, go:'autofill' })}
       ${row({ icon:'ic_coins', t:'12월 10일에 나갈 인건비', s:'3명 11월분 · 근무표대로 예상', trail:won(T_NOV), trailCls:'strong', go:'payall' })}
-      ${row({ icon:'ic_bankbook', t:'꺼내기', s:'채워 둔 돈만 꺼낼 수 있어요', go:'withdraw' })}
       ${row({ icon:'ic_magnifier', t:'두 돈 비교표', s:'누구 몫인지, 언제 바뀌는지', go:'explain' })}
     </div>
     `;
@@ -2426,6 +2458,8 @@ const MODALS = {
   fillFail: () => fillFailHTML(),
   withdrawFail: () => withdrawFailHTML(),   // v37
   autoFail: () => autoFailHTML(),           // v37
+  keptWait: v => keptWaitHTML(v),           // v74
+  shortWait: () => shortWaitHTML(),         // v74
 };
 // v10: 전체 화면도 대화상자로 알리고 보이는 제목에 잇는다 [APG-Dialog]
 function labelModal() {
@@ -2472,7 +2506,7 @@ function obHTML() {
   const st = S.obStep, p = PEOPLE.haneul, o = OWNERS.haneul;
   const bodies = [
     () => `${hero('iso2_50_store_register', 'md')}<h1 class="ob-title" style="margin-top:0">가게를 등록해 주세요</h1>
-      <p class="ob-lead">사장님이 근무를 확정하면 체무가 그날 일당을 알바생 몫으로 따로 보관해요. 급여일에 나갈 돈이 일한 날마다 나눠 쌓여요.</p>
+      <p class="ob-lead">사장님이 근무를 확정하면 체무가 그날 일당을 알바생 몫으로 따로 보관해요. 근무표, 임금대장, 급여명세서도 저절로 쌓여요.</p>
       <div class="group">
         ${row({ icon:'ic_store', t:o.store, s:'가게 이름' })}
         ${S.obEdit === 'biz' ? fldRow({ icon:'ic_check', id:'obBiz', label:'사업자등록번호', value:S.bizVal, fmt:'biz', check:'biz', ph:'숫자 10자리' })
@@ -2480,14 +2514,14 @@ function obHTML() {
         ${row({ icon:'ic_pin', t:'출근할 수 있는 거리', s:'가게에서 30m 안이에요. 배달처럼 밖에서 일한 날은 확정할 때 이유를 남겨요', trail:'30m', trailCls:'strong' })}
       </div>`,
     () => `<h1 class="ob-title" style="margin-top:0">A님 근로계약서를 등록해 주세요</h1>
-      <div class="seg"><span class="on">직접 쓰기</span><span>계약서 사진 찍기</span></div>
-      <div class="group">
+      <div class="seg" role="radiogroup" aria-label="계약서 넣는 방법">${[['write', '직접 쓰기'], ['photo', '계약서 사진 찍기']].map(([k, l]) => `<button class="${S.obSeg === k ? 'on' : ''}" role="radio" aria-checked="${S.obSeg === k}" data-act="obSeg" data-v="${k}">${l}</button>`).join('')}</div>
+      ${S.obSeg === 'photo' ? obPhotoBody() : `<div class="group">
         ${S.obEdit === 'wage' ? fldRow({ icon:'ic_coins', id:'obWage', label:'시급', value:S.wageVal, fmt:'won', check:'wage', suf:'원', help:'법으로 정한 가장 낮은 시급(2026년 최저임금) 이상이에요' })
           : row({ icon:'ic_coins', t:'시급', s:'법으로 정한 가장 낮은 시급(2026년 최저임금) 이상이에요', trail:won(p.wage), trailCls:'strong', act:'obEdit', attrs:'data-v="wage"' })}
         ${row({ icon:'ic_clock', t:'계약한 근무 시간', s:`${p.shiftLabel} · ${p.rest}`, trail:`주 ${p.weekly}시간`, trailCls:'strong' })}
         ${row({ icon:'ic_coins', t:'주휴수당', s:'한 주 15시간 이상 일하면 따로 더 주는 돈이에요. 체무가 법에 따라 계산했어요', trail:'한 주 ' + won(p.weeklyPay), trailCls:'strong' })}
         ${row({ icon:'ic_calendar', t:'급여일', s:PAYDAY_S, trail:p.payday, trailCls:'strong' })}
-      </div>`,
+      </div>`}`,
     () => `${hero('iso_15_invite', 'md')}<h1 class="ob-title" style="margin-top:0">A님에게 초대를 보냈어요</h1>
       <p class="ob-lead">A님이 계약을 확인하고 동의하면 체무가 근무 기록을 시작해요.</p>
       <div class="steps">
@@ -2503,11 +2537,24 @@ function obHTML() {
     <div class="ob-foot"><div class="dots">${[0, 1, 2].map(i => `<i class="${i === st ? 'on' : ''}"></i>`).join('')}</div><div class="btnrow2"><button class="btn sec" data-act="photoClose">닫기</button><button class="btn" data-act="photoRetry">다시 찍기</button></div></div>`;
   const off = obFieldBad() ? ' disabled' : '';   // v66: 칸에 맞지 않는 값이 있으면 버튼을 끄고 이유는 칸 아래 오류 줄
   const foot = st === 0 ? `<button class="btn" data-act="obNext"${off}>가게 등록하기</button>`
-    : st === 1 ? `<button class="btn" data-act="obNext"${off}>계약서 등록하고 초대하기</button>`
+    : st === 1 ? (S.obSeg === 'photo' ? '<button class="btn" data-act="obPhoto">계약서 찍기</button>' : `<button class="btn" data-act="obNext"${off}>계약서 등록하고 초대하기</button>`)
     : `<div class="btnrow2"><button class="btn sec" data-act="toastMsg" data-v="A님에게 초대 문자를 다시 보냈어요">초대 다시 보내기</button><button class="btn" data-act="obDone">계약 상태 보기</button></div>`;
   return `<div class="ob-top">${st > 0 && st < 2 ? `<button class="head-ic" data-act="obBack" aria-label="뒤로 가기">${ic('arrowL', 24)}</button>` : ''}</div>
     <div class="ob-body">${bodies[st]()}</div>
     <div class="ob-foot"><div class="dots">${[0, 1, 2].map(i => `<i class="${i === st ? 'on' : ''}"></i>`).join('')}</div>${foot}</div>`;
+}
+
+/* ---------- v74: 계약서 사진 찍기 갈래 (81). 찍으면 읽는 네 가지와 찍는 법, 읽은 값은 직접 쓰기 칸에서 확인 ---------- */
+function obPhotoBody() {
+  return `<div class="callout acc">${ic('info', 24)}<div><b>계약서 한 장이 화면에 다 들어오게 찍어 주세요</b><span>빛이 비치지 않는 곳에서 찍으면 글자를 잘 읽어요.</span></div></div>
+      ${secH('찍으면 체무가 읽는 것')}
+      <div class="group">
+        ${row({ icon:'ic_coins', t:'시급', s:'최저임금 이상인지 함께 봐요' })}
+        ${row({ icon:'ic_clock', t:'계약한 근무 시간', s:'요일과 시간, 쉬는 시간' })}
+        ${row({ icon:'ic_coins', t:'주휴수당', s:'계약서에 없어도 체무가 법에 따라 계산해요' })}
+        ${row({ icon:'ic_calendar', t:'급여일', s:'매달 며칠에 주는지' })}
+      </div>
+      <p class="note"><span>읽은 값은 등록하기 전에 직접 쓰기 칸에서 고칠 수 있어요.</span></p>`;
 }
 
 /* ---------- 확정 완료 ---------- */
@@ -2517,9 +2564,37 @@ function keptHTML(v) {
       ${obj('ic_check')}
       <h2>A님 일당 ${won(92880)}을 보관했어요</h2><div class="amt">${c.date} ${c.wd}요일 일당 · 12월 10일에 체무가 A님에게 보내요</div>
       <div class="steps">
-        ${step({ icon:'check', state:'done just', t:'근무를 확정함', s: CONF[v] ? '방금' : '11월 22일 오전 8:03' })}
+        ${step({ icon:'check', state:'done just', t:'두 사람이 서명하고 근무를 확정함', s: CONF[v] ? '방금' : '11월 22일 오전 8:03' })}
         ${step({ icon:'lock', state:'ok', t:'채워 둔 돈에서 체무가 A님 몫으로 보관함', s:`남은 채워 둔 돈 ${won(vaultBal())} · ${FILL_P}` })}
         ${step({ icon:'bell', state:'done', t:'A님에게 알림 보냄', s:"A님 앱에 '보관됨'으로 보여요" })}
+        ${step({ icon:'doc', state:'done', t:'장부에 적음', s:'근무표, 임금대장, 급여명세서, 인건비 리포트에 더했어요' })}
+      </div></div></div>
+    <div class="dock"><button class="btn" data-act="modalClose">${backLabel(topEntry().id)}</button></div>`;
+}
+/* ---------- v74: 근무 확정 거래를 기다릴 때 (79). 확정하기를 누른 뒤 거래가 끝날 때까지, 끝나면 10으로 ---------- */
+function keptWaitHTML(v) {
+  const c = CONF[v] || CONF.today;
+  return `${mhead('근무 확정')}<div class="mbody"><div class="result mres">
+      ${obj('ic2_hourglass')}
+      <h2>A님 일당 ${won(92880)}을 보관하고 있어요</h2><div class="amt">${c.date} ${c.wd}요일 일당 · 끝나면 A님에게도 알려요</div>
+      <div class="steps">
+        ${step({ icon:'check', state:'done', t:'두 사람이 서명하고 근무를 확정함', s:'방금' })}
+        ${step({ icon:'lock', state:'cur', t:'채워 둔 돈에서 A님 몫으로 옮기는 중', s:'이 화면을 닫아도 그대로 이어져요' })}
+        ${step({ icon:'bell', state:'next', t:'A님에게 알림 보내기' })}
+        ${step({ icon:'doc', state:'next', t:'장부에 적기' })}
+      </div></div></div>
+    <div class="dock"><button class="btn" data-act="modalClose">${backLabel(topEntry().id)}</button></div>`;
+}
+/* ---------- v74: 다시 보관하는 거래를 기다릴 때 (80). 다 채우기 확인 뒤 채우기와 보관 못 한 날의 보관이 끝날 때까지, 끝나면 45로 ---------- */
+function shortWaitHTML() {
+  const amt = S.partPaid ? 42000 : 168000;
+  return `${mhead('아직 보관 못 한 돈')}${storeBand()}<div class="mbody"><div class="result mres">
+      ${obj('ic2_hourglass')}
+      <h2>B님 몫 ${won(amt)}을 보관하고 있어요</h2><div class="amt">끝나면 B님 앱에도 '보관됨'으로 바뀌어요</div>
+      <div class="steps">
+        ${step({ icon:'check', state:'done', t:`보관함에 ${won(amt)}을 채움`, s:'사업자 계좌에서 옮겼어요' })}
+        ${step({ icon:'lock', state:'cur', t:'보관 못 한 날을 B님 몫으로 보관하는 중', s: S.partPaid ? '11월 16일 ~ 20일 주휴수당' : '11월 18일 ~ 20일 근무 3일과 주휴수당' })}
+        ${step({ icon:'bell', state:'next', t:'B님에게 알림 보내기' })}
       </div></div></div>
     <div class="dock"><button class="btn" data-act="modalClose">${backLabel(topEntry().id)}</button></div>`;
 }
@@ -2593,6 +2668,7 @@ function paydayHTML() {
         ${step({ icon: st > 1 ? 'check' : 'bank', state:sState(1), t: st > 1 ? 'A님 받을 곳으로 들어감' : 'A님 받을 곳으로 입금', s:p.account })}
         ${step({ icon: st > 2 ? 'check' : 'receipt', state:sState(2), t: st > 2 ? '급여명세서 보냄' : '급여명세서 보내기', s:'A님과 사장님에게 같은 명세서' })}
       </div>
+      ${foot()}
     </div></div>
     <div class="dock">${done ? `<button class="btn sec" data-act="modalClose">${backLabel(topEntry().id)}</button><button class="btn" data-act="payToSlip">급여명세서 보기</button>` : `<p class="dock-why">입금이 끝나면 급여명세서를 볼 수 있어요</p><button class="btn" disabled>급여명세서 보기</button>`}</div>`;
 }
@@ -2689,14 +2765,14 @@ function autoFailHTML() {
 
 /* ---------- 기록 대조 ---------- */
 // v39: 링크를 받은 사람이 보는 기록 맞춰 보기 웹 (파일로 맞춰 보기도 그 페이지에서)
-const VERIFY_URL = 'verify.html';   // v72: 같은 폴더의 웹
+const VERIFY_URL = 'verify.html';   // v75: 같은 폴더의 웹
 function verifyHTML() {
   return `${mhead('기록 맞춰 보기')}<div class="mbody"><div class="result">
       <h2 class="t22">고친 기록과 원래 기록이 함께 있어요</h2>
       <div class="amt">링크를 받은 사람만 볼 수 있어요. 이름과 계좌는 체무가 가려서 보여 줘요.</div>
       <div class="group mt16">
         ${row({ icon:'ic_calendar', t:'A님 · 11월 14일 토요일 근무', s:'새싹편의점 연희점' })}
-        ${row({ icon:'ic_check', t:'남긴 사람', s:'출퇴근 A님 · 확정 박** 사장님' })}
+        ${row({ icon:'ic_check', t:'서명한 사람', s:'퇴근할 때 A님 · 확정할 때 박** 사장님' })}
         ${row({ icon:'ic_clock', t:'고친 기록 1건', s:'퇴근 오전 8:00에서 오전 7:30으로 · 이유 남음' })}
         ${row({ icon:'ic_shield', t:'기록 번호', s:'0x4be1…92af · 18,204,117번째로 저장한 기록' })}
       </div>
@@ -2857,9 +2933,12 @@ const ACT = {
   goTab: d => switchTab(d.v),
   modalClose: () => { closeModal(); refresh(); },
 
+  // v74: 확정하기 → 근무 확정 거래를 기다림(79) → 끝나면 확정 완료(10)
   confirmDo: d => {
-    if (CONF[d.v] && d.v !== 'today') { S.bkDone.add(d.v); pop(); setTimeout(() => openModal('kept', d.v), 320); return; }
-    S.shift = 'kept'; pop(); setTimeout(() => openModal('kept'), 320);
+    const v = CONF[d.v] && d.v !== 'today' ? d.v : undefined;
+    if (v) S.bkDone.add(v); else S.shift = 'kept';
+    pop(); setTimeout(() => openModal('keptWait', v), 320);
+    setTimeout(() => { if (S.modal === 'keptWait') openModal('kept', v, true); }, 1720);
   },
   confirmAll: () => dialog({ title:'A님 11월 21일, 22일 근무를 확정할까요?', msg:'채워 둔 돈에서 체무가 222,912원을 A님 몫으로 보관해요.\n보관한 뒤에는 다시 꺼낼 수 없어요.', ok:'2건 확정하기', fn:() => { S.backlog = false; refresh(); toast('2건을 확정하고 222,912원을 보관했어요'); } }),
   editSave: () => { pop(); toast('A님 퇴근 시간을 오전 7:30으로 고쳤어요'); },
@@ -2875,9 +2954,9 @@ const ACT = {
   rosterSave: d => { pop(); toast(`${d.v}님 근무를 매주 반복으로 넣었어요`); },
   absentDo: () => { pop(); toast('C님 11월 24일 근무를 결근으로 남겼어요'); },   // v36: E18 사장님 틀
   lockedTap: d => dialog({ key:'lock' + d.v, title:`${d.v}님 몫이라 12월 10일에 나가요`,
-    msg:`${d.v}님이 그만두면 다음 날 ${d.v}님에게 먼저 나가요.`, ok:'채워 둔 돈 꺼내기', fn:() => ACT.withdrawDo() }),
+    msg:`${d.v}님이 그만두면 다음 날 오전 9:00에 ${d.v}님에게 먼저 나가요.`, ok:'채워 둔 돈 꺼내기', fn:() => ACT.withdrawDo() }),
   withdrawDo: () => toast(`채워 둔 돈 ${won(vaultBal())} 안에서 꺼낼 수 있어요 (시연 버전)`),
-  shortPay: () => { const r = remMissing(); dialog({ title:`${josa(r, '을', '를')} 다 채울까요?`, msg:'체무가 사업자 계좌에서 보관함으로 옮겨 B님 몫으로 바로 보관해요.\n보관한 뒤에는 다시 꺼낼 수 없어요.', ok:`${won(r)} 채우기`, fn:() => { S.shortDone = r; S.shortPaid = true; pop(); setTimeout(() => openModal('shortDone'), 320); } }); },
+  shortPay: () => { const r = remMissing(); dialog({ title:`${josa(r, '을', '를')} 다 채울까요?`, msg:'체무가 사업자 계좌에서 보관함으로 옮겨 B님 몫으로 바로 보관해요.\n보관한 뒤에는 다시 꺼낼 수 없어요.', ok:`${won(r)} 채우기`, fn:() => { S.shortDone = r; S.shortPaid = true; pop(); setTimeout(() => openModal('shortWait'), 320); setTimeout(() => { if (S.modal === 'shortWait') openModal('shortDone', undefined, true); }, 1720); } }); },   // v74: 다시 보관하는 거래를 기다림(80) 뒤 45
   // v6: 아직 보관 못 한 돈을 나눠 채우거나 날짜를 알리기
   shortPick: d => { S.shortPick = d.v; refresh(); },
   shortPart: () => dialog({ key:'part', title:'126,000원만 먼저 채울까요?', msg:'체무가 11월 18일 ~ 20일 일당을 B님 몫으로 바로 보관해요.\n보관한 뒤에는 다시 꺼낼 수 없어요.', ok:'126,000원 채우기',
@@ -2934,6 +3013,8 @@ const ACT = {
   photoClose: () => { S.photoFail = false; reModal(); },
   photoRetry: () => { S.photoFail = false; reModal(); toast('카메라를 다시 열었어요 (시연 버전)'); },
   photoSelf: () => { S.photoFail = false; reModal(); },   // v46: 직접 쓰기 칸으로 돌아감
+  obSeg: d => { S.obSeg = d.v; S.obEdit = null; reModal(); const b = modal.querySelector(`[data-act="obSeg"][data-v="${d.v}"]`); if (b) b.focus({ preventScroll:true }); },   // v74
+  obPhoto: () => { S.obSeg = 'write'; reModal(); toast('계약서에서 읽은 값을 칸에 넣었어요 (시연 버전)'); },   // v74
   fillFail: () => openModal('fillFail'),
   withdrawRetry: () => { closeModal(true); refresh(); ACT.withdrawDo(); },   // v37
   autoFailFill: () => { closeModal(true); refresh(); ACT.fillShort(); },     // v37
@@ -2998,6 +3079,7 @@ function reset() {
   S.team = false; S.autoFill = false; S.bkDone.clear(); closeDialog(); S.dlg = null;
   S.loadFail = false; S.noStaff = false; S.noNotices = false; S.photoFail = false;   // v13
   S.notifOff.clear(); S.phoneOff = false;   // v31
+  S.obSeg = 'write'; S.reAsked = false;   // v74
   S.closeCase = 'kept';   // v32
   S.obEdit = null; S.bizVal = ''; S.wageVal = '10,320'; S.partAmt = 126000; S.fillSelf = 0; S.fErr = {};   // v66
   S.editReason = S.keepReason = '오전 7:30에 다음 근무자와 교대했어요';
@@ -3008,7 +3090,7 @@ function teamJump(tab, ids) { reset(); S.team = true; S.fillPick = 'short'; jump
 const PANEL = [
   ['시작하기', [
     { l:'가게 등록', key:'m:ob:0', run:() => { reset(); jump('home', ['home'], H); S.obStep = 0; openModal('ob'); },
-      note:{ v67:'v67: 히어로 iso2_50이 화면을 열 때 아래 8px에서 떠오름 320ms(히어로 등장). 다시 그릴 때는 움직이지 않음', v66:'v66: 사업자등록번호 줄을 누르는 줄로(오른쪽 화살표). 누르면 그 자리에서 숫자 칸으로 바뀜(73). 보이는 글은 그대로', v63:'v63: 단계 점 12x4, 지금 단계 24x4, 지금 아닌 점은 바탕과 3:1 (--stroke-neutral-strong)', v58:'v58: 그림을 밤 가게 iso_00에서 2판 iso2_50 낮 가게와 위치 핀으로 (그림 배정표 2판)', v29:'v29: 히어로를 한 크기 208px로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (가게 이름 ic_store, 사업자등록번호 확인 ic_check, 출근할 수 있는 거리 ic_pin)', v26:'v26: 그림 iso_00 경로를 웹용 webp(640px)로', v23:'v23: \'보관\'을 처음 나올 때 \'알바생 몫으로 따로 보관해요\'로 풀어 씀', v22:'v22: 둘째 문장 \'급여일에 큰돈을 따로 마련하지 않아도 돼요\'(형편을 단정하는 느낌)를 \'급여일에 나갈 돈이 일한 날마다 나눠 쌓여요\'로', v21:'v21: \'출퇴근 인정 범위\'를 \'출근할 수 있는 거리\'(가게에서 30m 안)로. 사업자등록번호 줄과 같은 뜻의 배지 \'확인됨\'을 뺌', v20:'v20: 첫 줄을 \'사장님이 근무를 확정하면 체무가 그날 일당을 보관해요\'로 (누가 보관하는지)', v19:'v19: 버튼 \'다음\'을 누르면 일어날 일 \'가게 등록하기\'로', v17:'v17: \'급여일에 목돈을 마련할 일이 없어요\'를 다른 화면과 같은 한 문장 \'급여일에 큰돈을 따로 마련하지 않아도 돼요\'로', v15:'v15: 3D 그림을 iso_13 사장님 카운터에서 iso_00 편의점 야간으로 (가게 등록 장면). 206px, 빈 alt와 aria-hidden', v8:'v8: 3D 그림 가장자리 마스크 그라데이션을 빼고 제목 28, 설명 17로. 행 왼쪽은 24px 아이콘, 하단 버튼 아래 여백 max(안전 영역, 20px)', q:'이 가게에서 체무를 쓰면 무엇이 달라지나', i:'앱 첫 실행', o:'근로계약 올리기', w:'없음 (사장님 쪽 시작점)',
+      note:{ v74:'v74: 결정안 3(사장님이 쓰는 이유는 장부와 명세서가 저절로 쌓이는 것). 설명 둘째 문장을 "근무표, 임금대장, 급여명세서도 저절로 쌓여요"로', v67:'v67: 히어로 iso2_50이 화면을 열 때 아래 8px에서 떠오름 320ms(히어로 등장). 다시 그릴 때는 움직이지 않음', v66:'v66: 사업자등록번호 줄을 누르는 줄로(오른쪽 화살표). 누르면 그 자리에서 숫자 칸으로 바뀜(73). 보이는 글은 그대로', v63:'v63: 단계 점 12x4, 지금 단계 24x4, 지금 아닌 점은 바탕과 3:1 (--stroke-neutral-strong)', v58:'v58: 그림을 밤 가게 iso_00에서 2판 iso2_50 낮 가게와 위치 핀으로 (그림 배정표 2판)', v29:'v29: 히어로를 한 크기 208px로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (가게 이름 ic_store, 사업자등록번호 확인 ic_check, 출근할 수 있는 거리 ic_pin)', v26:'v26: 그림 iso_00 경로를 웹용 webp(640px)로', v23:'v23: \'보관\'을 처음 나올 때 \'알바생 몫으로 따로 보관해요\'로 풀어 씀', v22:'v22: 둘째 문장 \'급여일에 큰돈을 따로 마련하지 않아도 돼요\'(형편을 단정하는 느낌)를 \'급여일에 나갈 돈이 일한 날마다 나눠 쌓여요\'로', v21:'v21: \'출퇴근 인정 범위\'를 \'출근할 수 있는 거리\'(가게에서 30m 안)로. 사업자등록번호 줄과 같은 뜻의 배지 \'확인됨\'을 뺌', v20:'v20: 첫 줄을 \'사장님이 근무를 확정하면 체무가 그날 일당을 보관해요\'로 (누가 보관하는지)', v19:'v19: 버튼 \'다음\'을 누르면 일어날 일 \'가게 등록하기\'로', v17:'v17: \'급여일에 목돈을 마련할 일이 없어요\'를 다른 화면과 같은 한 문장 \'급여일에 큰돈을 따로 마련하지 않아도 돼요\'로', v15:'v15: 3D 그림을 iso_13 사장님 카운터에서 iso_00 편의점 야간으로 (가게 등록 장면). 206px, 빈 alt와 aria-hidden', v8:'v8: 3D 그림 가장자리 마스크 그라데이션을 빼고 제목 28, 설명 17로. 행 왼쪽은 24px 아이콘, 하단 버튼 아래 여백 max(안전 영역, 20px)', q:'이 가게에서 체무를 쓰면 무엇이 달라지나', i:'앱 첫 실행', o:'근로계약 올리기', w:'없음 (사장님 쪽 시작점)',
         v:'v6: 출퇴근 인정 범위 줄에 "기본은 가게 30m 안", 배달, 창고처럼 밖에서 일한 날은 확정할 때 이유를 남긴다는 한 줄을 더함. 미정: 출퇴근 인정 범위 조절(30m 기본에서 사장님이 넓히거나 좁히기)' } },
     { l:'근로계약 올리기', key:'m:ob:1', run:() => { reset(); jump('home', ['home'], H); S.obStep = 1; openModal('ob'); },
       note:{ v69:'v69: 개발용 표 ../v69/handoff/시연화면_상세_사장님.md 3절, 레드라인 01_근로계약_올리기.png, 01_시급_오류(74).png. 컨트랙트 거래와 닿지 않음(계약 조건은 앱 데이터)', v66:'v66: 시급 줄을 누르는 줄로(오른쪽 화살표). 누르면 그 자리에서 금액 칸으로 바뀌고 도움말은 칸 아래(74). 보이는 글은 그대로', v38:'v38: 과제 1 고칠 것 4. 주 버튼 [A님에게 초대 보내기]를 [계약서 등록하고 초대하기]로(제목은 계약서 등록인데 버튼이 초대라 계약서가 저장되는지 안 보였음)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (시급과 주휴수당 ic_coins, 계약한 근무 시간 ic_clock, 급여일 ic_calendar)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 주휴수당을 \'한 주 37,152원\'으로', v23:'v23: 제목 \'올려 주세요\'(낯섦)를 \'근로계약서를 등록해 주세요\'로, \'계약서 사진 찍기\'. 최저임금과 주휴수당을 처음 나올 때 한 줄로 풀고 주 15시간이 기준이라는 것을 밝힘', v22:'v22: 주휴수당 줄을 \'체무가 법에 따라 계산해 넣었어요\'로 (확인 안 한 금액이 정해진 듯한 불안)', v21:'v21: 주휴수당 줄과 같은 뜻의 배지 \'자동 포함\', 급여일 줄 설명의 \'급여일에\' 되풀이를 뺌', v20:'v20: \'자동으로 넣었어요\'를 \'체무가 계산해 넣었어요\'로, 급여일 줄을 \'체무가 … 한 번에 보내요\'로', v18:'v18: 제목을 \'A님 근로계약을 올려 주세요\'로 줄여 글자 200%에서 두 줄 안', v17:'v17: \'휴게\'를 \'쉬는 시간\'으로 (용어집)', v16:'v16: 버튼 \'A님께 초대 보내기\'를 \'A님에게 초대 보내기\'로 (UX-03)', v15:'v15: 정보가 많은 화면이라 3D 그림(iso_02 120px)을 뺌', v9:'v9: 세그먼트 고른 칸에 3:1 테두리와 굵은 글자를 더해 색만으로 고른 칸을 알리지 않음', v8:'v8: 직접 쓰기와 계약서 사진 올리기를 단일 선택(세그먼트) 모양으로, 바탕 모서리 16, 고른 칸 8. 제목 28', q:'A님과 무엇을 약속하나, 주휴수당은 들어갔나 (주 15시간 이상이면 자동 포함)', i:'가게 등록, 알바생 탭의 초대하기', o:'초대 보냄', w:'계약 확인: 주휴수당 빠짐',
@@ -3019,7 +3101,7 @@ const PANEL = [
       note:{ v29:'v29: 히어로를 한 크기 208px로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (시급과 주휴수당 ic_coins, 계약한 근무 시간 ic_clock, 급여일 ic_calendar)', v26:'v26: 제목 위 히어로 iso_33 계약 고치기 (그림 배정표)', v25:'v25: 확인 창 버튼을 \'계약 다시 보내기\'로, 동의 토스트를 한 문장 \'A님이 동의해서 계약을 확정했어요\'로', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), \'₩0\'을 \'0원\'으로, 주휴수당을 \'한 주 37,152원\'으로', v21:'v21: 제목과 같은 배지 \'고쳐 달라고 함\', 계약 줄과 같은 \'사진에 주휴수당 항목이 없었어요\'와 배지 \'빠져 있음\'을 뺌', v19:'v19: 주휴수당을 넣어 보낸 뒤 비활성 버튼 \'A님 동의를 기다리고 있어요\'를 버튼 위 한 줄 \'A님이 동의하면 계약이 확정돼요\'와 돌아가기 버튼으로', v17:'v17: 제목을 사건 표 E13 \'A님이 계약을 고쳐 달라고 요청했어요\'로, 상태 \'고쳐 달라고 함\'. 무엇을 고쳐 달라는지는 안내 상자 제목 \'A님이 주휴수당을 넣어 달라고 했어요\'로', v15:'v15: 화면 제목을 상단 바 "A님 근로계약"에서 본문 큰 제목 "A님이 주휴수당을 넣어 달라고 했어요"로. 상단 바 글자는 이름표로만', v9:'v9: 주의 배지와 안내 상자 제목 글자를 #8f5200(5.47:1)으로, 계약 확정 같은 안내 배지는 #0a6658(5.94:1)', v8:'v8: 화면 머리를 위 15, 제목 22, 배지는 점 없이 글자만. 안내 상자 아이콘 24px 하나', q:'A님이 계약에서 무엇을 고쳐 달라고 했나 (계약서 사진으로 올려 주휴수당이 빠진 경우)', i:'알림, 알바생 목록', o:'주휴수당 넣고 다시 보내기 → 계약 확정', w:'계약 확인: 주휴수당 빠짐',
         v:'v6: 급여일 줄 설명을 01과 같게' } },
     { l:'계약 확정', key:'haneul/staff/contract/agreed', run:() => { reset(); jump('staff', ['staff', 'contract'], H); },
-      note:{ v72:'v72: 모의 사용 고칠 것 9. 근무부터 급여일까지 네 단계를 명사로 끝나던 줄에서 주어와 서술어가 있는 문장으로(A님이 출퇴근을 눌러요, 사장님이 근무를 확정해요, 채워 둔 돈에서 체무가 그날 일당을 보관해요, 급여일에 따로 누르지 않아도 나가요). 첫 단계 보조 줄은 같은 동사를 되풀이하지 않게 "가게 30m 안에서만 누를 수 있어요"', v46:'v46: 상대 앱에 알바생 57 계약: 확정됨을 더함 (판단 v40-6)', v31:'v31: 셋째 단계 \'체무가 채워 둔 돈에서 그날 일당 보관\'을 \'채워 둔 돈에서 체무가 그날 일당 보관\'으로 (주어를 동사 가까이, \'체무가 채워 둔 돈\'으로 끊어 읽히지 않게)', v29:'v29: 히어로를 한 크기 208px로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (시급과 주휴수당 ic_coins, 계약한 근무 시간 ic_clock, 급여일 ic_calendar)', v26:'v26: 제목 위 히어로 iso_32 계약 확정 (그림 배정표, C님 D님 계약 화면도 같은 그림)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 주휴수당을 \'한 주 37,152원\'으로', v23:'v23: 단계 \'사장님이 근무 확정\'에 \'그날 일한 시간이 맞다고 정해요\' 풀이', v21:'v21: 제목과 같은 배지를 빼고, 단계 머리를 \'근무부터 급여일까지\'로, \'보관 … 보관해요\'를 \'급여일까지 A님 몫이에요\'로', v20:'v20: 흐름 단계에 주어: \'체무가 채워 둔 돈에서 그날 일당 보관\', \'체무가 급여명세서도 함께 만들어요\', \'가게 30m 안에서 눌러요\'', v17:'v17: 제목을 E14 \'A님 계약을 확정했어요\'로. 흐름 단계 \'급여일 전에는 사장님이 꺼낼 수 없어요\'를 \'급여일까지 A님 몫으로 보관해요\'로. 쉬는 시간', v15:'v15: 화면 제목을 본문 큰 제목 "A님과 계약을 확정했어요"로. 상단 바 글자는 이름표로만', v8:'v8: 이제 이렇게 돌아가요 단계를 24px 원과 가는 선으로, 계약 내용 행 왼쪽 24px 아이콘', q:'이제부터 무엇이 자동으로 돌아가나', i:'A님 동의 알림, 알바생 목록', o:'오늘', w:'계약 확인: 고쳐진 계약, 계약: 확정됨',
+      note:{ v74:'v74: 결정안 1. 흐름 첫 단계 보조 줄에 "퇴근할 때 그날 기록에 서명해요", 둘째 단계 "그날 일한 시간이 맞으면 같은 기록에 서명해요"(두 사람 서명)', v72:'v72: 모의 사용 고칠 것 9. 근무부터 급여일까지 네 단계를 명사로 끝나던 줄에서 주어와 서술어가 있는 문장으로(A님이 출퇴근을 눌러요, 사장님이 근무를 확정해요, 채워 둔 돈에서 체무가 그날 일당을 보관해요, 급여일에 따로 누르지 않아도 나가요). 첫 단계 보조 줄은 같은 동사를 되풀이하지 않게 "가게 30m 안에서만 누를 수 있어요"', v46:'v46: 상대 앱에 알바생 57 계약: 확정됨을 더함 (판단 v40-6)', v31:'v31: 셋째 단계 \'체무가 채워 둔 돈에서 그날 일당 보관\'을 \'채워 둔 돈에서 체무가 그날 일당 보관\'으로 (주어를 동사 가까이, \'체무가 채워 둔 돈\'으로 끊어 읽히지 않게)', v29:'v29: 히어로를 한 크기 208px로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (시급과 주휴수당 ic_coins, 계약한 근무 시간 ic_clock, 급여일 ic_calendar)', v26:'v26: 제목 위 히어로 iso_32 계약 확정 (그림 배정표, C님 D님 계약 화면도 같은 그림)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 주휴수당을 \'한 주 37,152원\'으로', v23:'v23: 단계 \'사장님이 근무 확정\'에 \'그날 일한 시간이 맞다고 정해요\' 풀이', v21:'v21: 제목과 같은 배지를 빼고, 단계 머리를 \'근무부터 급여일까지\'로, \'보관 … 보관해요\'를 \'급여일까지 A님 몫이에요\'로', v20:'v20: 흐름 단계에 주어: \'체무가 채워 둔 돈에서 그날 일당 보관\', \'체무가 급여명세서도 함께 만들어요\', \'가게 30m 안에서 눌러요\'', v17:'v17: 제목을 E14 \'A님 계약을 확정했어요\'로. 흐름 단계 \'급여일 전에는 사장님이 꺼낼 수 없어요\'를 \'급여일까지 A님 몫으로 보관해요\'로. 쉬는 시간', v15:'v15: 화면 제목을 본문 큰 제목 "A님과 계약을 확정했어요"로. 상단 바 글자는 이름표로만', v8:'v8: 이제 이렇게 돌아가요 단계를 24px 원과 가는 선으로, 계약 내용 행 왼쪽 24px 아이콘', q:'이제부터 무엇이 자동으로 돌아가나', i:'A님 동의 알림, 알바생 목록', o:'오늘', w:'계약 확인: 고쳐진 계약, 계약: 확정됨',
         v:'v6: 급여일 줄 설명, 흐름 단계를 "사장님이 근무 확정", "채워 둔 돈에서 그날 일당 보관"으로, "가게 30m 안"으로 이름 맞춤' } },
     { l:'알바생 3명 초대 상태', nw:true, key:'team/staff/invites', run:() => teamJump('staff', ['staff', 'invites']),
       note:{ v47:'v47: C님 줄을 "계약을 열었고 아직 동의하지 않았어요", D님 줄을 "초대 문자를 아직 열지 않았어요"로(다시 보내기는 바로 아래 버튼). 배지는 그대로 (모의 사용 1)', v21:'v21: C님 줄의 배지와 같은 문장을 빼고 배지를 \'동의 전\'으로', v20:'v20: \'출퇴근 기록과 일당 보관이 시작돼요\'를 \'알바생이 동의한 날부터 체무가 … 시작해요\'로', v16:'v16: 상태 \'동의 완료\'를 \'동의함\'으로, \'보관이 시작됐어요\'를 \'보관을 시작했어요\'로, D님 초대 토스트 \'님에게\' (UX-09, UX-02, UX-03)', v15:'v15: 화면 제목을 본문 큰 제목 "알바생 3명 가운데 1명이 동의했어요"로', v10:'v10: 초대 다시 보내기 누르는 높이 36에서 44로', v8:'v8: 사람 행 왼쪽 40px 원, 초대 다시 보내기는 옅은 버튼, 들여쓴 구분선을 이름 시작에 맞춤', q:'초대한 알바생이 어디까지 했나 (동의 완료, 열어 봄, 아직 안 열어 봄). 처음 가게를 열 때의 상태. 미정: 초대 링크 유효 기간', i:'초대 보냄, 알바생 목록의 알바생 초대하기', o:'초대 다시 보내기, 알바생 초대하기 (근로계약 올리기)', w:'휴대폰 본인 확인, 초대 링크 기간 지남, 계약 확인: 고쳐진 계약',
@@ -3033,26 +3115,26 @@ const PANEL = [
       note:{ v72:'v72: 모의 사용 고칠 것 7. 할 일 줄 "다음 주 인건비는 268,272원을 더 채우면 돼요"("만"은 모자란 사장님에게 가볍게 보는 말로 읽힘)', v58:'v58: 채워 둔 돈 성질 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"', v38:'v38: 과제 1 고칠 것 5(사장님 앱 같은 자리). 돈 카드 이름 "보관된 돈 · 급여일에 알바생에게 나가요"를 "지금까지 보관된 돈"으로, 보조 줄 "A님 몫 · 12월 10일"을 "A님 몫 · 12월 10일 급여일에 나가요"로(급여일에 나갈 월급 전부처럼 읽히지 않게)', v31:'v31: 할 일(채울 돈 안내, 퇴근 뒤 확정 카드)을 상태 제목 바로 아래로 (판단 7). 안내 둘째 줄 \'다음 주 일당이 모두\'를 \'다음 주 3명 몫이 모두\'로 (주휴수당이 섞인 금액, 판단 11)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (근무 ic_clock, 주휴수당 ic_coins, 보관 합계 ic_safe. 시간표의 사람 자리는 이름 글자 원 그대로)', v26:'v26: 판단 1로 날짜와 가게 이름 줄을 상태 제목 아래로. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v23:'v23: \'D-19\'를 \'급여일 19일 전\'으로, 채워 둔 돈 성질 줄, \'개근\'을 \'빠짐없이 나온 주\'로', v22:'v22: 할 일 \'다음 주 인건비가 ₩268,272 모자라요\'를 \'… ₩268,272만 더 채우면 돼요\'로', v21:'v21: 두 돈 아래 설명 줄을 빼고, 쉬는 사람 줄마다 되풀이되던 문장을 배지 \'쉬는 날\'로', v20:'v20: 두 돈 아래 줄을 \'근무를 확정하면 체무가 그날 일당을 … 옮겨요\'로', v18:'v18: 본문 큰 제목 \'오늘 밤 A님 근무가 있어요\', 상단 바 \'오늘\'은 이름표', v17:'v17: 다음 주 인건비 할 일 둘째 줄에서 금액을 빼고 \'채우면 다음 주 일당이 모두 보관돼요\'(규칙집 UX-17 예)', v9:'v9: 오늘 쉬는 C님, D님 원을 흰 글자 1.6:1에서 옅은 회색 바탕과 진한 글자 7.9:1로', v8:'v8: 먹색 카드 보라 글로우 뺌, 할 일 안내 상자 아이콘 24px, 오늘 시간표 사람 행 40px 원', q:'3명 몫으로 보관된 돈과 꺼낼 수 있는 채워 둔 돈은 얼마인가, 오늘 누가 일하나. 11월 21일(토) 기준이라 오늘 근무는 A님뿐이고 C님, D님은 쉬는 날로 보임. 시간표는 하루 근무 순서(D님 오전 8:00, C님 오후 5:30, A님 오후 10:00)', i:'오늘 탭', o:'다음 주 인건비, 근무 확정, 알바생 탭, 알림', w:'오늘 (각자 자기 몫만 보여요)',
         v:'v6: 두 돈 성질 한 줄, 최근 보관을 C님 주휴수당, D님 주휴수당 줄로 나누고 11월 20일 보관 합계 ₩165,120(₩41,280 × 4) 줄을 더함, 모자람 할 일은 해결 문장 먼저' } },
     { l:'출근 알림 (11월 21일)', key:'haneul/home/home/push', run:() => { reset(); S.shift = 'working'; jump('home', ['home'], H); showPush(); },
-      note:{ v68:'v68: 화면 위 여백을 고정 80 대신 배너 높이를 따라(글자 130%, 200%에서 커진 배너가 제목을 가리던 것). 200%에서는 배너 첫 줄(앱 이름과 시각)을 접음', v65:'v65: 근무 중 배지를 지금(보라)으로. 알림 배너가 떠 있는 동안 화면 위 여백을 54에서 80으로(상태 제목이 배너 아래 8에서 시작)', v58:'v58: 채워 둔 돈 성질 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"', v47:'v47: 시점을 PANEL 이름에(11월 21일, 06과 같은 11월 14일 상태, 모의 사용 5)', v38:'v38: 과제 1 고칠 것 5(사장님 앱 같은 자리). 돈 카드 이름 "보관된 돈 · 급여일에 알바생에게 나가요"를 "지금까지 보관된 돈"으로, 보조 줄 "A님 몫 · 12월 10일"을 "A님 몫 · 12월 10일 급여일에 나가요"로(급여일에 나갈 월급 전부처럼 읽히지 않게)', v31:'v31: 할 일(근무 중 카드)을 상태 제목 바로 아래로 (판단 7), 11월 14일 고친 기록 행은 보관된 돈 카드 아래로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (고친 기록과 근무 ic_clock, 주휴수당 ic_coins)', v26:'v26: 판단 1로 날짜와 가게 이름 줄을 상태 제목 아래로. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v25:'v25: 알림 배너를 화면 읽기에서 바로 읽도록(role=status)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v23:'v23: \'D-19\'를 \'급여일 19일 전\'으로, 채워 둔 돈 성질 줄, \'개근\'', v22:'v22: \'가게 30m 안에서 눌렀어요\'(동선을 재는 느낌)를 \'가게에서 눌렀어요\'로, 알림 배너도 같이', v21:'v21: 두 돈 아래 설명 줄을 뺌', v20:'v20: 근무 중 카드 \'A님이 가게 30m 안에서 눌렀어요\'(누가 눌렀는지)', v18:'v18: 본문 큰 제목 \'A님이 근무 중이에요\'', v17:'v17: \'A님 몫 · 12월 10일\'로 맞춤', v8:'v8: 근무 중 카드 모서리 16, 알림 배너 앱 아이콘 모서리 8과 24px 아이콘', q:'A님이 가게에서 제시간에 출근했나', i:'휴대폰 알림 (A님이 가게 30m 안에서 출근)', o:'오늘 (근무 중 카드)', w:'출근하기',
+      note:{ v74:'v74: 결정안 1. 출근 줄 "A님이 가게 30m 안에서 눌렀어요", 출근 알림 "가게 30m 안에서 오후 9:58에 눌렀어요"', v68:'v68: 화면 위 여백을 고정 80 대신 배너 높이를 따라(글자 130%, 200%에서 커진 배너가 제목을 가리던 것). 200%에서는 배너 첫 줄(앱 이름과 시각)을 접음', v65:'v65: 근무 중 배지를 지금(보라)으로. 알림 배너가 떠 있는 동안 화면 위 여백을 54에서 80으로(상태 제목이 배너 아래 8에서 시작)', v58:'v58: 채워 둔 돈 성질 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"', v47:'v47: 시점을 PANEL 이름에(11월 21일, 06과 같은 11월 14일 상태, 모의 사용 5)', v38:'v38: 과제 1 고칠 것 5(사장님 앱 같은 자리). 돈 카드 이름 "보관된 돈 · 급여일에 알바생에게 나가요"를 "지금까지 보관된 돈"으로, 보조 줄 "A님 몫 · 12월 10일"을 "A님 몫 · 12월 10일 급여일에 나가요"로(급여일에 나갈 월급 전부처럼 읽히지 않게)', v31:'v31: 할 일(근무 중 카드)을 상태 제목 바로 아래로 (판단 7), 11월 14일 고친 기록 행은 보관된 돈 카드 아래로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (고친 기록과 근무 ic_clock, 주휴수당 ic_coins)', v26:'v26: 판단 1로 날짜와 가게 이름 줄을 상태 제목 아래로. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v25:'v25: 알림 배너를 화면 읽기에서 바로 읽도록(role=status)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v23:'v23: \'D-19\'를 \'급여일 19일 전\'으로, 채워 둔 돈 성질 줄, \'개근\'', v22:'v22: \'가게 30m 안에서 눌렀어요\'(동선을 재는 느낌)를 \'가게에서 눌렀어요\'로, 알림 배너도 같이', v21:'v21: 두 돈 아래 설명 줄을 뺌', v20:'v20: 근무 중 카드 \'A님이 가게 30m 안에서 눌렀어요\'(누가 눌렀는지)', v18:'v18: 본문 큰 제목 \'A님이 근무 중이에요\'', v17:'v17: \'A님 몫 · 12월 10일\'로 맞춤', v8:'v8: 근무 중 카드 모서리 16, 알림 배너 앱 아이콘 모서리 8과 24px 아이콘', q:'A님이 가게에서 제시간에 출근했나', i:'휴대폰 알림 (A님이 가게 30m 안에서 출근)', o:'오늘 (근무 중 카드)', w:'출근하기',
         v:'v6: 오늘 화면과 같은 두 돈 성질 한 줄, "가게 30m 안"으로 이름 맞춤' } },
     { l:'근무 확정', key:'haneul/home/confirm:today', run:() => { reset(); S.shift = 'out'; jump('home', ['home', 'confirm:today'], H); },
-      note:{ v69:'v69: 개발용 표 4절, 레드라인 09_근무_확정.png. [확정하기]가 근무 확정 거래(두 서명 확인, 채워 둔 돈에서 일당 92,880원을 보관된 돈으로)', v64:'v64: 아래 버튼 자리 아래 여백을 안전 영역 --space-dock-bottom(34)으로. 모든 아래 버튼 자리 같음', v63:'v63: 진행 단계 원 40px, 아이콘 24px, 단계 묶음 위아래 0 (두 앱 기준표 4절). 단계 있는 화면 모두 같음', v47:'v47: 맨 위에 "확정해도 돈은 지금 나가지 않아요. 12월 10일 급여일에 따로 누르지 않아도 A님에게 나가요", 안내 상자의 같은 줄은 뺌 (모의 사용 2). 시간 고치기 줄은 [시간 고치기]로 실제로 가서 그대로', v46:'v46: 상대 앱 화면을 알바생 21, 59 퇴근 뒤 확정 대기로 바로잡음 (판단 v40-6)', v31:'v31: \'확정하면 체무가 채워 둔 돈에서\'를 \'확정하면 채워 둔 돈에서 체무가\'로 (주어를 동사 가까이)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로)', v23:'v23: \'누르지 않아도\'를 \'급여일에는 따로 누르지 않아도\'로 (무엇을 안 눌러도 되는지)', v22:'v22: 출근 줄의 \'가게 30m 안에서 눌렀어요\'를 빼고 머리를 \'A님이 가게에서 남긴 기록\' 하나로 (감시하는 느낌)', v21:'v21: 제목에 있는 날짜를 위 줄에서 빼고, 퇴근 줄의 되풀이 설명을 뺌', v20:'v20: \'확정하면 체무가 채워 둔 돈에서 ₩92,880을 A님 몫으로 보관해요\', 출퇴근 단계 주어 \'A님이\', \'고치면 체무가 A님에게 바로 알려요\'', v19:'v19: 버튼 \'확정하고 보관하기\'를 사건 표 이름 \'확정하기\'로. 보관 금액은 바로 위 안내 상자에 있음', v17:'v17: 제목을 E01 \'A님 11월 21일 근무를 확정해 주세요\'로. \'급여일에 따로 이체하지 않아도 돼요\'를 용어집대로 \'누르지 않아도 급여일에 A님에게 나가요\'로. 쉬는 시간', v10:'v10: 글자 130%, 200%에서 아래 두 버튼을 세로로 쌓고 상단 바 제목이 줄을 바꿈', v8:'v8: 금액 머리를 위 15, 금액 28, 설명 17로. 시간 고치기는 옅은 버튼, 확정하고 보관하기만 채운 버튼. 기록 단계 24px 원', q:'이 근무 기록을 그대로 인정할까', i:'오늘의 할 일, 퇴근 알림', o:'확정 완료 또는 시간 고치기', w:'퇴근 뒤 확정 대기, 오늘: 퇴근 뒤 확정 대기 (11월 21일, 예상 월급은 결정 뒤)',
+      note:{ v74:'v74: 결정안 1. 기록 묶음 이름 "A님이 가게 30m 안에서 남긴 기록", 그 아래 "두 사람 서명" 묶음: A님 서명(끝남, 퇴근할 때 가게 30m 안에서 · 오전 8:00), 사장님 서명(다음, 확정하기를 누르면 같은 하루 기록에). 확정하기 뒤 근무 확정 거래를 기다리는 상태(79)를 거쳐 10', v69:'v69: 개발용 표 4절, 레드라인 09_근무_확정.png. [확정하기]가 근무 확정 거래(두 서명 확인, 채워 둔 돈에서 일당 92,880원을 보관된 돈으로)', v64:'v64: 아래 버튼 자리 아래 여백을 안전 영역 --space-dock-bottom(34)으로. 모든 아래 버튼 자리 같음', v63:'v63: 진행 단계 원 40px, 아이콘 24px, 단계 묶음 위아래 0 (두 앱 기준표 4절). 단계 있는 화면 모두 같음', v47:'v47: 맨 위에 "확정해도 돈은 지금 나가지 않아요. 12월 10일 급여일에 따로 누르지 않아도 A님에게 나가요", 안내 상자의 같은 줄은 뺌 (모의 사용 2). 시간 고치기 줄은 [시간 고치기]로 실제로 가서 그대로', v46:'v46: 상대 앱 화면을 알바생 21, 59 퇴근 뒤 확정 대기로 바로잡음 (판단 v40-6)', v31:'v31: \'확정하면 체무가 채워 둔 돈에서\'를 \'확정하면 채워 둔 돈에서 체무가\'로 (주어를 동사 가까이)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로)', v23:'v23: \'누르지 않아도\'를 \'급여일에는 따로 누르지 않아도\'로 (무엇을 안 눌러도 되는지)', v22:'v22: 출근 줄의 \'가게 30m 안에서 눌렀어요\'를 빼고 머리를 \'A님이 가게에서 남긴 기록\' 하나로 (감시하는 느낌)', v21:'v21: 제목에 있는 날짜를 위 줄에서 빼고, 퇴근 줄의 되풀이 설명을 뺌', v20:'v20: \'확정하면 체무가 채워 둔 돈에서 ₩92,880을 A님 몫으로 보관해요\', 출퇴근 단계 주어 \'A님이\', \'고치면 체무가 A님에게 바로 알려요\'', v19:'v19: 버튼 \'확정하고 보관하기\'를 사건 표 이름 \'확정하기\'로. 보관 금액은 바로 위 안내 상자에 있음', v17:'v17: 제목을 E01 \'A님 11월 21일 근무를 확정해 주세요\'로. \'급여일에 따로 이체하지 않아도 돼요\'를 용어집대로 \'누르지 않아도 급여일에 A님에게 나가요\'로. 쉬는 시간', v10:'v10: 글자 130%, 200%에서 아래 두 버튼을 세로로 쌓고 상단 바 제목이 줄을 바꿈', v8:'v8: 금액 머리를 위 15, 금액 28, 설명 17로. 시간 고치기는 옅은 버튼, 확정하고 보관하기만 채운 버튼. 기록 단계 24px 원', q:'이 근무 기록을 그대로 인정할까', i:'오늘의 할 일, 퇴근 알림', o:'확정 완료 또는 시간 고치기', w:'퇴근 뒤 확정 대기, 오늘: 퇴근 뒤 확정 대기 (11월 21일, 예상 월급은 결정 뒤)',
         v:'v6: 제목 "A님 근무를 확정할까요?", 확정 문장은 한 번만 "채워 둔 돈에서 ₩92,880을 A님 몫으로 보관해요", 이름을 "퇴근 확정"에서 "근무 확정"으로' } },
     { l:'확정 완료', key:'m:kept', run:() => { reset(); S.shift = 'kept'; jump('home', ['home'], H); openModal('kept'); },
-      note:{ v67:'v67: 작은 사물 ic_check가 0.92배에서 1배로 커지며 8px 떠오름 320ms(완료 화면 작은 사물), 체크 그리기 240ms는 그대로', v58:'v58: 남은 채워 둔 돈 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"', v46:'v46: 상대 앱에 알바생 60 오늘: 퇴근 뒤 보관됨을 더함 (판단 v40-6)', v38:'v38: 과제 2 고칠 것 3. 끝난 단계 "근무 확정", "…A님 몫으로 보관", "A님에게 알림"을 "근무를 확정함", "…보관함", "A님에게 알림 보냄"으로', v37:'v37: 금액 결과 화면 정렬(판단 v30-14): 작은 사물, 금액 제목, 보조 줄은 가운데, 진행 단계 목록은 왼쪽. 알바생 15와 같은 틀', v31:'v31: 둘째 단계 \'체무가 채워 둔 돈에서 A님 몫으로 보관\'을 \'채워 둔 돈에서 체무가 A님 몫으로 보관\'으로 (\'체무가 채워 둔 돈\'으로 끊어 읽히지 않게)', v26:'v26: 금액 결과 화면이라 히어로 iso_13을 빼고 금액 제목 위 작은 사물 ic_check 96px. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v23:'v23: 채워 둔 돈 성질 줄 \'누구 몫도 아니라 언제든 꺼낼 수 있어요\'', v20:'v20: \'12월 10일에 체무가 A님에게 보내요\', 단계 \'체무가 채워 둔 돈에서 A님 몫으로 보관\'', v17:'v17: 제목을 E03 \'A님 일당 ₩92,880을 보관했어요\'로, 아래 줄은 이름을 빼고 날짜만', v15:'v15: 3D 그림을 iso_04 금고에서 iso_13 사장님 카운터로 (사장님이 확정한 순간. 알바생 앱 보관 완료는 금고)', v14:'v14: 확정 완료 순간: 3D 그림이 아래에서 8px 떠오르며 나타남 320ms, 첫 단계 근무 확정의 체크를 그림 240ms. 금액은 세지 않고 그대로', v10:'v10: 전체 화면을 대화상자(role dialog, aria-modal)로 알리고 제목 근무 확정에 이음. Esc로 닫힘', v8:'v8: 닫기(X)가 있는 독립 흐름 끝 화면. 아래 버튼 "확인"을 "오늘로 돌아가기"로, 3D 마스크 뺌, 제목 28과 설명 17', q:'오늘 일당이 어디로 갔나', i:'근무 확정', o:'오늘', w:'퇴근, 일당 보관, 오늘: 퇴근 뒤 보관됨 (11월 21일, 예상 월급은 결정 뒤)',
+      note:{ v74:'v74: 결정안 1, 3. 첫 단계 "두 사람이 서명하고 근무를 확정함", 넷째 단계 "장부에 적음 · 근무표, 임금대장, 급여명세서, 인건비 리포트에 더했어요"', v67:'v67: 작은 사물 ic_check가 0.92배에서 1배로 커지며 8px 떠오름 320ms(완료 화면 작은 사물), 체크 그리기 240ms는 그대로', v58:'v58: 남은 채워 둔 돈 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"', v46:'v46: 상대 앱에 알바생 60 오늘: 퇴근 뒤 보관됨을 더함 (판단 v40-6)', v38:'v38: 과제 2 고칠 것 3. 끝난 단계 "근무 확정", "…A님 몫으로 보관", "A님에게 알림"을 "근무를 확정함", "…보관함", "A님에게 알림 보냄"으로', v37:'v37: 금액 결과 화면 정렬(판단 v30-14): 작은 사물, 금액 제목, 보조 줄은 가운데, 진행 단계 목록은 왼쪽. 알바생 15와 같은 틀', v31:'v31: 둘째 단계 \'체무가 채워 둔 돈에서 A님 몫으로 보관\'을 \'채워 둔 돈에서 체무가 A님 몫으로 보관\'으로 (\'체무가 채워 둔 돈\'으로 끊어 읽히지 않게)', v26:'v26: 금액 결과 화면이라 히어로 iso_13을 빼고 금액 제목 위 작은 사물 ic_check 96px. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v23:'v23: 채워 둔 돈 성질 줄 \'누구 몫도 아니라 언제든 꺼낼 수 있어요\'', v20:'v20: \'12월 10일에 체무가 A님에게 보내요\', 단계 \'체무가 채워 둔 돈에서 A님 몫으로 보관\'', v17:'v17: 제목을 E03 \'A님 일당 ₩92,880을 보관했어요\'로, 아래 줄은 이름을 빼고 날짜만', v15:'v15: 3D 그림을 iso_04 금고에서 iso_13 사장님 카운터로 (사장님이 확정한 순간. 알바생 앱 보관 완료는 금고)', v14:'v14: 확정 완료 순간: 3D 그림이 아래에서 8px 떠오르며 나타남 320ms, 첫 단계 근무 확정의 체크를 그림 240ms. 금액은 세지 않고 그대로', v10:'v10: 전체 화면을 대화상자(role dialog, aria-modal)로 알리고 제목 근무 확정에 이음. Esc로 닫힘', v8:'v8: 닫기(X)가 있는 독립 흐름 끝 화면. 아래 버튼 "확인"을 "오늘로 돌아가기"로, 3D 마스크 뺌, 제목 28과 설명 17', q:'오늘 일당이 어디로 갔나', i:'근무 확정', o:'오늘', w:'퇴근, 일당 보관, 오늘: 퇴근 뒤 보관됨 (11월 21일, 예상 월급은 결정 뒤)',
         v:'v6: 단계 "채워 둔 돈에서 A님 몫으로 보관"과 남은 채워 둔 돈의 성질, A님 앱 상태 칩 이름을 "보관됨"으로' } },
     { l:'확정 안 한 근무가 쌓였을 때', key:'haneul/home/home/backlog', run:() => { reset(); S.backlog = true; jump('home', ['home'], H); },
       note:{ v68:'v68: 큰 글씨(130%, 200%)에서 [2건 확정하기]를 할 일 상자 위로(제목과 날짜 줄 다음). 360x640 200%에서도 주 버튼이 첫 화면 안', v64:'v64: 보관된 돈 카드를 확정할 근무 목록 위로(할 일 상자와 [2건 확정하기] 바로 다음). 360x640과 글자 130%에서 핵심 금액이 첫 화면에', v58:'v58: 채워 둔 돈 성질 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"', v38:'v38: 과제 1 고칠 것 5(사장님 앱 같은 자리). 돈 카드 이름 "보관된 돈 · 급여일에 알바생에게 나가요"를 "지금까지 보관된 돈"으로, 보조 줄 "A님 몫 · 12월 10일"을 "A님 몫 · 12월 10일 급여일에 나가요"로(급여일에 나갈 월급 전부처럼 읽히지 않게)', v31:'v31: 2건 확정 창 본문 \'체무가 채워 둔 돈에서\'를 \'채워 둔 돈에서 체무가\'로', v29:'v29: 360x640에서 주 버튼이 첫 화면 밖이라 2건 확정하기를 안내 상자 바로 아래로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (확정할 근무 ic_clock, 주휴수당 ic_coins)', v26:'v26: 판단 1로 날짜와 가게 이름 줄을 상태 제목 아래로. 2건 확정 확인 창에 판단 2 한 줄 \'보관한 뒤에는 다시 꺼낼 수 없어요\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v23:'v23: \'D-17\'을 \'급여일 17일 전\'으로, 채워 둔 돈 성질 줄', v22:'v22: 탓하는 느낌의 배지 \'하루 지남\'을 뺌', v21:'v21: 안내 상자를 두 문장으로, 버튼과 확인 창을 \'2건 확정하기\'로, 확인 창 첫 줄(제목 되풀이)을 뺌', v20:'v20: \'확정하면 체무가 그날 일당을 바로 보관해요\', 주휴수당 줄 \'두 날을 확정하면 체무가 보관해요\', 확정 창 \'체무가 채워 둔 돈에서 ₩222,912를 …\'', v19:'v19: 확정 창 버튼 \'확정하기\'를 \'2개 확정하기\'로', v18:'v18: 본문 큰 제목을 E02 \'확정할 근무가 2건 남아 있어요\'로 올리고, 아래 안내 상자는 같은 줄을 빼고 돈 위치부터', v17:'v17: 안내 제목을 E02 \'확정할 근무가 2건 남아 있어요\'로 (확정 전 대신 남은 건수). \'A님 몫 · 12월 10일\'', v16:'v16: 버튼 \'2개 확정하고 ₩222,912 보관하기\'(21자)를 \'2개 확정하기\'로. 금액은 바로 위 안내와 확정 창에 있음 (UX-14)', v15:'v15: 안내 제목을 탓하지 않는 "어제 근무 2개가 확정 전이에요"로', v8:'v8: 한 번에 확정하는 버튼만 채운 버튼, 줄마다 왼쪽 24px 아이콘, 먹색 카드 글로우 뺌', q:'확정하지 않은 근무가 몇 개, 얼마인가', i:'오늘 (월요일 아침)', o:'한 번에 확정하기, 줄마다 그날 근무 확정 (11월 21일, 11월 22일)', w:'근무 기록 (11월 21일)의 확정 대기 줄',
         v:'v6: 머리 문장 "어제 근무 2개를 아직 확정하지 않았어요", 버튼 "2개 확정하고 ₩222,912 보관하기", 두 돈 성질 한 줄' } },
     { l:'어제 확정 안 한 근무', nw:true, key:'haneul/home/confirm:b1121', run:() => { reset(); S.backlog = true; jump('home', ['home', 'confirm:b1121'], H); },
-      note:{ v47:'v47: 09와 같은 부품이라 맨 위 줄이 같이 바뀜 (모의 사용 2)', v31:'v31: \'확정하면 체무가 채워 둔 돈에서\'를 \'확정하면 채워 둔 돈에서 체무가\'로 (주어를 동사 가까이)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v23:'v23: \'급여일에는 따로 누르지 않아도\'', v22:'v22: 배지 \'하루 지남\'을 빼고, 안내 상자 둘째 줄을 \'A님 앱에는 아직 확정 대기\'(재촉) 대신 \'확정하면 A님 앱에도 보관됨으로 바뀌어요\'로. 출근 줄 설명은 머리 하나로', v21:'v21: 안내 상자 제목을 \'11월 22일 오전 8:00에 퇴근한 기록이에요\'로, 아래 확정 안내와 같은 문장과 퇴근 줄 되풀이 설명을 뺌', v20:'v20: 09와 같이 보관 문장과 출퇴근 단계에 주어', v19:'v19: 버튼 \'확정하기\' (사건 표 이름)', v17:'v17: 제목을 E02 \'확정할 근무가 2건 남아 있어요\'로. 이체 대신 \'누르지 않아도 급여일에 A님에게 나가요\'', v15:'v15: 화면 제목을 "어제 근무 2개가 확정 전이에요"로 (11과 같이)', v8:'v8: 두 줄 제목을 상단 바 56px 안에, 금액 머리 28과 17, 시간 고치기는 옅은 버튼', q:'하루 넘게 확정하지 않은 근무를 지금 확정할까 (A님 앱에는 아직 확정 대기로 보임)', i:'확정 안 한 근무가 쌓였을 때의 11월 21일 줄', o:'확정하고 보관하기 → 확정 완료, 시간 고치기 (그날 기록으로 열림)', w:'확정이 하루 넘게 늦음',
+      note:{ v74:'v74: 결정안 1. 09와 같은 "두 사람 서명" 묶음(A님 서명 오전 8:00)', v47:'v47: 09와 같은 부품이라 맨 위 줄이 같이 바뀜 (모의 사용 2)', v31:'v31: \'확정하면 체무가 채워 둔 돈에서\'를 \'확정하면 채워 둔 돈에서 체무가\'로 (주어를 동사 가까이)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v23:'v23: \'급여일에는 따로 누르지 않아도\'', v22:'v22: 배지 \'하루 지남\'을 빼고, 안내 상자 둘째 줄을 \'A님 앱에는 아직 확정 대기\'(재촉) 대신 \'확정하면 A님 앱에도 보관됨으로 바뀌어요\'로. 출근 줄 설명은 머리 하나로', v21:'v21: 안내 상자 제목을 \'11월 22일 오전 8:00에 퇴근한 기록이에요\'로, 아래 확정 안내와 같은 문장과 퇴근 줄 되풀이 설명을 뺌', v20:'v20: 09와 같이 보관 문장과 출퇴근 단계에 주어', v19:'v19: 버튼 \'확정하기\' (사건 표 이름)', v17:'v17: 제목을 E02 \'확정할 근무가 2건 남아 있어요\'로. 이체 대신 \'누르지 않아도 급여일에 A님에게 나가요\'', v15:'v15: 화면 제목을 "어제 근무 2개가 확정 전이에요"로 (11과 같이)', v8:'v8: 두 줄 제목을 상단 바 56px 안에, 금액 머리 28과 17, 시간 고치기는 옅은 버튼', q:'하루 넘게 확정하지 않은 근무를 지금 확정할까 (A님 앱에는 아직 확정 대기로 보임)', i:'확정 안 한 근무가 쌓였을 때의 11월 21일 줄', o:'확정하고 보관하기 → 확정 완료, 시간 고치기 (그날 기록으로 열림)', w:'확정이 하루 넘게 늦음',
         v:'v6: 제목 "어제 근무 2개를 아직 확정하지 않았어요"(남은 개수에 따라 바뀜), A님 앱 상태를 먼저 말하고 확정 문장은 09와 같은 한 문장으로' } },
   ]],
   ['기록 다루기', [
     { l:'시간 고치기 (11월 15일)', key:'haneul/staff/edit:h1114', run:() => { reset(); jump('staff', ['staff', 'edit:h1114'], H); },
-      note:{ v66:'v66: 고치는 이유 칸 포커스는 보라 2px. 이유를 지우면 [오전 7:30으로 고치기]가 꺼지고 칸을 떠나면 칸 바로 아래 "고치는 이유를 적어 주세요"', v64:'v64: 고치는 이유 칸에 포커스가 가면 키보드가 올라오고 [닫기] [오전 7:30으로 고치기]가 키보드 바로 위에 붙음(?kb=1로 캡처)', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_receipt, 그림 배정표 2판 5절)', v47:'v47: "30분 줄어요 / 5,160원 덜 받아요"를 사실만 쓰는 "A님 일당이 5,160원 줄어요 / 30분 · 0.5시간 × 시급"으로 (모의 사용 3, 알바생 앱의 덜 받아요는 그대로). 시점: 11월 15일, 고치기 전', v35:'v35: 두 시각 비교 카드를 한 문장으로 읽게 "A님이 누른 퇴근 오전 8시에서 고칠 퇴근 오전 7시 30분으로" (보이는 칸은 화면 읽기에서 숨김)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (줄어든 시간 ic_clock, 고친 뒤 일당 ic_receipt)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로, 덜 받는 돈을 마이너스 기호 대신 \'5,160원 덜 받아요\'로, 계산식 순서를 \'0.5시간 × 시급\'으로', v23:'v23: \'A님 앱에 고친 시간과 이유가 바로 보여요\'로 (고치면 A님에게 무엇이 보이는지)', v22:'v22: 명령형 배지 \'이유를 적어 주세요\'를 \'A님에게도 보여요\'로', v21:'v21: 화면 제목과 같은 질문을 다시 묻던 확인 창을 빼고 버튼을 누르면 바로 고침', v20:'v20: \'고치면 체무가 A님에게 바로 알려요\', 고치기 확인 창도 같은 말', v19:'v19: 버튼 \'고치고 A님에게 알리기\'를 사건 표 이름에 시각을 붙인 \'오전 7:30으로 고치기\'로. 시간을 아직 고르지 않은 화면은 비활성 버튼 위에 이유 한 줄', v17:'v17: \'원래 기록은 그대로 있고 고친 기록이 함께 남아요\'(용어집). 고친 뒤 토스트는 E04 \'A님 퇴근 시간을 오전 7:30으로 고쳤어요\'', v16:'v16: 버튼 \'고치고 A님에게 알리기\' (UX-03)', v15:'v15: 화면 제목을 "퇴근을 오전 7:30으로 고칠까요?"로. 정보가 많은 화면이라 3D 그림(iso_07 120px)을 뺌. "꼭 적어 주세요"를 권하는 말 "이유를 적어 주세요"로', v9:'v9: 고치는 이유 입력칸에 바탕과 3:1인 테두리(#8a8792)', v8:'v8: 고치는 이유 입력칸 모서리 8, 비교 상자 모서리 16, 닫기는 옅은 버튼', q:'기록과 다른 시간을 어떻게 바로잡나 (이유 필수, A님에게 바로 알림)', i:'근무 확정, 알바생 탭 근무 목록', o:'고치기 → A님 확인 기다림', w:'사장님이 시간을 고침 (11월 21일)' } },
+      note:{ v74:'v74: 결정안 4. 고친 기록은 12월 1일 거래 셋 밖(2차). 화면과 문구는 그대로(사장님이 고치면 A님에게 바로 보이고 원래 기록이 남는다는 결정안 1의 이유와 같음)', v66:'v66: 고치는 이유 칸 포커스는 보라 2px. 이유를 지우면 [오전 7:30으로 고치기]가 꺼지고 칸을 떠나면 칸 바로 아래 "고치는 이유를 적어 주세요"', v64:'v64: 고치는 이유 칸에 포커스가 가면 키보드가 올라오고 [닫기] [오전 7:30으로 고치기]가 키보드 바로 위에 붙음(?kb=1로 캡처)', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_receipt, 그림 배정표 2판 5절)', v47:'v47: "30분 줄어요 / 5,160원 덜 받아요"를 사실만 쓰는 "A님 일당이 5,160원 줄어요 / 30분 · 0.5시간 × 시급"으로 (모의 사용 3, 알바생 앱의 덜 받아요는 그대로). 시점: 11월 15일, 고치기 전', v35:'v35: 두 시각 비교 카드를 한 문장으로 읽게 "A님이 누른 퇴근 오전 8시에서 고칠 퇴근 오전 7시 30분으로" (보이는 칸은 화면 읽기에서 숨김)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (줄어든 시간 ic_clock, 고친 뒤 일당 ic_receipt)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로, 덜 받는 돈을 마이너스 기호 대신 \'5,160원 덜 받아요\'로, 계산식 순서를 \'0.5시간 × 시급\'으로', v23:'v23: \'A님 앱에 고친 시간과 이유가 바로 보여요\'로 (고치면 A님에게 무엇이 보이는지)', v22:'v22: 명령형 배지 \'이유를 적어 주세요\'를 \'A님에게도 보여요\'로', v21:'v21: 화면 제목과 같은 질문을 다시 묻던 확인 창을 빼고 버튼을 누르면 바로 고침', v20:'v20: \'고치면 체무가 A님에게 바로 알려요\', 고치기 확인 창도 같은 말', v19:'v19: 버튼 \'고치고 A님에게 알리기\'를 사건 표 이름에 시각을 붙인 \'오전 7:30으로 고치기\'로. 시간을 아직 고르지 않은 화면은 비활성 버튼 위에 이유 한 줄', v17:'v17: \'원래 기록은 그대로 있고 고친 기록이 함께 남아요\'(용어집). 고친 뒤 토스트는 E04 \'A님 퇴근 시간을 오전 7:30으로 고쳤어요\'', v16:'v16: 버튼 \'고치고 A님에게 알리기\' (UX-03)', v15:'v15: 화면 제목을 "퇴근을 오전 7:30으로 고칠까요?"로. 정보가 많은 화면이라 3D 그림(iso_07 120px)을 뺌. "꼭 적어 주세요"를 권하는 말 "이유를 적어 주세요"로', v9:'v9: 고치는 이유 입력칸에 바탕과 3:1인 테두리(#8a8792)', v8:'v8: 고치는 이유 입력칸 모서리 8, 비교 상자 모서리 16, 닫기는 옅은 버튼', q:'기록과 다른 시간을 어떻게 바로잡나 (이유 필수, A님에게 바로 알림)', i:'근무 확정, 알바생 탭 근무 목록', o:'고치기 → A님 확인 기다림', w:'사장님이 시간을 고침 (11월 21일)' } },
     { l:'다르다고 알림 받음 (결정 전)', key:'haneul/home/dispute:h1114', run:() => { reset(); S.dispute = 'open'; jump('home', ['home', 'dispute:h1114'], H); },
-      note:{ v61:'v61: 화면 높이 700px 이하(360x640)에서는 히어로를 숨김(.tall-only). 두 기록 비교 카드가 아래 버튼 자리에 가리지 않고 첫 화면에 다 보임', v58:'v58: 한 메시지 화면인데 그림이 없던 자리에 히어로 iso2_52. 360x640에서 제목, 차이 나는 5,160원, 두 버튼이 첫 화면에 들어옴', v47:'v47: 시점을 PANEL 이름에(결정 전: 87,720원 보관, 차이 나는 5,160원은 따로 남김, 모의 사용 5)', v46:'v46: PANEL 이름 "이의 받음"을 용어집 말 "다르다고 알림 받음"으로 (판단 v40-3). 상대 앱에 알바생 62 다르다고 알린 뒤 답 기다림을 더함 (판단 v40-6)', v35:'v35: 두 기록 비교 카드를 한 문장으로 읽게 "A님 기록 오전 8시, 사장님이 고친 시간 오전 7시 30분"', v26:'v26: 판단 2로 A님 기록으로 바꾸기 확인 창에 \'바꾼 뒤에는 되돌릴 수 없어요\', 내 기록 그대로 두기 시트에 \'그대로 둔 뒤에는 바꿀 수 없어요\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v22:'v22: \'사장님이 정할 때까지\'(결정을 떠미는 느낌)를 \'두 기록 가운데 하나를 고르면 돼요. 그때까지 …\'로', v21:'v21: 판단 4: 제목에서 날짜를 빼고 날짜는 본문 첫 줄로. 인용 배지를 \'A님이 남긴 이유\'로', v20:'v20: \'사장님이 정할 때까지 체무가 차이 나는 ₩5,160을 따로 남겨 둬요\', 바꾸기 확인 창 \'체무가 ₩5,160을 더 보관해요\'', v19:'v19: A님 기록으로 바꾸기 확인 창의 행동 버튼 \'바꾸기\'를 \'A님 기록으로 바꾸기\'로 (사건 표 이름)', v17:'v17: 이의를 용어집 \'다르다고 알림\'으로. 제목 E05 \'A님이 11월 14일 퇴근 시간이 다르다고 알렸어요\', 버튼 \'내 기록 그대로 두기\'(사건 표 버튼 이름), 차액은 \'차이 나는 ₩5,160\'', v15:'v15: 화면 제목을 "A님이 11월 14일 퇴근 시간에 이의를 보냈어요"로. 정보가 많은 화면이라 3D 그림(iso_08 170px)을 뺌', v8:'v8: 내 기록 유지하기는 옅은 버튼, A님 기록으로 바꾸기만 채운 버튼. 제목 22와 설명 17', q:'A님은 왜 다르다고 하나, 걸린 돈은 얼마인가', i:'알림, 오늘의 할 일', o:'A님 기록으로 바꾸기 또는 내 기록 그대로 두기', w:'다르다고 알리기 (11월 21일), 다르다고 알린 뒤 답 기다림 (결정 전)',
+      note:{ v74:'v74: 결정안 4. 다르다고 알린 차액 5,160원 따로 남기기는 12월 1일 거래 셋 밖(2차). 화면과 문구는 그대로', v61:'v61: 화면 높이 700px 이하(360x640)에서는 히어로를 숨김(.tall-only). 두 기록 비교 카드가 아래 버튼 자리에 가리지 않고 첫 화면에 다 보임', v58:'v58: 한 메시지 화면인데 그림이 없던 자리에 히어로 iso2_52. 360x640에서 제목, 차이 나는 5,160원, 두 버튼이 첫 화면에 들어옴', v47:'v47: 시점을 PANEL 이름에(결정 전: 87,720원 보관, 차이 나는 5,160원은 따로 남김, 모의 사용 5)', v46:'v46: PANEL 이름 "이의 받음"을 용어집 말 "다르다고 알림 받음"으로 (판단 v40-3). 상대 앱에 알바생 62 다르다고 알린 뒤 답 기다림을 더함 (판단 v40-6)', v35:'v35: 두 기록 비교 카드를 한 문장으로 읽게 "A님 기록 오전 8시, 사장님이 고친 시간 오전 7시 30분"', v26:'v26: 판단 2로 A님 기록으로 바꾸기 확인 창에 \'바꾼 뒤에는 되돌릴 수 없어요\', 내 기록 그대로 두기 시트에 \'그대로 둔 뒤에는 바꿀 수 없어요\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v22:'v22: \'사장님이 정할 때까지\'(결정을 떠미는 느낌)를 \'두 기록 가운데 하나를 고르면 돼요. 그때까지 …\'로', v21:'v21: 판단 4: 제목에서 날짜를 빼고 날짜는 본문 첫 줄로. 인용 배지를 \'A님이 남긴 이유\'로', v20:'v20: \'사장님이 정할 때까지 체무가 차이 나는 ₩5,160을 따로 남겨 둬요\', 바꾸기 확인 창 \'체무가 ₩5,160을 더 보관해요\'', v19:'v19: A님 기록으로 바꾸기 확인 창의 행동 버튼 \'바꾸기\'를 \'A님 기록으로 바꾸기\'로 (사건 표 이름)', v17:'v17: 이의를 용어집 \'다르다고 알림\'으로. 제목 E05 \'A님이 11월 14일 퇴근 시간이 다르다고 알렸어요\', 버튼 \'내 기록 그대로 두기\'(사건 표 버튼 이름), 차액은 \'차이 나는 ₩5,160\'', v15:'v15: 화면 제목을 "A님이 11월 14일 퇴근 시간에 이의를 보냈어요"로. 정보가 많은 화면이라 3D 그림(iso_08 170px)을 뺌', v8:'v8: 내 기록 유지하기는 옅은 버튼, A님 기록으로 바꾸기만 채운 버튼. 제목 22와 설명 17', q:'A님은 왜 다르다고 하나, 걸린 돈은 얼마인가', i:'알림, 오늘의 할 일', o:'A님 기록으로 바꾸기 또는 내 기록 그대로 두기', w:'다르다고 알리기 (11월 21일), 다르다고 알린 뒤 답 기다림 (결정 전)',
         v:'v6: 차액을 "보관"이라 부르지 않고 "이의가 정리될 때까지 ₩5,160은 따로 남겨 둬요", 상태 칩 이름 "이의 제기 중"' } },
     { l:'A님 기록으로 바꿈 (결정 뒤)', key:'m:resolved:worker', run:() => { reset(); S.dispute = 'worker'; jump('home', ['home'], H); openModal('resolved', 'worker'); },
       note:{ v67:'v67: 작은 사물 ic_check가 커지며 떠오름 320ms', v47:'v47: 시점을 PANEL 이름에(결정 뒤, 11/24 결정안의 갈래: 급여일 984,528원이 이 결정 뒤 금액, 모의 사용 5)', v46:'v46: PANEL 이름 "이의 정리: A님 기록으로"를 "A님 기록으로 바꿈"으로 (판단 v40-3). 상대 앱 화면을 알바생 26 다르다고 알린 결과: 내 기록으로 바뀜으로 바로잡음 (판단 v40-6)', v38:'v38: 과제 2 고칠 것 3. 끝난 단계를 "…9시간으로 확정함", "5,160원 더 보관함", "A님에게 알림 보냄"으로', v37:'v37: 금액 결과 화면 정렬(판단 v30-14): 작은 사물, 금액 제목, 보조 줄은 가운데, 진행 단계 목록은 왼쪽. 알바생 15와 같은 틀', v29:'v29: 결과 표시 원 대신 작은 사물 ic_check 96px, 제목 위 가운데. 완료 모션(떠오름)은 작은 사물에 그대로', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로)', v21:'v21: 금액 줄과 단계에서 ₩5,160을 두 번 말하던 것을 단계 \'₩5,160 더 보관\' 하나로', v20:'v20: \'사장님이 ₩5,160을 더 보관했어요\'(규칙집 UX-02 예), \'체무가 따로 남겨 둔 ₩5,160도 …\'', v17:'v17: 머리 \'다르다고 알린 기록\', A님 앱에 보이는 말을 E06 \'사장님이 내 기록으로 바꿨어요\'로', v14:'v14: 이의 받아들여짐 순간: 결과 표시 원이 떠오름 320ms, 안의 체크를 그림 240ms', v8:'v8: 결과 표시 56px 원, 아래 버튼 "확인"을 "오늘로 돌아가기"로', q:'A님 기록을 받아들이면 무엇이 바뀌나', i:'다르다고 알림 받음', o:'오늘', w:'다르다고 알린 결과: 내 기록으로 바뀜 (결정 뒤), 하루 상세',
@@ -3063,16 +3145,16 @@ const PANEL = [
   ]],
   ['보관함', [
     { l:'보관함', key:'haneul/vault/vault', run:() => { reset(); jump('vault', ['vault'], H); },
-      note:{ v58:'v58: 채워 둔 돈 성질 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"', v40:'v40: 확정하면 바로 보관 행 오른쪽 스위치가 보이지 않던 것(0px)을 46x28로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (다음 주 예상 인건비 ic_coins, 더 채워 둔 상태 ic_check, 확정하면 바로 보관 ic_safe, 급여일 미리 보기 ic_calendar)', v26:'v26: 판단 1로 가게 이름 줄을 상태 제목 아래로. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v25:'v25: 스위치에 화면 읽기 이름 \'켜져 있어요\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: \'자동 보관\'(은행 자동이체와 헷갈림)을 \'확정하면 바로 보관\'과 \'사업자 계좌가 아니라 채워 둔 돈에서 옮겨요\'로, 채워 둔 돈 설명을 \'사장님이 사업자 계좌에서 채워 둔 돈\'으로', v22:'v22: \'다음 주 인건비를 빼도 ₩227,088이 남아요\'(통장 사정을 계산하는 느낌)를 \'다음 주 인건비보다 ₩227,088 더 채워 뒀어요\'로', v21:'v21: 자동 보관 줄과 같은 설명 줄, 제목과 같은 \'넉넉해요\'를 뺌', v20:'v20: \'근무를 확정하면 체무가 그날 일당을 … 옮겨요\', 자동 보관 줄에 \'체무가\'', v18:'v18: 상단 바 \'보관함\'은 이름표, 본문 큰 제목 \'다음 주 인건비까지 채워 뒀어요\'', v17:'v17: 채워 둔 돈 설명 \'넣어 두고\'를 \'채워 두고\'로. 보관된 돈 칸의 \'급여일 전에는 사장님이 꺼낼 수 없어요\'를 뺌(바로 위 \'급여일에 알바생에게 나가요\'와 같은 뜻, 정책 문장은 비교표와 꺼내기 화면에)', v8:'v8: 보관함 채우기를 화면 맨 아래 채운 버튼에서 채워 둔 돈 카드 안 옅은 버튼으로 옮김(채우는 돈 바로 옆). 두 돈 이름 앞 작은 아이콘과 돈이 움직이는 길 보기 뒤 화살표를 뺌', q:'보관함에 다음 주 인건비만큼 돈이 있나', i:'보관함 탭, 알림', o:'보관함 채우기, 급여일 미리보기, 돈이 움직이는 길', w:'급여: 보관 현황', v7:'v7: 두 돈 설명 아래 "돈이 움직이는 길 보기"',
+      note:{ v73:'v73: 모의 심사 (1). 보관된 돈 카드 아래 "지금 꺼낼 수 있는 돈" 줄(채워 둔 돈에서 450,000원 · 보관된 돈에서 0원, 오른쪽 450,000원)과 "보관된 돈은 급여일 전에 아무도 꺼낼 수 없어요". 급여일 전에 사장님도 꺼낼 수 없다는 것이 숫자로 보임(은행 실무자, 블록체인 전공 교수 질문). 한 사람 가게라 누르는 줄이 아님', v58:'v58: 채워 둔 돈 성질 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"', v40:'v40: 확정하면 바로 보관 행 오른쪽 스위치가 보이지 않던 것(0px)을 46x28로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (다음 주 예상 인건비 ic_coins, 더 채워 둔 상태 ic_check, 확정하면 바로 보관 ic_safe, 급여일 미리 보기 ic_calendar)', v26:'v26: 판단 1로 가게 이름 줄을 상태 제목 아래로. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v25:'v25: 스위치에 화면 읽기 이름 \'켜져 있어요\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: \'자동 보관\'(은행 자동이체와 헷갈림)을 \'확정하면 바로 보관\'과 \'사업자 계좌가 아니라 채워 둔 돈에서 옮겨요\'로, 채워 둔 돈 설명을 \'사장님이 사업자 계좌에서 채워 둔 돈\'으로', v22:'v22: \'다음 주 인건비를 빼도 ₩227,088이 남아요\'(통장 사정을 계산하는 느낌)를 \'다음 주 인건비보다 ₩227,088 더 채워 뒀어요\'로', v21:'v21: 자동 보관 줄과 같은 설명 줄, 제목과 같은 \'넉넉해요\'를 뺌', v20:'v20: \'근무를 확정하면 체무가 그날 일당을 … 옮겨요\', 자동 보관 줄에 \'체무가\'', v18:'v18: 상단 바 \'보관함\'은 이름표, 본문 큰 제목 \'다음 주 인건비까지 채워 뒀어요\'', v17:'v17: 채워 둔 돈 설명 \'넣어 두고\'를 \'채워 두고\'로. 보관된 돈 칸의 \'급여일 전에는 사장님이 꺼낼 수 없어요\'를 뺌(바로 위 \'급여일에 알바생에게 나가요\'와 같은 뜻, 정책 문장은 비교표와 꺼내기 화면에)', v8:'v8: 보관함 채우기를 화면 맨 아래 채운 버튼에서 채워 둔 돈 카드 안 옅은 버튼으로 옮김(채우는 돈 바로 옆). 두 돈 이름 앞 작은 아이콘과 돈이 움직이는 길 보기 뒤 화살표를 뺌', q:'보관함에 다음 주 인건비만큼 돈이 있나', i:'보관함 탭, 알림', o:'보관함 채우기, 급여일 미리보기, 돈이 움직이는 길', w:'급여: 보관 현황', v7:'v7: 두 돈 설명 아래 "돈이 움직이는 길 보기"',
         v:'v6: 두 돈(채워 둔 돈, 보관된 돈)과 성질 한 줄, 옮겨가는 방향을 화면 맨 위에. 3D 그림은 뺌(한 화면 한 메시지 화면이 아님)' } },
     { l:'보관함: 알바 3명', nw:true, key:'team/vault/vault', run:() => teamJump('vault', ['vault']),
-      note:{ v72:'v72: 모의 사용 고칠 것 7. 제목 "268,272원을 더 채우면 돼요"', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_repeat, 그림 배정표 2판 5절). 채워 둔 돈 성질 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"', v47:'v47: 12월 10일에 나갈 인건비 행 설명을 "3명 11월분 · 근무표대로 예상"으로 (26과 같은 시점, 모의 사용 5)', v40:'v40: 확정하면 바로 보관, 자동 채우기 행 오른쪽 스위치가 보이지 않던 것(0px)을 46x28로', v31:'v31: 채울 돈 안내 \'다음 주 일당이 모두 보관돼요\'를 \'다음 주 3명 몫이 모두 보관돼요\'로 (주휴수당이 섞인 금액, 판단 11)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (확정하면 바로 보관 ic_safe, 자동 채우기 ic_repeat, 나갈 인건비 ic_coins, 꺼내기 ic_bankbook, 두 돈 비교표 ic_magnifier)', v26:'v26: 판단 1로 가게 이름 줄을 상태 제목 아래로. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v25:'v25: 스위치에 화면 읽기 이름 \'켜져 있어요\', \'꺼져 있어요\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: \'자동 보관\'을 \'확정하면 바로 보관\'으로, 채워 둔 돈 성질 줄과 설명', v22:'v22: 제목 \'다음 주 인건비가 ₩268,272 모자라요\'(되풀이해 찌르는 느낌)를 \'₩268,272만 더 채우면 돼요\'로 (글자 200%에서 두 줄)', v21:'v21: 자동 보관 줄과 같은 설명 줄을 뺌', v20:'v20: 보관함과 같이 주어 \'체무가\'', v18:'v18: 본문 큰 제목 \'다음 주 인건비가 ₩268,272 모자라요\', 아래 안내 상자는 할 일 \'채우면 다음 주 일당이 모두 보관돼요\'만', v17:'v17: 보관함과 같이 \'채워 두고\', 꺼낼 수 없다는 줄을 뺌. 모자람 둘째 줄에서 금액을 뺌', v8:'v8: 보관함 채우기를 채워 둔 돈 카드 안 옅은 버튼으로 옮김. 두 돈 이름 앞 작은 아이콘 뺌, 할 일 안내 상자 아이콘 24px', q:'채워 둔 돈과 보관된 돈이 각각 얼마이고, 다음 주 3명 인건비가 채워져 있나', i:'보관함 탭', o:'돈이 움직이는 길, 두 돈 비교표, 다음 주 인건비, 자동 채우기, 12월 10일 인건비 미리 보기, 꺼내기, 보관함 채우기', w:'급여: 보관 현황', v7:'v7: 두 돈 설명 아래 "돈이 움직이는 길 보기"',
+      note:{ v73:'v73: 모의 심사 (1). 아래 목록의 꺼내기 줄을 보관된 돈 카드 바로 아래 "지금 꺼낼 수 있는 돈" 줄(채워 둔 돈에서 450,000원 · 보관된 돈에서 0원)로 옮김. 누르면 꺼내기(69)', v72:'v72: 모의 사용 고칠 것 7. 제목 "268,272원을 더 채우면 돼요"', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_repeat, 그림 배정표 2판 5절). 채워 둔 돈 성질 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"', v47:'v47: 12월 10일에 나갈 인건비 행 설명을 "3명 11월분 · 근무표대로 예상"으로 (26과 같은 시점, 모의 사용 5)', v40:'v40: 확정하면 바로 보관, 자동 채우기 행 오른쪽 스위치가 보이지 않던 것(0px)을 46x28로', v31:'v31: 채울 돈 안내 \'다음 주 일당이 모두 보관돼요\'를 \'다음 주 3명 몫이 모두 보관돼요\'로 (주휴수당이 섞인 금액, 판단 11)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (확정하면 바로 보관 ic_safe, 자동 채우기 ic_repeat, 나갈 인건비 ic_coins, 꺼내기 ic_bankbook, 두 돈 비교표 ic_magnifier)', v26:'v26: 판단 1로 가게 이름 줄을 상태 제목 아래로. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v25:'v25: 스위치에 화면 읽기 이름 \'켜져 있어요\', \'꺼져 있어요\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: \'자동 보관\'을 \'확정하면 바로 보관\'으로, 채워 둔 돈 성질 줄과 설명', v22:'v22: 제목 \'다음 주 인건비가 ₩268,272 모자라요\'(되풀이해 찌르는 느낌)를 \'₩268,272만 더 채우면 돼요\'로 (글자 200%에서 두 줄)', v21:'v21: 자동 보관 줄과 같은 설명 줄을 뺌', v20:'v20: 보관함과 같이 주어 \'체무가\'', v18:'v18: 본문 큰 제목 \'다음 주 인건비가 ₩268,272 모자라요\', 아래 안내 상자는 할 일 \'채우면 다음 주 일당이 모두 보관돼요\'만', v17:'v17: 보관함과 같이 \'채워 두고\', 꺼낼 수 없다는 줄을 뺌. 모자람 둘째 줄에서 금액을 뺌', v8:'v8: 보관함 채우기를 채워 둔 돈 카드 안 옅은 버튼으로 옮김. 두 돈 이름 앞 작은 아이콘 뺌, 할 일 안내 상자 아이콘 24px', q:'채워 둔 돈과 보관된 돈이 각각 얼마이고, 다음 주 3명 인건비가 채워져 있나', i:'보관함 탭', o:'돈이 움직이는 길, 두 돈 비교표, 다음 주 인건비, 자동 채우기, 12월 10일 인건비 미리 보기, 꺼내기, 보관함 채우기', w:'급여: 보관 현황', v7:'v7: 두 돈 설명 아래 "돈이 움직이는 길 보기"',
         v:'v6: "두 돈은 어떻게 달라요?" 버튼을 없애고 두 돈의 차이를 맨 위에 늘 보이게, 표는 아래 "두 돈 비교표" 줄로' } },
     { l:'보관함 채우기', key:'sheet:fill', run:() => { reset(); jump('vault', ['vault'], H); openFill(); },
       note:{ v69:'v69: 개발용 표 5절, 레드라인 19_보관함_채우기.png. [N원 채우기]가 채우기 거래(예금토큰을 보관함에)', v66:'v66: 직접 쓰기를 고르면 채울 금액이 금액 칸으로(76)', v61:'v61: 시트 머리를 닫기 단추 칸을 둔 격자로 (오른쪽 64px 여백 대신, 알바생 앱 시트와 같은 짜임). 보이는 자리는 같음', v58:'v58: 채워 둔 돈 성질 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"(아래 깔린 보관함)', v27:'v27: 뒤 화면 보관함의 행 아이콘을 3D 아이콘 40px로 (시트 안 선택지 행은 그림 없음)', v26:'v26: 뒤 화면 보관함의 가게 이름 줄을 상태 제목 아래로. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v25:'v25: 채운 뒤 토스트를 한 줄 결과 \'222,912원을 채웠어요\'로', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: 뒤 보관함 화면의 \'확정하면 바로 보관\' 줄과 채워 둔 돈 설명', v22:'v22: 뒤 보관함 화면 줄을 \'다음 주 인건비보다 ₩227,088 더 채워 뒀어요\'로', v21:'v21: 채우기와 상관없는 둘째 문장을 뺌', v20:'v20: 시트 설명 \'체무가 사업자 계좌에서 보관함으로 옮겨요\'', v18:'v18: 뒤 화면 제목이 \'다음 주 인건비까지 채워 뒀어요\'로 (시트 제목은 그대로)', v16:'v16: \'직접 입력\'을 \'직접 쓰기\'로 (UX-09)', v14:'v14: 시트가 올라오는 시간을 280ms에서 240ms로. 채운 뒤 토스트는 하단 버튼 위로 200ms 동안 올라옴', v10:'v10: 열면 시트 안으로 포커스, Tab은 시트 안에서만 돌고 닫으면 보관함 채우기 단추로 돌아감. 금액 행은 role radio', v8:'v8: 시트를 화면 아래에 붙이고 위 모서리 24, 좌우 16, 최대 높이 90%. 돈이 옮겨지는 시트라 손잡이를 빼고 위 닫기(X), 바깥을 눌러도 닫히지 않음. 아래 닫기 버튼을 빼고 채우기 버튼 하나. 설명 15', q:'얼마를 넣어 둘까', i:'보관함, 내 정보의 사업자 계좌', o:'보관함 (채워 둔 돈 늘어남)', w:'없음',
         v:'v6: 시트는 그대로, 뒤의 보관함 화면이 두 돈 맨 위 구성으로 바뀜' } },
     { l:'채워 둔 돈과 보관된 돈', nw:true, key:'team/vault/explain', run:() => teamJump('vault', ['vault', 'explain']),
-      note:{ v71:'v71: 라이터 검토 고칠 것 1. 정산이 처음 나오는 꺼내기 줄 보관된 돈 칸을 "알바생이 그만두면 다음 날 그 알바생에게 나가요(정산)"로(용어집 정산 첫 풀이)', v61:'v61: 화면 좌우 여백을 24(--space-gutter)로. 넓은 표 20px을 뺌', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: 맨 아래 \'프로토타입\'(외래어)을 \'시연 버전\'으로', v22:'v22: 꺼내기 칸을 \'이미 알바생 몫이라 꺼낼 수 없어요\'로 (내 돈을 막는 느낌 대신 이유)', v21:'v21: 표의 \'바뀔 때\' 줄과 같은 아래 줄을 빼고, 책임 두 문장을 한 문장으로', v20:'v20: 아래 줄 \'근무를 확정하면 체무가 그날 일당을 … 옮겨요\'', v18:'v18: \'보관함의 두 가지 돈\'은 이름표로, 본문 큰 제목 \'보관함 돈은 두 가지로 나뉘어요\'', v17:'v17: \'급여일까지 묶인 돈\'을 \'급여일에 알바생에게 나갈 돈\'으로, \'넣어 둔 돈\'을 \'채워 둔 돈\'으로, 꺼내기 칸에 이유 \'알바생 몫이라\', 책임 문장 \'임금\'을 \'일당과 월급\'으로', v8:'v8: 넓은 표 화면이라 좌우 여백 20px, 표 상자 모서리 16', q:'사장님이 꺼낼 수 있는 돈과 급여일까지 묶인 돈은 무엇이 다른가 (그림 없이 표로)', i:'보관함의 "두 돈 비교표"', o:'보관함', w:'보관된 돈은 누가 꺼낼 수 있나요',
+      note:{ v74:'v74: 결정안 2. 꺼내기 줄 보관된 돈 칸 "알바생이 그만두면 다음 날 오전 9:00에 그 알바생에게 나가요(정산)"', v71:'v71: 라이터 검토 고칠 것 1. 정산이 처음 나오는 꺼내기 줄 보관된 돈 칸을 "알바생이 그만두면 다음 날 그 알바생에게 나가요(정산)"로(용어집 정산 첫 풀이)', v61:'v61: 화면 좌우 여백을 24(--space-gutter)로. 넓은 표 20px을 뺌', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: 맨 아래 \'프로토타입\'(외래어)을 \'시연 버전\'으로', v22:'v22: 꺼내기 칸을 \'이미 알바생 몫이라 꺼낼 수 없어요\'로 (내 돈을 막는 느낌 대신 이유)', v21:'v21: 표의 \'바뀔 때\' 줄과 같은 아래 줄을 빼고, 책임 두 문장을 한 문장으로', v20:'v20: 아래 줄 \'근무를 확정하면 체무가 그날 일당을 … 옮겨요\'', v18:'v18: \'보관함의 두 가지 돈\'은 이름표로, 본문 큰 제목 \'보관함 돈은 두 가지로 나뉘어요\'', v17:'v17: \'급여일까지 묶인 돈\'을 \'급여일에 알바생에게 나갈 돈\'으로, \'넣어 둔 돈\'을 \'채워 둔 돈\'으로, 꺼내기 칸에 이유 \'알바생 몫이라\', 책임 문장 \'임금\'을 \'일당과 월급\'으로', v8:'v8: 넓은 표 화면이라 좌우 여백 20px, 표 상자 모서리 16', q:'사장님이 꺼낼 수 있는 돈과 급여일까지 묶인 돈은 무엇이 다른가 (그림 없이 표로)', i:'보관함의 "두 돈 비교표"', o:'보관함', w:'보관된 돈은 누가 꺼낼 수 있나요',
         v:'v6: 꺼내기 칸을 "급여일 전에는 사장님이 꺼낼 수 없어요. 알바생이 그만두면 다음 날 정산으로 나가요"로, "임금을 주는 책임은 사장님에게 있어요. 체무는 보관과 기록을 맡아요" 한 줄을 더함' } },
     { l:'돈이 움직이는 길', nw7:true, key:'team/vault/moneyflow', run:() => teamJump('vault', ['vault', 'moneyflow']),
       note:{ v61:'v61: 칸 제목을 알바생 52와 같은 글로: 1 사업자 계좌에서 채워요 → 사장님이 채워요, 4 급여일에 나가요 → 급여일에 들어와요 (판단 v30-2)', v59:'v59: 네 칸 그림을 iso_40 ~ 43에서 2판 iso2_63(채움), iso2_64(확정), iso2_65(보관), iso2_66(급여일)로. 네 장이 같은 타일 크기와 자리, 같은 빛이라 2x2로 놓아도 타일 줄이 맞음. 칸 순서와 칸 제목은 그대로', v58:'v58: 첫째 칸과 셋째 칸 설명을 용어집(v47) 두 문장 "채워 둔 돈은 사장님이 꺼낼 수 있어요", "보관된 돈은 급여일 전에 아무도 꺼낼 수 없어요"로', v46:'v46: 상대 앱 화면을 알바생 52 돈이 움직이는 길과 30으로 바로잡음 (판단 v40-6)', v28:'v28: 행 다섯 개 흐름을 iso_40~43 네 칸 장면(채우기 iso_40, 확정 iso_42, 보관 iso_41, 급여일 iso_43. 알바생 앱 52와 같은 순서와 단계 이름)과 칸마다 한 줄로. v21에서 되살린 원화로 바꿔요 단계는 넷째 칸 아래 한 줄. 네 칸 그림은 히어로 한 화면 하나 규칙의 예외', v26:'v26: 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v24:'v24: 시각을 \'오전 9:00\'으로', v23:'v23: 채워 둔 돈 설명을 \'누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v21:'v21: 판단 1: v15의 \'원화로 바꿔요\' 단계를 쉬운 말로 되살림(바꾸는 수수료 한 줄, 시연 버전 한 줄). 책임 두 문장을 한 문장으로', v20:'v20: 단계에 주어 \'사장님이 근무 확정\', \'체무가 알바생 계좌로 보내요\'', v18:'v18: 이름표 \'돈이 움직이는 길\', 본문 큰 제목 \'돈은 사업자 계좌에서 알바생 계좌로 가요\'', v17:'v17: 보관된 돈 칸을 \'급여일까지 알바생 몫으로 보관해요\'로, 책임 문장 \'일당과 월급\'', v16:'v16: 시스템 말을 뺌. \'테스트넷의 연습용 원화(KRWt)\'를 \'연습용 돈\'으로, \'원화로 바꿔요\'와 \'알바생 원화 계좌\'를 \'알바생 계좌로 보내요\', \'알바생 은행 계좌\'로 (UX-10)', v15:'v15: "테스트넷 모의 원화 토큰(KRWt)"을 생활 말 "테스트넷의 연습용 원화(KRWt)"로', v8:'v8: 다섯 행 왼쪽을 40px 원으로, 맺음 글 두 줄의 아이콘 뺌', q:'사장님 사업자 계좌의 돈이 어떤 길로 알바생 원화 계좌까지 가나, 원화로 바꾸는 수수료와 1:1 상환은 누가 맡나 (심사 질문용, 그림 없이 행 다섯 개)', i:'보관함 맨 위 두 돈 설명의 "돈이 움직이는 길 보기"', o:'보관함', w:'돈이 움직이는 길, 보관된 돈은 누가 꺼낼 수 있나요',
@@ -3084,7 +3166,7 @@ const PANEL = [
       note:{ v72:'v72: 모의 사용 고칠 것 8. 제목을 탓하는 느낌 없이 "다음 주 인건비에 맞춰 매주 채워 둘까요?", 채우는 금액 줄 "718,272원에 맞춰 더 필요한 만큼", 안내 "채워 둔 450,000원에 268,272원을 더 채워요"(고칠 것 7)', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_repeat, 그림 배정표 2판 5절)', v40:'v40: 자동 채우기 행 오른쪽 스위치가 보이지 않던 것(0px)을 46x28로', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (자동 채우기 ic_repeat, 채우는 때 ic_calendar, 채우는 금액 ic_coins, 가져오는 곳 ic_bankbook)', v25:'v25: 스위치 화면 읽기 이름, 켠 뒤 토스트를 한 줄 \'자동 채우기를 켰어요\'로', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로', v21:'v21: 표와 같은 첫 줄을 빼고 \'언제든 꺼낼 수 있고, 언제든 끌 수 있어요\'를 위로', v20:'v20: \'체무가 매주 월요일 오전 사업자 계좌에서 모자란 만큼 옮겨요\', \'체무가 11월 23일 (월) 오전에 처음 채워요\', 켠 뒤 토스트 \'… 오전에 체무가 ₩268,272를 채워요\'', v18:'v18: 이름표 \'자동 채우기\', 본문 큰 제목 \'모자란 인건비만 매주 채워 둘까요?\'(켜면 \'자동 채우기가 켜져 있어요\')', v9:'v9: 꺼진 스위치 바탕을 3:1(#8a8792)로, 켜짐과 꺼짐은 손잡이 위치와 "켜져 있어요" 글자로도 구분', v8:'v8: 다음에는 옅은 버튼, 안내 상자 아이콘 24px, 설정 행 왼쪽 24px 아이콘', q:'매주 따로 채우지 않아도 되나. 미정: 채워 둔 돈이 이미 있을 때 모자란 만큼만 채울지 예상 인건비 전부를 채울지 (화면은 모자란 만큼), 월요일 오전의 정확한 시각, 사업자 계좌 잔액이 모자랄 때', i:'보관함, 다음 주 인건비', o:'자동 채우기 켜기 → 보관함', w:'없음',
         v:'v6: "채워 둔 ₩450,000에 모자란 ₩268,272만 더 채워요", 제목과 채우는 금액 줄도 모자란 만큼으로 맞춤' } },
     { l:'보관된 돈을 꺼내려 할 때', nw:true, key:'dlg:lockA', run:() => { teamJump('vault', ['vault', 'withdraw']); ACT.lockedTap({ v:'A' }); },
-      note:{ v71:'v71: 라이터 검토 고칠 것 1과 같은 까닭. 17에서 바로 여는 확인 창이라 20보다 먼저 볼 수 있어 "A님이 그만두면 다음 날 A님에게 먼저 나가요"', v25:'v25: 꺼내기 토스트의 \'(프로토타입)\'을 \'(시연 버전)\'으로', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로)', v22:'v22: 아래 줄을 \'보관된 돈은 이미 알바생 몫이라 꺼낼 수 없어요\'로', v21:'v21: 확인 창에서 뒤 화면 제목과 같은 문장을, 뒤 화면 아래 줄에서 확인 창과 같은 문장을 뺌', v18:'v18: 이름표 \'꺼내기\', 본문 큰 제목 \'₩450,000을 꺼낼 수 있어요\', 대화창 제목 \'A님 몫이라 12월 10일에 나가요\'(200%에서 두 줄 안)', v17:'v17: 알바생 줄 상태 \'급여일까지 묶여 있어요\'를 \'보관됨\'으로, 아래 안내에 이유 \'보관된 돈은 알바생 몫이라\'', v16:'v16: 대화창 제목 \'A님에게 나가요\', 뒤 화면과 같은 첫 문장 \'급여일 전에는 사장님이 꺼낼 수 없어요\'를 빼고 새 정보만 (UX-03, UX-07)', v10:'v10: 열면 다이얼로그 첫 단추로 포커스, Tab은 다이얼로그 안에서만 돌고 Esc나 닫기로 닫으면 연 행으로 돌아감', v8:'v8: 다이얼로그 오른쪽 버튼 글자가 길어 세로로 쌓음(채워 둔 돈 꺼내기 위, 닫기 아래, 각 전체 너비). 다이얼로그 모서리 24, 버튼 16. 열려 있는 동안 뒤 화면은 inert', q:'보관된 돈을 급여일 전에 꺼낼 수 있나 (사장님은 못 꺼내고 채워 둔 돈만 꺼냄). 미정: 채워 둔 돈을 꺼낼 때 금액 고르기와 계좌에 들어오는 시각', i:'보관함의 꺼내기 → 알바생 몫 줄', o:'닫기, 채워 둔 돈 꺼내기', w:'보관된 돈은 누가 꺼낼 수 있나요',
+      note:{ v74:'v74: 결정안 2. "A님이 그만두면 다음 날 오전 9:00에 A님에게 먼저 나가요"', v71:'v71: 라이터 검토 고칠 것 1과 같은 까닭. 17에서 바로 여는 확인 창이라 20보다 먼저 볼 수 있어 "A님이 그만두면 다음 날 A님에게 먼저 나가요"', v25:'v25: 꺼내기 토스트의 \'(프로토타입)\'을 \'(시연 버전)\'으로', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로)', v22:'v22: 아래 줄을 \'보관된 돈은 이미 알바생 몫이라 꺼낼 수 없어요\'로', v21:'v21: 확인 창에서 뒤 화면 제목과 같은 문장을, 뒤 화면 아래 줄에서 확인 창과 같은 문장을 뺌', v18:'v18: 이름표 \'꺼내기\', 본문 큰 제목 \'₩450,000을 꺼낼 수 있어요\', 대화창 제목 \'A님 몫이라 12월 10일에 나가요\'(200%에서 두 줄 안)', v17:'v17: 알바생 줄 상태 \'급여일까지 묶여 있어요\'를 \'보관됨\'으로, 아래 안내에 이유 \'보관된 돈은 알바생 몫이라\'', v16:'v16: 대화창 제목 \'A님에게 나가요\', 뒤 화면과 같은 첫 문장 \'급여일 전에는 사장님이 꺼낼 수 없어요\'를 빼고 새 정보만 (UX-03, UX-07)', v10:'v10: 열면 다이얼로그 첫 단추로 포커스, Tab은 다이얼로그 안에서만 돌고 Esc나 닫기로 닫으면 연 행으로 돌아감', v8:'v8: 다이얼로그 오른쪽 버튼 글자가 길어 세로로 쌓음(채워 둔 돈 꺼내기 위, 닫기 아래, 각 전체 너비). 다이얼로그 모서리 24, 버튼 16. 열려 있는 동안 뒤 화면은 inert', q:'보관된 돈을 급여일 전에 꺼낼 수 있나 (사장님은 못 꺼내고 채워 둔 돈만 꺼냄). 미정: 채워 둔 돈을 꺼낼 때 금액 고르기와 계좌에 들어오는 시각', i:'보관함의 꺼내기 → 알바생 몫 줄', o:'닫기, 채워 둔 돈 꺼내기', w:'보관된 돈은 누가 꺼낼 수 있나요',
         v:'v6: "알바생도 꺼낼 수 없어요"를 빼고 "급여일 전에는 사장님이 꺼낼 수 없어요. 알바생이 그만두면 다음 날 정산으로 나가요", 두 돈 성질 한 줄' } },
   ]],
   ['급여일', [
@@ -3096,7 +3178,7 @@ const PANEL = [
       note:{ v27:'v27: 행 아이콘을 3D 아이콘 40px로 (11월 주휴수당 ic_coins, 결근한 주 ic_calendar)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 계산식 옆에 \'계산한 금액에서 원 단위 아래는 버려요\' 한 번', v23:'v23: \'개근\'을 \'계약한 날을 빠짐없이 나온 주\'로 풀어 씀, 맨 아래 \'프로토타입\'을 \'시연 버전\'으로', v20:'v20: \'개근한 주가 끝나면 체무가 주휴수당을 보관해요\'', v18:'v18: 이름표 \'주휴수당 계산\', 본문 큰 제목에 금액 \'3명의 11월 주휴수당은 ₩478,848이에요\'', v8:'v8: C님, D님 40px 원을 겹쳐 한 묶음으로, 계산 상자 모서리 16', q:'주휴수당은 어떻게 계산되나 (주 시간 ÷ 40 × 8 × 시급, 개근한 주마다)', i:'12월 10일 가게 전체 급여, 알바생 목록, C님과 D님 근로계약', o:'결근 처리 (결근한 주의 예)', w:'주휴수당 풀이',
         v:'v6: "1명에" 대신 "한 명당", A님 칸은 "A님이 한 주 개근하면"' } },
     { l:'자동 입금 완료', key:'m:payday', run:() => { reset(); jump('home', ['home'], H); startPayday(); },
-      note:{ v67:'v67: 작은 사물이 커지며 떠오름 320ms, 방금 끝난 단계만 체크 그리기', v46:'v46: 이름표 "A님 11월분 인건비"를 "A님 11월분 월급"으로 (66과 같은 이유)', v38:'v38: 과제 2 고칠 것 3. 끝난 단계를 "보관된 돈 보냄", "A님 받을 곳으로 들어감", "급여명세서 보냄"으로(진행 중에는 "~하기" 그대로)', v37:'v37: 금액 결과 화면 정렬(판단 v30-14): 작은 사물, 금액 제목, 보조 줄은 가운데, 진행 단계 목록은 왼쪽. 알바생 15와 같은 틀', v26:'v26: 금액 결과 화면이라 히어로 iso_06을 빼고 작은 사물 ic_coins 96px', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로)', v21:'v21: 끝난 일에 붙은 \'누르지 않아도\'를 \'체무가 보관된 돈으로 보냈어요\'로, 단계의 같은 말을 뺌', v20:'v20: \'누르지 않아도 체무가 급여일에 다 보냈어요\', 진행 중 \'체무가 보관된 돈을 보내고 있어요\', 단계 \'보관된 돈 보내기\'', v19:'v19: 입금 중 비활성 버튼 \'입금하고 있어요\'(상태 문장)를 \'급여명세서 보기\'로 바꾸고 이유를 버튼 위 한 줄 \'입금이 끝나면 급여명세서를 볼 수 있어요\'로', v17:'v17: 제목을 E10 \'A님 월급 ₩984,528이 나갔어요\'로, 이체 대신 \'누르지 않아도\', \'A님 받을 곳으로 입금\'', v16:'v16: 제목 \'A님에게 ₩984,528을 보냈어요\', 공감 한 줄 \'고생 많았어요\' (UX-03)', v15:'v15: 제목 "A님께 ₩984,528을 보냈어요", 주 버튼 급여명세서 보기. 캡처 주소에서는 끝난 모습으로 바로 열림. "보관된 일당"을 같은 이름 "보관된 돈"으로', v14:'v14: 급여일 입금 순간: 3D 그림이 떠오름 320ms, 단계가 끝날 때마다 그 단계 체크만 한 번 그림 240ms', v9:'v9: 입금하고 있어요 비활성 버튼 글자를 1.9:1에서 4.9:1로', v8:'v8: 금액 28과 설명 17, "확인"을 "오늘로 돌아가기"로, 급여명세서 보기는 옅은 버튼', q:'인건비가 다 나갔나 (아무도 이체하지 않음)', i:'알림 (12월 10일 오전 9:00)', o:'급여명세서', w:'급여일 자동 입금 (12월 10일, 결정 뒤)',
+      note:{ v74:'v74: 결정안 5. 급여일 시연 화면에 시연 버전 표시(foot). 시연 배포의 급여일 시각은 발표 몇 분 뒤이고 화면 데이터는 12월 10일 오전 9:00 그대로', v67:'v67: 작은 사물이 커지며 떠오름 320ms, 방금 끝난 단계만 체크 그리기', v46:'v46: 이름표 "A님 11월분 인건비"를 "A님 11월분 월급"으로 (66과 같은 이유)', v38:'v38: 과제 2 고칠 것 3. 끝난 단계를 "보관된 돈 보냄", "A님 받을 곳으로 들어감", "급여명세서 보냄"으로(진행 중에는 "~하기" 그대로)', v37:'v37: 금액 결과 화면 정렬(판단 v30-14): 작은 사물, 금액 제목, 보조 줄은 가운데, 진행 단계 목록은 왼쪽. 알바생 15와 같은 틀', v26:'v26: 금액 결과 화면이라 히어로 iso_06을 빼고 작은 사물 ic_coins 96px', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로)', v21:'v21: 끝난 일에 붙은 \'누르지 않아도\'를 \'체무가 보관된 돈으로 보냈어요\'로, 단계의 같은 말을 뺌', v20:'v20: \'누르지 않아도 체무가 급여일에 다 보냈어요\', 진행 중 \'체무가 보관된 돈을 보내고 있어요\', 단계 \'보관된 돈 보내기\'', v19:'v19: 입금 중 비활성 버튼 \'입금하고 있어요\'(상태 문장)를 \'급여명세서 보기\'로 바꾸고 이유를 버튼 위 한 줄 \'입금이 끝나면 급여명세서를 볼 수 있어요\'로', v17:'v17: 제목을 E10 \'A님 월급 ₩984,528이 나갔어요\'로, 이체 대신 \'누르지 않아도\', \'A님 받을 곳으로 입금\'', v16:'v16: 제목 \'A님에게 ₩984,528을 보냈어요\', 공감 한 줄 \'고생 많았어요\' (UX-03)', v15:'v15: 제목 "A님께 ₩984,528을 보냈어요", 주 버튼 급여명세서 보기. 캡처 주소에서는 끝난 모습으로 바로 열림. "보관된 일당"을 같은 이름 "보관된 돈"으로', v14:'v14: 급여일 입금 순간: 3D 그림이 떠오름 320ms, 단계가 끝날 때마다 그 단계 체크만 한 번 그림 240ms', v9:'v9: 입금하고 있어요 비활성 버튼 글자를 1.9:1에서 4.9:1로', v8:'v8: 금액 28과 설명 17, "확인"을 "오늘로 돌아가기"로, 급여명세서 보기는 옅은 버튼', q:'인건비가 다 나갔나 (아무도 이체하지 않음)', i:'알림 (12월 10일 오전 9:00)', o:'급여명세서', w:'급여일 자동 입금 (12월 10일, 결정 뒤)',
         v:'v6: 사장님 앱 돈 이름을 "인건비"로(A님 11월분 인건비), 진행 버튼 "입금하고 있어요"' } },
     { l:'입금이 안 됐을 때', key:'m:payfail', run:() => { reset(); jump('home', ['home'], H); openModal('payfail'); },
       note:{ v63:'v63: 문제 있음 단계 원을 빨강 바탕(--bg-critical-solid)에 흰 아이콘으로', v58:'v58: 히어로를 iso_14에서 2판 iso2_56 은행과 통장으로 (알바생 35와 같은 사건 E11이라 같은 그림)', v47:'v47: 설명을 "사장님이 할 일은 없어요. A님이 받을 곳을 고치면 체무가 바로 다시 보내요"로 (모의 사용 6). 돈이 그대로 있다는 줄은 둘째 줄 그대로', v36:'v36: 판단 11. 사장님이 누르는 [984,528원 다시 보내기]를 빼고, 본문 "A님이 받을 곳을 고치면 체무가 바로 다시 보내요.", 단계 "오전 9:00 입금 안 됨(받을 곳 정보가 은행 정보와 달라요)"와 "A님이 받을 곳을 고치는 중". 주 버튼은 오늘로 돌아가기 하나. 고친 뒤 다시 보낸 결과는 새 화면 66. 패널 이름을 "입금 실패, 다시 보내기"에서 "입금이 안 됐을 때"로', v29:'v29: 히어로를 한 크기 208px로', v26:'v26: 그림 iso_14 경로를 웹용 webp로', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로)', v21:'v21: 에러 두 문장(돈 위치, 이유)으로. 이유와 같은 단계 설명, 돈 위치와 같은 셋째 단계를 뺌', v20:'v20: \'… 달라서 체무가 보내지 못했어요\'', v17:'v17: 제목을 E11 \'A님 월급이 아직 안 나갔어요\'로. 원인이 받을 곳으로 밝혀진 화면이라 설명은 \'받을 곳 정보가 은행 정보와 달라서 보내지 못했어요\'(계좌 정보 대신 받을 곳)', v16:'v16: 단계 \'오전 9:00 입금 실패\'를 \'오전 9:00 입금 안 됨\'으로 (UX-10b)', v15:'v15: 3D 그림 iso_14를 170px에서 200px로', v13:'v13: 에러 틀로 바꿈. 제목을 "다시 보내기만 하면 돼요"에서 무슨 일인지 말하는 "12월 10일 자동 입금이 안 됐어요"로, 둘째 줄은 돈 위치 "₩984,528은 보관된 돈으로 그대로 있어요", 주 버튼 ₩984,528 다시 보내기와 물러나는 버튼 닫기. 돈이 A님께 안 들어간 일이라 실패 표시를 주황에서 빨강으로', v8:'v8: 제목 28과 설명 17, 3D 마스크 뺌, 단계 표시 24px 원', q:'왜 못 보냈고 돈은 어디 있나', i:'알림 (오전 9:00 입금 실패)', o:'다시 보내기 → 자동 입금 완료', w:'급여일: 자동 입금 실패',
@@ -3105,9 +3187,9 @@ const PANEL = [
       note:{ v64:'v64: 입금액 줄을 표 맨 위로 (핵심 금액이 첫 화면에)', v25:'v25: 토스트 \'급여명세서를 PDF로 저장했어요 (시연 버전)\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로)', v23:'v23: 맨 아래 \'프로토타입\'을 \'시연 버전\'으로', v20:'v20: \'체무가 급여일마다 급여명세서를 만들어 … 보내요\', 받은 곳 줄 \'체무가 … 한 번에 입금\'', v18:'v18: 제목에 결과 \'A님 10월분 급여명세서를 보냈어요\'', v17:'v17: \'근로자 A\'를 \'알바생 A님\'으로, \'임금명세서\'를 \'급여명세서\'로 (용어집)', v8:'v8: PDF 저장하기 버튼 앞 아이콘을 빼고 옅은 버튼으로, 명세서 상자 모서리 16', q:'임금명세서를 따로 만들어야 하나', i:'자동 입금 완료, 알림', o:'장부 내보내기', w:'급여명세서',
         v:'v6: 제목을 "10월분 월급" 대신 공통 이름 "A님 10월분 급여명세서"로' } },
     { l:'이번 달 인건비 리포트', nw:true, key:'team/me/report', run:() => teamJump('me', ['me', 'report']),
-      note:{ v68:'v68: 흐름도: 들어오는 길(나 탭의 이번 달 인건비)이 PANEL 밖 화면에 있던 것을 78로 더해 이음', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_receipt, 그림 배정표 2판 5절)', v47:'v47: 안내 상자를 "근무표대로 계산한 11월 예상 3,048,528원"으로 (11월 21일 시점의 예상, 모의 사용 5)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (근무 기록 ic_clock, 보관 기록 ic_safe, 고친 기록 ic_clock, 급여명세서 ic_receipt)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: 맨 아래 \'프로토타입\'을 \'시연 버전\'으로', v20:'v20: \'사장님이 근무를 확정할 때마다 체무가 장부에 적어요\', \'12월 10일에 체무가 3명 몫을 만들어요\', \'체무가 3명에게 보내요\'', v18:'v18: 이름표 \'11월 인건비\', 본문 큰 제목 \'인건비 ₩2,019,624가 쌓였어요\'', v8:'v8: 장부 내보내기 버튼 앞 아이콘 뺌, 안내 상자 아이콘 24px', q:'이번 달 인건비가 장부에 저절로 쌓이고 있나 (11월 1일 ~ 21일 ₩2,019,624, 근무 35일, 보관 43건)', i:'나 탭의 이번 달 인건비', o:'장부 내보내기', w:'근무 기록 (11월 21일), 기록 내보내기 (같은 원본)' } },
+      note:{ v74:'v74: 결정안 3. 설명 "근무를 확정할 때마다 근무표, 임금대장, 급여명세서, 인건비 리포트가 함께 쌓여요", 저절로 남은 기록의 근무 기록을 근무표로, 임금대장 줄(3명)을 더함', v68:'v68: 흐름도: 들어오는 길(나 탭의 이번 달 인건비)이 PANEL 밖 화면에 있던 것을 78로 더해 이음', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_receipt, 그림 배정표 2판 5절)', v47:'v47: 안내 상자를 "근무표대로 계산한 11월 예상 3,048,528원"으로 (11월 21일 시점의 예상, 모의 사용 5)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (근무 기록 ic_clock, 보관 기록 ic_safe, 고친 기록 ic_clock, 급여명세서 ic_receipt)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: 맨 아래 \'프로토타입\'을 \'시연 버전\'으로', v20:'v20: \'사장님이 근무를 확정할 때마다 체무가 장부에 적어요\', \'12월 10일에 체무가 3명 몫을 만들어요\', \'체무가 3명에게 보내요\'', v18:'v18: 이름표 \'11월 인건비\', 본문 큰 제목 \'인건비 ₩2,019,624가 쌓였어요\'', v8:'v8: 장부 내보내기 버튼 앞 아이콘 뺌, 안내 상자 아이콘 24px', q:'이번 달 인건비가 장부에 저절로 쌓이고 있나 (11월 1일 ~ 21일 ₩2,019,624, 근무 35일, 보관 43건)', i:'나 탭의 이번 달 인건비', o:'장부 내보내기', w:'근무 기록 (11월 21일), 기록 내보내기 (같은 원본)' } },
     { l:'장부 내보내기', key:'haneul/me/ledger', run:() => { reset(); jump('me', ['me', 'ledger'], H); },
-      note:{ v25:'v25: 토스트에 무엇을 저장했는지 \'장부를 엑셀 파일로 …\', \'장부를 PDF로 …\'', v18:'v18: 이름표 \'장부 내보내기\', 본문 큰 제목 \'11월 장부가 정리돼 있어요\'(기간을 고르면 기간 이름이 바뀜)', v17:'v17: \'날마다 보관한 돈\'을 \'보관된 돈\'으로 (용어집)', v16:'v16: \'보관과 입금 내역\'을 \'보관과 입금 기록\'으로 (UX-09)', v15:'v15: 정보가 많은 화면이라 3D 그림(iso_10 120px)을 뺌', v10:'v10: 기간 세그먼트 칸 높이 40에서 44로, 칸 사이 8px. 넣을 내용 행은 role checkbox', v9:'v9: 기간 세그먼트 고른 칸에 3:1 테두리와 굵은 글자, 체크 상자 테두리 3:1', v8:'v8: 기간 칩(11월, 최근 3개월, 올해)을 단일 선택 세그먼트로, 버튼 앞 아이콘을 빼고 엑셀로 저장하기는 옅은 버튼', q:'세무 신고와 노무 점검에 쓸 자료가 있나', i:'내 정보, 급여명세서', o:'PDF, 엑셀 저장', w:'기록 내보내기' } },
+      note:{ v74:'v74: 결정안 3. 제목 아래 "근무를 확정할 때마다 체무가 저절로 적었어요"', v25:'v25: 토스트에 무엇을 저장했는지 \'장부를 엑셀 파일로 …\', \'장부를 PDF로 …\'', v18:'v18: 이름표 \'장부 내보내기\', 본문 큰 제목 \'11월 장부가 정리돼 있어요\'(기간을 고르면 기간 이름이 바뀜)', v17:'v17: \'날마다 보관한 돈\'을 \'보관된 돈\'으로 (용어집)', v16:'v16: \'보관과 입금 내역\'을 \'보관과 입금 기록\'으로 (UX-09)', v15:'v15: 정보가 많은 화면이라 3D 그림(iso_10 120px)을 뺌', v10:'v10: 기간 세그먼트 칸 높이 40에서 44로, 칸 사이 8px. 넣을 내용 행은 role checkbox', v9:'v9: 기간 세그먼트 고른 칸에 3:1 테두리와 굵은 글자, 체크 상자 테두리 3:1', v8:'v8: 기간 칩(11월, 최근 3개월, 올해)을 단일 선택 세그먼트로, 버튼 앞 아이콘을 빼고 엑셀로 저장하기는 옅은 버튼', q:'세무 신고와 노무 점검에 쓸 자료가 있나', i:'내 정보, 급여명세서', o:'PDF, 엑셀 저장', w:'기록 내보내기' } },
   ]],
   ['알바생 관리', [
     { l:'알바생 목록 (11월 21일)', key:'haneul/staff/staff', run:() => { reset(); jump('staff', ['staff'], H); },
@@ -3127,12 +3209,12 @@ const PANEL = [
       note:{ v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_scale, 그림 배정표 2판 5절). 채워 둔 돈 성질 줄을 용어집(v47) 문장으로 "사장님이 꺼낼 수 있어요"(돈 카드)', v33:'v33: 도움 묶음 첫 행으로 \'자주 묻는 질문\'(새 화면 62, 아이콘 ic_magnifier)을 더함. 고용노동부 상담 1350 행은 그대로 두고 자주 묻는 질문 화면 아래에도 같은 행', v32:'v32: 가게 묶음 첫 행 \'출근할 수 있는 거리\'를 \'가게 정보\' 행으로 (새 화면 57 가게 정보 바꾸기), 맨 아래 계정 묶음(로그아웃, 가게 닫기)을 더함. 계정 행은 그림 없이 글만', v31:'v31: 알림 묶음의 켜짐 표시 3줄을 \'알림 설정\' 행 하나로 (새 화면 54), 고용노동부 상담 1350 행 아이콘을 ic_contract에서 ic_scale로 (판단 6)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (거리 ic_pin, 사업자 계좌 ic_bankbook, 장부 ic_export, 기록 맞춰 보기 ic_magnifier, 알림 설정 ic_clock·ic_safe·ic_scale, 1350 상담 ic_contract)', v26:'v26: 판단 1로 날짜와 가게 이름 줄을 상태 제목 아래로. 채워 둔 돈 설명을 용어집 문장 \'아직 누구 몫도 아니라 언제든 꺼낼 수 있어요\'로', v25:'v25: 스위치 화면 읽기 이름 \'켜져 있어요\', 상담 전화 토스트 \'1350에 전화를 걸고 있어요 (시연 버전)\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: 채워 둔 돈 성질 줄 \'누구 몫도 아니라 언제든 꺼낼 수 있어요\'', v21:'v21: 판단 5: \'출퇴근 인정 범위\'를 \'출근할 수 있는 거리\'(가게에서 30m 안)로', v18:'v18: 상단 바 \'나\'는 이름표, 본문 큰 제목 \'알바생 1명과 일하고 있어요\', 카드 줄은 급여일만', v17:'v17: \'기록 대조\'를 \'기록 맞춰 보기\'로, \'알바생이 이의를 보낼 때\'를 \'알바생이 기록이 다르다고 알릴 때\'로', v16:'v16: 맨 아래 \'시연 버전 · 연습용 돈으로 움직여요\' (UX-10)', v15:'v15: "테스트넷 모의 원화 토큰(KRWt)"을 "테스트넷의 연습용 원화(KRWt)"로', v8:'v8: 먹색 카드 보라 글로우 뺌, 가게 아이콘 40px 원. 상담 1350 행은 오른쪽 전화 아이콘을 빼 아이콘 하나만', q:'가게, 계좌, 알림 설정은 어떻게 돼 있나', i:'나 탭', o:'보관함 채우기, 장부 내보내기, 기록 대조', w:'내 정보',
         v:'v6: "끌 수 없어요"를 빼고 알림 설명을 할 일로, 출퇴근 인정 범위 "가게 30m 안 (기본)"과 밖에서 일한 날 이유 남기기(범위 조절은 미정), 기록 대조 설명을 "링크를 받은 사람만", 채워 둔 돈 성질 한 줄, 맨 아래 "시연 버전 · 테스트넷 모의 원화 토큰(KRWt)으로 움직여요"' } },
     { l:'기록 맞춰 보기', key:'m:verify', run:() => { reset(); jump('me', ['me'], H); openModal('verify'); },
-      note:{ v69:'v69: 개발용 표 6절, 레드라인 39_기록_맞춰_보기.png. 거래를 부르지 않고 근무 확정 거래가 남긴 기록 번호와 저장한 차례를 읽음', v46:'v46: PANEL 이름 "기록 대조"를 "기록 맞춰 보기"로 (판단 v40-3). [받는 사람 화면 보기]가 같은 폴더의 verify.html을 엶', v40:'v40: [받는 사람 화면 보기]가 같은 폴더의 verify.html을 엶', v39:'v39: 주 버튼 [파일로 맞춰 보기](시연 토스트)를 [받는 사람 화면 보기]로 바꿔 기록 맞춰 보기 웹 verify.html을 새 탭으로 엶(파일로 맞춰 보기는 그 페이지 안에). 웹은 v15 판을 새 라이팅 규칙, v13 에러 틀, v26 그림 배정으로 다시 만듦', v29:'v29: 카드가 두 장 이어지는 화면이라 히어로 iso_12를 빼고 행 아이콘만', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (근무 날 ic_calendar, 남긴 사람 ic_check, 고친 기록 ic_clock, 기록 번호 ic_shield, 공유 링크 ic_envelope)', v26:'v26: 그림 iso_12 경로를 웹용 webp로', v25:'v25: 고친 기록 줄 \'→\'를 \'에서 … 으로\', 토스트 \'(시연 버전)\'', v24:'v24: 날짜를 \'11월 21일 토요일\'로', v23:'v23: \'저장 순서 18,204,117\'을 \'18,204,117번째로 저장한 기록\'으로', v22:'v22: \'분쟁이 생기면 … 보여 주세요\'(의심하는 전제)를 \'기록이 서로 다를 때 이 페이지를 함께 보면 돼요\'로', v21:'v21: 본문을 세 문장으로', v20:'v20: \'이름과 계좌는 체무가 가려서 보여 줘요\'', v19:'v19: 링크를 끄면 비활성 \'링크 복사하기\' 위에 이유 한 줄', v18:'v18: 제목을 \'고친 기록과 원래 기록이 함께 있어요\'로 줄임 (200%에서 두 줄 안)', v17:'v17: 머리 \'기록 맞춰 보기\', 제목 \'원래 기록은 그대로 있고…\', 버튼 \'파일로 맞춰 보기\' (용어집)', v16:'v16: 기록 번호 줄의 \'블록\'을 \'저장 순서\'로 (UX-10)', v15:'v15: 제목을 "원본은 그대로 있고 고친 기록이 함께 남아 있어요"로 (고친 기록 1건이 있는 화면이라). 3D 그림 iso_12를 120px에서 200px로', v10:'v10: 링크 끄기 누르는 높이 36에서 44로', v8:'v8: 제목 22, 링크 복사하기 앞 아이콘을 빼고 옅은 버튼, 링크 끄기도 옅은 버튼', q:'이 기록이 남긴 뒤로 바뀌지 않았나 (링크를 받은 사람만, 이름과 계좌는 가림)', i:'내 정보, 내 기록 그대로 둠, 공유 링크', o:'받는 사람 화면 보기(같은 폴더의 기록 맞춰 보기 웹), 링크 복사하기, 링크 끄기', w:'하루 상세, 기록 원본 보기 창',
+      note:{ v74:'v74: 결정안 1. "남긴 사람"을 "서명한 사람 · 퇴근할 때 A님 · 확정할 때 박** 사장님"(웹 서명 묶음과 같은 말)', v69:'v69: 개발용 표 6절, 레드라인 39_기록_맞춰_보기.png. 거래를 부르지 않고 근무 확정 거래가 남긴 기록 번호와 저장한 차례를 읽음', v46:'v46: PANEL 이름 "기록 대조"를 "기록 맞춰 보기"로 (판단 v40-3). [받는 사람 화면 보기]가 같은 폴더의 verify.html을 엶', v40:'v40: [받는 사람 화면 보기]가 같은 폴더의 verify.html을 엶', v39:'v39: 주 버튼 [파일로 맞춰 보기](시연 토스트)를 [받는 사람 화면 보기]로 바꿔 기록 맞춰 보기 웹 verify.html을 새 탭으로 엶(파일로 맞춰 보기는 그 페이지 안에). 웹은 v15 판을 새 라이팅 규칙, v13 에러 틀, v26 그림 배정으로 다시 만듦', v29:'v29: 카드가 두 장 이어지는 화면이라 히어로 iso_12를 빼고 행 아이콘만', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (근무 날 ic_calendar, 남긴 사람 ic_check, 고친 기록 ic_clock, 기록 번호 ic_shield, 공유 링크 ic_envelope)', v26:'v26: 그림 iso_12 경로를 웹용 webp로', v25:'v25: 고친 기록 줄 \'→\'를 \'에서 … 으로\', 토스트 \'(시연 버전)\'', v24:'v24: 날짜를 \'11월 21일 토요일\'로', v23:'v23: \'저장 순서 18,204,117\'을 \'18,204,117번째로 저장한 기록\'으로', v22:'v22: \'분쟁이 생기면 … 보여 주세요\'(의심하는 전제)를 \'기록이 서로 다를 때 이 페이지를 함께 보면 돼요\'로', v21:'v21: 본문을 세 문장으로', v20:'v20: \'이름과 계좌는 체무가 가려서 보여 줘요\'', v19:'v19: 링크를 끄면 비활성 \'링크 복사하기\' 위에 이유 한 줄', v18:'v18: 제목을 \'고친 기록과 원래 기록이 함께 있어요\'로 줄임 (200%에서 두 줄 안)', v17:'v17: 머리 \'기록 맞춰 보기\', 제목 \'원래 기록은 그대로 있고…\', 버튼 \'파일로 맞춰 보기\' (용어집)', v16:'v16: 기록 번호 줄의 \'블록\'을 \'저장 순서\'로 (UX-10)', v15:'v15: 제목을 "원본은 그대로 있고 고친 기록이 함께 남아 있어요"로 (고친 기록 1건이 있는 화면이라). 3D 그림 iso_12를 120px에서 200px로', v10:'v10: 링크 끄기 누르는 높이 36에서 44로', v8:'v8: 제목 22, 링크 복사하기 앞 아이콘을 빼고 옅은 버튼, 링크 끄기도 옅은 버튼', q:'이 기록이 남긴 뒤로 바뀌지 않았나 (링크를 받은 사람만, 이름과 계좌는 가림)', i:'내 정보, 내 기록 그대로 둠, 공유 링크', o:'받는 사람 화면 보기(같은 폴더의 기록 맞춰 보기 웹), 링크 복사하기, 링크 끄기', w:'하루 상세, 기록 원본 보기 창',
         v:'v6: "로그인 없이 누구나"를 빼고 "링크를 받은 사람만 볼 수 있어요. 이름과 계좌는 가려져요", 사장님 이름을 가린 예(박** 사장님), 링크 기한 줄과 "링크 끄기". 미정: 링크 기한(7일은 예시)' } },
   ]],
   ['다른 가게: 동네 식당', [
     { l:'아직 보관 못 한 돈', key:'junho/vault/short', run:() => { reset(); jump('vault', ['vault', 'short'], J); },
-      note:{ v72:'v72: 모의 사용 고칠 것 7. 제목 "168,000원을 더 채우면 돼요". 알림 줄도 "168,000원을 더 채우면 B님 몫을 보관해요"', v66:'v66: 채울 금액 칸: 숫자만 받아 묶음, 붙여 넣기도 숫자만, 포커스는 보라 2px. 칸 아래 결과 줄을 입력 칸 한 줄 규칙(.fld-msg, 13px)으로. 남은 돈을 넘으면 그 자리에 오류 줄(75), 아래 버튼 금액이 칸을 따라 바뀜', v64:'v64: 채울 금액 칸에 포커스가 가면 키보드 위에 [126,000원 채우기]', v47:'v47: 일부만 채우기의 "남은 42,000원"을 입력 칸 안에서 빼고 칸 아래 결과 줄 "채운 뒤 남는 돈 42,000원"으로 (모의 사용 7)', v46:'v46: 선택지 "채울 날짜 정해 B님에게 알리기"와 주 버튼 "날짜 정하기"를 한 이름 "채울 날짜 알리기"로 (라이터 검토 2)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (아직 보관 못 한 근무 ic_clock, 주휴수당 ic_coins)', v26:'v26: 제목을 사건 표 E08 새 틀 \'168,000원만 더 채우면 돼요\'로. 다 채우기와 일부만 채우기 확인 창에 \'보관한 뒤에는 다시 꺼낼 수 없어요\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로, 금액 입력칸의 ₩ 앞붙임을 뒤 \'원\'으로 (화면 읽기 이름 \'채울 금액(원)\')', v23:'v23: \'개근\'을 \'빠짐없이 나온 주\'로', v22:'v22: 선택지 머리 \'오늘 채울 수 있는 만큼부터 정해요\'(재촉)를 \'채울 방법을 골라요\'로', v21:'v21: 본문을 두 문장으로 (\'근무는 사장님이 모두 확정했어요\'와, 바로 아래 \'B님 앱에 보이는 안내\'와 같은 아래 줄을 뺌)', v20:'v20: \'근무는 사장님이 모두 확정했어요\', \'체무가 다음 날 오전 9시에 B님 앱에도 알려요\', 채우기 확인 창 첫머리 \'체무가\'', v19:'v19: 다 채우기, 일부만 채우기 확인 창 버튼을 금액이 보이는 \'₩168,000 채우기\', \'₩126,000 채우기\'로', v18:'v18: 이름표 \'아직 보관 못 한 돈\', 본문 큰 제목 E08 \'채워 둔 돈이 ₩168,000 모자라요\', 할 일 문장은 선택지 머리로', v17:'v17: 제목을 E08 \'채워 둔 돈이 ₩168,000 모자라요\'로, 본문 첫 줄 \'B님 몫 ₩168,000을 아직 보관 못 했어요\'', v16:'v16: \'채울 날짜 정해 B님에게 알리기\', \'근무는 모두 확정했어요\' (UX-03, UX-02)', v10:'v10: 채울 금액 입력칸 높이 25에서 44로, 고르는 행은 role radio와 aria-checked', v9:'v9: 다른 가게 표시 글자를 #c27200(3.68:1)에서 #8f5200으로, 아이콘만 #c27200', v8:'v8: 가게 머리 줄 모서리 8과 24px 아이콘, 고르는 행 오른쪽 체크 24px, 금액 입력칸 모서리 8, 안내 보기 뒤 화살표 뺌', v7:'v7: 일부만 채운 뒤에는 제목과 금액이 남은 ₩42,000으로 바뀌고 일부만 채우기 선택지를 감춤', q:'아직 보관 못 한 돈이 얼마이고, 오늘 무엇부터 할 수 있나 (최영숙 사장님, 11월 18일 ~ 20일 일당 ₩126,000과 주휴수당 ₩42,000)', i:'알림 (오전 9:00), 오늘, 보관함', o:'다 채우기 → 보관 완료, 일부만 채우기(₩126,000 예) → 남은 돈 채울 날짜 알리기, 채울 날짜 알리기, B님 앱에 보이는 안내', w:'오늘: 안 들어온 돈, 안 들어온 돈',
+      note:{ v74:'v74: 결정안 4. 다 채우기 확인 창 뒤 다시 보관하는 거래를 기다리는 상태(80)를 거쳐 45', v72:'v72: 모의 사용 고칠 것 7. 제목 "168,000원을 더 채우면 돼요". 알림 줄도 "168,000원을 더 채우면 B님 몫을 보관해요"', v66:'v66: 채울 금액 칸: 숫자만 받아 묶음, 붙여 넣기도 숫자만, 포커스는 보라 2px. 칸 아래 결과 줄을 입력 칸 한 줄 규칙(.fld-msg, 13px)으로. 남은 돈을 넘으면 그 자리에 오류 줄(75), 아래 버튼 금액이 칸을 따라 바뀜', v64:'v64: 채울 금액 칸에 포커스가 가면 키보드 위에 [126,000원 채우기]', v47:'v47: 일부만 채우기의 "남은 42,000원"을 입력 칸 안에서 빼고 칸 아래 결과 줄 "채운 뒤 남는 돈 42,000원"으로 (모의 사용 7)', v46:'v46: 선택지 "채울 날짜 정해 B님에게 알리기"와 주 버튼 "날짜 정하기"를 한 이름 "채울 날짜 알리기"로 (라이터 검토 2)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (아직 보관 못 한 근무 ic_clock, 주휴수당 ic_coins)', v26:'v26: 제목을 사건 표 E08 새 틀 \'168,000원만 더 채우면 돼요\'로. 다 채우기와 일부만 채우기 확인 창에 \'보관한 뒤에는 다시 꺼낼 수 없어요\'', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로, 금액 입력칸의 ₩ 앞붙임을 뒤 \'원\'으로 (화면 읽기 이름 \'채울 금액(원)\')', v23:'v23: \'개근\'을 \'빠짐없이 나온 주\'로', v22:'v22: 선택지 머리 \'오늘 채울 수 있는 만큼부터 정해요\'(재촉)를 \'채울 방법을 골라요\'로', v21:'v21: 본문을 두 문장으로 (\'근무는 사장님이 모두 확정했어요\'와, 바로 아래 \'B님 앱에 보이는 안내\'와 같은 아래 줄을 뺌)', v20:'v20: \'근무는 사장님이 모두 확정했어요\', \'체무가 다음 날 오전 9시에 B님 앱에도 알려요\', 채우기 확인 창 첫머리 \'체무가\'', v19:'v19: 다 채우기, 일부만 채우기 확인 창 버튼을 금액이 보이는 \'₩168,000 채우기\', \'₩126,000 채우기\'로', v18:'v18: 이름표 \'아직 보관 못 한 돈\', 본문 큰 제목 E08 \'채워 둔 돈이 ₩168,000 모자라요\', 할 일 문장은 선택지 머리로', v17:'v17: 제목을 E08 \'채워 둔 돈이 ₩168,000 모자라요\'로, 본문 첫 줄 \'B님 몫 ₩168,000을 아직 보관 못 했어요\'', v16:'v16: \'채울 날짜 정해 B님에게 알리기\', \'근무는 모두 확정했어요\' (UX-03, UX-02)', v10:'v10: 채울 금액 입력칸 높이 25에서 44로, 고르는 행은 role radio와 aria-checked', v9:'v9: 다른 가게 표시 글자를 #c27200(3.68:1)에서 #8f5200으로, 아이콘만 #c27200', v8:'v8: 가게 머리 줄 모서리 8과 24px 아이콘, 고르는 행 오른쪽 체크 24px, 금액 입력칸 모서리 8, 안내 보기 뒤 화살표 뺌', v7:'v7: 일부만 채운 뒤에는 제목과 금액이 남은 ₩42,000으로 바뀌고 일부만 채우기 선택지를 감춤', q:'아직 보관 못 한 돈이 얼마이고, 오늘 무엇부터 할 수 있나 (최영숙 사장님, 11월 18일 ~ 20일 일당 ₩126,000과 주휴수당 ₩42,000)', i:'알림 (오전 9:00), 오늘, 보관함', o:'다 채우기 → 보관 완료, 일부만 채우기(₩126,000 예) → 남은 돈 채울 날짜 알리기, 채울 날짜 알리기, B님 앱에 보이는 안내', w:'오늘: 안 들어온 돈, 안 들어온 돈',
         v:'v6: 화면 머리에 "동네 식당 · 최영숙 사장님", 제목 "아직 보관 못 한 돈 ₩168,000", 첫 줄 "오늘 채울 수 있는 만큼부터 정해요", 선택지 셋(다 채우기 ₩168,000, 일부만 채우기 금액 입력, 채울 날짜 정해 B님께 알리기), "끌 수 없는 알림" 대신 "B님 앱에도 다음 날 오전 9시에 안내가 가요", 빨강 대신 주황, 3D 그림 뺌' } },
     { l:'B님 앱에 보이는 안내', key:'junho/vault/alerts', run:() => { reset(); jump('vault', ['vault', 'short', 'alerts'], J); },
       note:{ v68:'v68: 글자 200%에서 다른 가게 띠를 아이콘과 "다른 가게" 한 줄로(가게 이름은 화면 읽기 글). 360x640 200% 긴 글에서도 제목이 첫 화면 안', v65:'v65: B님 앱 이름표 배지를 기본 색으로(상태가 아닌 이름표)', v47:'v47: 맨 아래 "다음 날 오전 9:00에 B님 앱에 알려요"를 빼고(42에 한 번), 채울 날짜 알리기 행 설명을 "정한 날짜가 B님 앱에 먼저 보여요"로 (모의 사용 8)', v46:'v46: 행 이름 "채울 날짜 정해 B님에게 알리기"를 "채울 날짜 알리기"로 (라이터 검토 2)', v27:'v27: 행 아이콘을 3D 아이콘 40px로 (채울 날짜 알리기 ic_calendar, 일부만 채우기 ic_safe)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v21:'v21: 뜻이 흐린 \'B님은 기록을 볼 수 있어요\'를 뺌', v20:'v20: \'체무가 아직 보관 못 한 날의 다음 날 오전 9시에 B님 앱에 알려요\'', v18:'v18: 이름표로 내리고 본문 큰 제목 \'B님 앱에 아직 안 들어왔다고 보여요\'', v17:'v17: B님 앱 인용문을 E08 알바생 쪽 틀 \'11월 18일 ~ 20일 일당과 주휴수당 ₩168,000이 아직 안 들어왔어요\'로', v16:'v16: \'채울 날짜 정해 B님에게 알리기\' (UX-03)', v8:'v8: 인용 상자 모서리 16, 사장님이 먼저 할 수 있는 일 행 24px 아이콘', v7:'v7: 일부만 채운 뒤에는 일부만 채우기 줄과 아래 버튼 금액이 남은 ₩42,000 기준', q:'B님 앱에는 무엇이 보이고, 사장님이 먼저 할 수 있는 일은 무엇인가', i:'아직 보관 못 한 돈의 "B님 앱에 보이는 안내 보기"', o:'채울 날짜 알리기, 일부만 채우기, ₩168,000 다 채우기', w:'안 들어온 돈, 안 들어온 돈 알림 단계',
@@ -3150,7 +3232,7 @@ const PANEL = [
       note:{ v72:'v72: 모의 사용 고칠 것 11. "B님이 그만둬서"를 빼고 돈이 언제 나가는지만 "보관한 168,000원은 내일 오전 9:00 B님 정산 때 함께 나가요"(44와 같은 꼴)', v67:'v67: 작은 사물 ic_safe가 커지며 떠오름 320ms', v46:'v46: 168,000원을 다 채운 뒤 상태라 PANEL 이름에 적음 (라이터 검토 4, 46은 채우기 전)', v38:'v38: 과제 2 고칠 것 3. 끝난 단계 "B님 앱에 보관됨으로 바뀌었어요"를 "…바뀜"으로', v37:'v37: 금액 결과 화면 정렬(판단 v30-14): 작은 사물, 금액 제목, 보조 줄은 가운데, 진행 단계 목록은 왼쪽. 알바생 15와 같은 틀', v26:'v26: 금액 결과 화면이라 히어로 iso_01을 빼고 작은 사물 ic_safe 96px', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 시각을 \'오전 9:00\'으로', v23:'v23: \'개근\'을 \'빠짐없이 나온 주\'로', v21:'v21: 단계와 같은 금액 설명 줄을 뺌', v17:'v17: 제목을 E03 틀로 \'B님 몫 ₩168,000을 보관했어요\'(주휴수당이 섞여 있어 일당 대신 몫)', v15:'v15: 결과 표시 원 대신 3D 그림 iso_01 동네 식당을 206px로 (B님 가게의 보관 완료)', v14:'v14: 보관 완료 순간: 결과 표시 원이 떠오름 320ms, 마지막 단계 체크를 그림 240ms', v8:'v8: 아래 버튼 "확인"을 "보관함으로 돌아가기"로, 결과 표시 56px 원', v7:'v7: 일부만 채운 뒤 남은 돈을 채우면 주휴수당 ₩42,000만 보관한 결과로 보여 줌', q:'아직 보관 못 한 돈이 모두 보관됐나', i:'아직 보관 못 한 돈의 다 채우기', o:'보관함', w:'안 들어온 돈이 보관됨, 알림',
         v:'v6: "밀린 일당"과 "안 들어온 돈"을 쓰지 않고 "B님 앱에 \'보관됨\'으로 바뀌었어요", 가게 머리 줄, 입금 때를 B님 정산과 맞춰 "내일 오전 9시 정산 때 함께"' } },
     { l:'그만둔 알바 정산 (채우기 전)', key:'junho/staff/settle', run:() => { reset(); jump('staff', ['staff', 'settle'], J); },
-      note:{ v71:'v71: 라이터 검토(가운데 묶음 직접). 정산을 "그만둔 다음 날 보관된 돈을 한 번에 보내는 일"로 정한 화면에서 보관 못 한 남은 돈에도 정산이라 쓰던 것을 "14일 안에 B님에게 주면 돼요"로', v68:'v68: 글자 200%에서 다른 가게 띠를 한 줄로', v46:'v46: 보조 버튼 "날짜 정하기"를 "채울 날짜 알리기"로 (라이터 검토 2). 아직 보관 못 한 돈 168,000원을 채우기 전 상태라 PANEL 이름에 적음 (라이터 검토 4, 45는 다 채운 뒤)', v29:'v29: 히어로를 한 크기 208px로', v26:'v26: 히어로를 iso_11에서 iso_29 그만둔 알바 정산으로 (그림 배정표)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로, 시각을 \'오전 9:00\'으로', v23:'v23: \'정산\'을 처음 보는 사장님에게 \'그만둔 다음 날 보관된 돈을 한 번에 보내는 일\' 한 줄', v22:'v22: 법 조항 줄을 \'14일 안에 정산하면 돼요\'와 \'근로기준법 제36조에서 정한 기간이에요\'로 (조항을 들이미는 느낌)', v20:'v20: 법 기한 문장을 할 수 있는 일로 \'남은 돈은 그만둔 날부터 14일 안에 사장님이 정산하면 돼요\'', v18:'v18: 제목을 \'B님 정산 ₩588,000이 내일 나가요\'로 줄임 (입금 시각은 아래 단계에)', v17:'v17: 제목을 E12 \'B님 정산 ₩588,000이 내일 오전 9시에 나가요\'로', v16:'v16: 제목 \'보관된 ₩588,000은 내일 오전 9시에 B님에게 나가요\' (UX-03)', v15:'v15: 화면 제목을 본문 큰 제목 "보관된 ₩588,000은 내일 오전 9시에 B님께 나가요"로, 위에 3D 그림 iso_11 정산 200px. 법 조항 문장을 "그만둔 날부터 14일 안에 남은 돈을 모두 정산해요"로, 근거 "근로기준법 제36조"는 아래 작은 줄로', v10:'v10: 남은 돈 상자 안 일부만 채우기, 날짜 정하기 높이 40에서 44로', v8:'v8: 아래 버튼 "확인"을 "알바생 목록으로 돌아가기"로, 남은 돈 상자 안 두 버튼은 옅은 버튼, 단계 표시 24px 원', v7:'v7: 일부만 채운 뒤에는 보관된 돈과 남은 ₩42,000이 그에 맞게 바뀜', q:'그만둔 B님에게 언제 얼마가 나가나 (보관된 돈은 남은 돈과 따로 다음 날 정산)', i:'알림 (B님이 그만둔다고 알림), 알바생 목록', o:'일부만 채우기, 채울 날짜 알리기', w:'그만두고 정산',
+      note:{ v74:'v74: 결정안 2. 정산 풀이에 "그만둔 다음 날 오전 9:00에". 중도 정산 거래는 12월 1일 거래 셋 밖(2차, 결정안 4)이고 시연은 설명만', v71:'v71: 라이터 검토(가운데 묶음 직접). 정산을 "그만둔 다음 날 보관된 돈을 한 번에 보내는 일"로 정한 화면에서 보관 못 한 남은 돈에도 정산이라 쓰던 것을 "14일 안에 B님에게 주면 돼요"로', v68:'v68: 글자 200%에서 다른 가게 띠를 한 줄로', v46:'v46: 보조 버튼 "날짜 정하기"를 "채울 날짜 알리기"로 (라이터 검토 2). 아직 보관 못 한 돈 168,000원을 채우기 전 상태라 PANEL 이름에 적음 (라이터 검토 4, 45는 다 채운 뒤)', v29:'v29: 히어로를 한 크기 208px로', v26:'v26: 히어로를 iso_11에서 iso_29 그만둔 알바 정산으로 (그림 배정표)', v24:'v24: 금액을 숫자 뒤 \'원\'으로(₩92,880을 92,880원으로), 날짜를 \'11월 21일 토요일\'로, 시각을 \'오전 9:00\'으로', v23:'v23: \'정산\'을 처음 보는 사장님에게 \'그만둔 다음 날 보관된 돈을 한 번에 보내는 일\' 한 줄', v22:'v22: 법 조항 줄을 \'14일 안에 정산하면 돼요\'와 \'근로기준법 제36조에서 정한 기간이에요\'로 (조항을 들이미는 느낌)', v20:'v20: 법 기한 문장을 할 수 있는 일로 \'남은 돈은 그만둔 날부터 14일 안에 사장님이 정산하면 돼요\'', v18:'v18: 제목을 \'B님 정산 ₩588,000이 내일 나가요\'로 줄임 (입금 시각은 아래 단계에)', v17:'v17: 제목을 E12 \'B님 정산 ₩588,000이 내일 오전 9시에 나가요\'로', v16:'v16: 제목 \'보관된 ₩588,000은 내일 오전 9시에 B님에게 나가요\' (UX-03)', v15:'v15: 화면 제목을 본문 큰 제목 "보관된 ₩588,000은 내일 오전 9시에 B님께 나가요"로, 위에 3D 그림 iso_11 정산 200px. 법 조항 문장을 "그만둔 날부터 14일 안에 남은 돈을 모두 정산해요"로, 근거 "근로기준법 제36조"는 아래 작은 줄로', v10:'v10: 남은 돈 상자 안 일부만 채우기, 날짜 정하기 높이 40에서 44로', v8:'v8: 아래 버튼 "확인"을 "알바생 목록으로 돌아가기"로, 남은 돈 상자 안 두 버튼은 옅은 버튼, 단계 표시 24px 원', v7:'v7: 일부만 채운 뒤에는 보관된 돈과 남은 ₩42,000이 그에 맞게 바뀜', q:'그만둔 B님에게 언제 얼마가 나가나 (보관된 돈은 남은 돈과 따로 다음 날 정산)', i:'알림 (B님이 그만둔다고 알림), 알바생 목록', o:'일부만 채우기, 채울 날짜 알리기', w:'그만두고 정산',
         v:'v6: 첫 줄 "보관된 ₩588,000은 내일 오전 9시에 B님께 나가요", 남은 ₩168,000은 주황 카드에 일부만 채우기와 날짜 정하기, 근로기준법 제36조 14일 정산을 사실 한 줄로, 가게 머리 줄' } },
   ]],
   // v13: 빠져 있던 에러, 실패, 빈 상태 (앞 47개 번호는 그대로 두려고 맨 뒤에 더함)
@@ -3188,7 +3270,7 @@ const PANEL = [
     { l:'가게 정보 바꾸기', nwv:'v32', key:'haneul/me/store', run:() => { reset(); jump('me', ['me', 'store'], H); },
       note:{ v66:'v66: 칸 포커스 보라 2px, 출근할 수 있는 거리는 숫자만 받음(붙여 넣기도 숫자만)', v64:'v64: 글 칸에 포커스가 가면 키보드 위에 저장 버튼', v32:'v32: 새 화면. 가게 이름, 주소, 출근할 수 있는 거리(가게에서 30m 안) 세 칸. 급여일은 알바생 근로계약 조건이라 여기서 바꾸지 않고 계약에서 바꾼다는 한 줄. 입력 화면이라 그림 없음', q:'가게 이름이나 주소가 바뀌면 어디서 고치나', i:'나 → 가게 정보', o:'가게 정보 바꾸기 → 나(토스트 한 줄)', w:'알바생 앱 가게 이름과 출근할 수 있는 거리가 같이 바뀜' } },
     { l:'가게 닫기: 보관된 돈이 있을 때', nwv:'v32', key:'haneul/me/close/kept', run:() => { reset(); jump('me', ['me', 'close'], H); },
-      note:{ v46:'v46: 채워 둔 돈 행에 묶음 이름 "꺼낼 수 있는 돈" (64와 같은 부품). 상대 앱 화면을 알바생 92 탈퇴: 보관된 돈이 있음(짝)으로', v32:'v32: 새 화면. 보관된 돈은 알바생 몫이라 가게를 닫을 수 없고, 제목이 언제 닫을 수 있는지(보관된 돈이 나간 뒤). 두 돈을 행으로, 끝나는 날은 보관된 돈 행의 12월 10일 급여일. 닫기 버튼 대신 장부 내보내기', q:'보관된 돈이 남아 있을 때 가게를 닫을 수 있나', i:'나 → 계정 → 가게 닫기', o:'장부 내보내기', w:'탈퇴: 보관된 돈이 있음 (짝. A님 몫은 12월 10일 급여일에 그대로 들어감)' } },
+      note:{ v73:'v73: 모의 심사 (3). 끝낼 일 아래 안내 상자 "가게 문을 닫아도 보관된 돈은 A님 몫이에요 / 급여일 전에는 아무도 꺼낼 수 없어요". 예금자 보호 같은 말은 쓰지 않음. 제목과 막는 조건은 그대로', v46:'v46: 채워 둔 돈 행에 묶음 이름 "꺼낼 수 있는 돈" (64와 같은 부품). 상대 앱 화면을 알바생 92 탈퇴: 보관된 돈이 있음(짝)으로', v32:'v32: 새 화면. 보관된 돈은 알바생 몫이라 가게를 닫을 수 없고, 제목이 언제 닫을 수 있는지(보관된 돈이 나간 뒤). 두 돈을 행으로, 끝나는 날은 보관된 돈 행의 12월 10일 급여일. 닫기 버튼 대신 장부 내보내기', q:'보관된 돈이 남아 있을 때 가게를 닫을 수 있나', i:'나 → 계정 → 가게 닫기', o:'장부 내보내기', w:'탈퇴: 보관된 돈이 있음 (짝. A님 몫은 12월 10일 급여일에 그대로 들어감)' } },
     { l:'가게 닫기: 채워 둔 돈만 있을 때', nwv:'v32', key:'haneul/me/close/fill', run:() => { reset(); S.closeCase = 'fill'; jump('me', ['me', 'close'], H); },
       note:{ v32:'v32: 새 화면. 보관된 돈 0원, 채워 둔 돈 450,000원. 채워 둔 돈은 아직 누구 몫도 아니라 꺼내면 닫을 수 있다는 제목 하나와 [채워 둔 돈 꺼내기]', q:'채워 둔 돈만 남았을 때 가게를 닫으려면', i:'나 → 계정 → 가게 닫기', o:'채워 둔 돈 꺼내기 → 가게 닫기: 남은 돈이 없을 때', w:'알바생 앱과 관계없음' } },
     { l:'가게 닫기: 남은 돈이 없을 때', nwv:'v32', key:'haneul/me/close/none', run:() => { reset(); S.closeCase = 'none'; jump('me', ['me', 'close'], H); },
@@ -3196,16 +3278,16 @@ const PANEL = [
     { l:'가게 닫기 확인 창', nwv:'v32', key:'dlg:closeStore', run:() => { reset(); S.closeCase = 'none'; jump('me', ['me', 'close'], H); ACT.closeStore(); },
       note:{ v46:'v46: 없어지는 범위를 "가게와 체무 사장님 계정이 함께 없어져요"로 (라이터 검토 7, v32 탈퇴 표). 상대 앱 화면을 알바생 98 탈퇴 확인 창(짝)으로', v32:'v32: 새 화면. 제목 "새싹편의점 연희점을 닫을까요?", 본문 둘째 줄 "닫은 뒤에는 되돌릴 수 없어요"(되돌릴 수 없는 창 한 줄 규칙). [닫기][가게 닫기]', q:'가게를 닫기 직전에 무엇을 보나', i:'가게 닫기: 남은 돈이 없을 때 → 가게 닫기', o:'가게 닫기(시연에서는 토스트만)', w:'탈퇴 확인 창 (짝)' } },
     { l:'자주 묻는 질문', nwv:'v33', key:'haneul/me/faq', run:() => { reset(); jump('me', ['me', 'faq'], H); },
-      note:{ v72:'v72: 모의 사용 고칠 것 8과 같은 까닭. 채워 둔 돈 질문의 "모자란 만큼만"을 23과 같은 "더 필요한 만큼"으로', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_scale, 그림 배정표 2판 5절). "채워 둔 돈과 보관된 돈은 무엇이 다른가요?" 답의 첫 두 문장을 용어집(v47) 두 문장으로', v36:'v36: 주휴수당 답을 "한 주 15시간 이상"으로(판단 12). 제목 "사장님이 자주 묻는 질문이에요"는 그대로(판단 10)', v33:'v33: 새 화면. 질문 6개(두 돈의 차이, 급여일, 채울 돈이 모자랄 때, 출퇴근 시간이 다를 때, 다르다고 알렸을 때, 주휴수당), 답은 두 문장이고 화면 문구와 같은 사실만. 아래 상담은 나 화면의 고용노동부 1350 행을 그대로. 목록과 글 화면이라 그림 없음', q:'사장님이 처음 쓰면서 묻는 것은 어디서 보나', i:'나 → 도움 → 자주 묻는 질문', o:'고용노동부 상담 1350 → 전화 확인 창', w:'알바생 앱 자주 묻는 질문(알바생 쪽 6개)' } },
+      note:{ v74:'v74: 결정안 2, 3. 질문 둘을 더함: 알바생이 그만두면 보관된 돈은요?(그만둔 다음 날 오전 9:00), 장부는 따로 써야 하나요?(근무표, 임금대장, 급여명세서, 인건비 리포트가 저절로 쌓임, 엑셀과 PDF)', v72:'v72: 모의 사용 고칠 것 8과 같은 까닭. 채워 둔 돈 질문의 "모자란 만큼만"을 23과 같은 "더 필요한 만큼"으로', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_scale, 그림 배정표 2판 5절). "채워 둔 돈과 보관된 돈은 무엇이 다른가요?" 답의 첫 두 문장을 용어집(v47) 두 문장으로', v36:'v36: 주휴수당 답을 "한 주 15시간 이상"으로(판단 12). 제목 "사장님이 자주 묻는 질문이에요"는 그대로(판단 10)', v33:'v33: 새 화면. 질문 6개(두 돈의 차이, 급여일, 채울 돈이 모자랄 때, 출퇴근 시간이 다를 때, 다르다고 알렸을 때, 주휴수당), 답은 두 문장이고 화면 문구와 같은 사실만. 아래 상담은 나 화면의 고용노동부 1350 행을 그대로. 목록과 글 화면이라 그림 없음', q:'사장님이 처음 쓰면서 묻는 것은 어디서 보나', i:'나 → 도움 → 자주 묻는 질문', o:'고용노동부 상담 1350 → 전화 확인 창', w:'알바생 앱 자주 묻는 질문(알바생 쪽 6개)' } },
   ]],
   // v36~: 새 화면은 끝 묶음에 붙여 기존 ?i=N 번호를 지킨다
   ['새로 더한 화면', [
     { l:'처음 연 날: 알바생이 아직 없을 때', nwv:'v36', key:'haneul/home/home/firstday', run:() => { reset(); S.noStaff = true; jump('home', ['home'], H); },
       note:{ v58:'v58: 히어로를 사물이 많던 방 iso_13에서 2판 계산대 하나 iso2_51로', v46:'v46: 상대 앱에 알바생 100 오늘: 처음 연 날을 더함 (판단 v40-6)', v36:'v36: 새 화면 63. v34에서 52에 두었던 처음 연 날 오늘 탭을 옮김(판단 4). 히어로 iso_13 사장님 책상 208px(낮은 화면 168px), 제목 "아직 함께 일하는 알바생이 없어요", 본문 "근로계약서를 등록하고 초대하면 이 화면에 근무와 보관된 돈이 보여요.", [알바생 초대하기]. 첫날이라 알림 0. 52(알바생 탭)와 탭이 달라 같은 할 일을 보여도 됨', q:'가게를 막 등록한 날 오늘 탭에서 무엇을 하면 되나', i:'가게 등록 뒤 첫 오늘 탭', o:'알바생 초대하기 → 근로계약 올리기', w:'초대받고 가입, 오늘: 처음 연 날 (계약 전)' } },
     { l:'가게 닫기: 끝낼 일이 여럿일 때 (결정 전)', nwv:'v36', key:'haneul/me/close/kept/many', run:() => { reset(); S.shift = 'out'; S.dispute = 'open'; jump('me', ['me', 'close'], H); },
-      note:{ v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_scale, 그림 배정표 2판 5절)', v47:'v47: 시점을 PANEL 이름에(결정 전: 다르다고 알린 기록의 5,160원을 따로 남긴 상태, 모의 사용 5)', v46:'v46: 채워 둔 돈 행을 묶음 "꺼낼 수 있는 돈"으로 따로 두어 끝낼 일 3개와 행 3개를 맞춤 (라이터 검토 8). 상대 앱 화면을 알바생 92, 93, 94로', v36:'v36: 새 화면 64(판단 3). A님 퇴근 뒤 확정 전이고 11월 14일 기록을 다르다고 알린 상태. 막는 조건 셋을 행으로: 보관된 돈 533,544원(12월 10일 급여일 → 급여일 미리보기), 확정 대기 근무 1건 92,880원(→ 근무 확정), 다르다고 알린 기록 5,160원(→ 이의 받음). 제목 "가게를 닫기 전에 끝낼 일이 3개 있어요". 채워 둔 돈은 따로 아래 행', q:'끝내지 않은 일이 여럿일 때 가게를 닫으려면', i:'나 → 계정 → 가게 닫기', o:'행마다 그 일을 끝내는 화면, 장부 내보내기', w:'탈퇴: 보관된 돈이 있음, 탈퇴: 확정 대기 근무가 있음, 탈퇴: 다르다고 알린 뒤 (결정 전). 알바생 탈퇴를 막는 조건과 짝' } },
+      note:{ v73:'v73: 모의 심사 (3). 58과 같은 안내 상자', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_scale, 그림 배정표 2판 5절)', v47:'v47: 시점을 PANEL 이름에(결정 전: 다르다고 알린 기록의 5,160원을 따로 남긴 상태, 모의 사용 5)', v46:'v46: 채워 둔 돈 행을 묶음 "꺼낼 수 있는 돈"으로 따로 두어 끝낼 일 3개와 행 3개를 맞춤 (라이터 검토 8). 상대 앱 화면을 알바생 92, 93, 94로', v36:'v36: 새 화면 64(판단 3). A님 퇴근 뒤 확정 전이고 11월 14일 기록을 다르다고 알린 상태. 막는 조건 셋을 행으로: 보관된 돈 533,544원(12월 10일 급여일 → 급여일 미리보기), 확정 대기 근무 1건 92,880원(→ 근무 확정), 다르다고 알린 기록 5,160원(→ 이의 받음). 제목 "가게를 닫기 전에 끝낼 일이 3개 있어요". 채워 둔 돈은 따로 아래 행', q:'끝내지 않은 일이 여럿일 때 가게를 닫으려면', i:'나 → 계정 → 가게 닫기', o:'행마다 그 일을 끝내는 화면, 장부 내보내기', w:'탈퇴: 보관된 돈이 있음, 탈퇴: 확정 대기 근무가 있음, 탈퇴: 다르다고 알린 뒤 (결정 전). 알바생 탈퇴를 막는 조건과 짝' } },
     { l:'가게 닫기: 동네 식당 아직 보관 못 한 돈', nwv:'v36', key:'junho/me/close/kept/many', run:() => { reset(); jump('me', ['me', 'close'], J); },
-      note:{ v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_receipt, 그림 배정표 2판 5절)', v46:'v46: 상대 앱 화면 이름을 알바생 95 그대로 적음 (판단 v40-6)', v36:'v36: 새 화면 65(판단 3). 동네 식당 상태: 보관된 돈 588,000원(B님 정산 내일 오전 9:00 → B님 정산)과 아직 보관 못 한 돈 168,000원(→ 아직 보관 못 한 돈). 제목 "가게를 닫기 전에 끝낼 일이 2개 있어요"', q:'아직 보관 못 한 돈이 있을 때 가게를 닫을 수 있나', i:'나 → 계정 → 가게 닫기', o:'B님 정산, 아직 보관 못 한 돈, 장부 내보내기', w:'탈퇴: 안 들어온 돈이 있음 (B, 알바생 탈퇴를 막는 조건과 짝)' } },
+      note:{ v73:'v73: 모의 심사 (3). 안내 상자 "가게 문을 닫아도 보관된 돈은 B님 몫이에요 / 내일 오전 9:00 정산 전에는 아무도 꺼낼 수 없어요"', v58:'v58: 행 아이콘을 같은 행에서 2판 파일로 (ic_receipt, 그림 배정표 2판 5절)', v46:'v46: 상대 앱 화면 이름을 알바생 95 그대로 적음 (판단 v40-6)', v36:'v36: 새 화면 65(판단 3). 동네 식당 상태: 보관된 돈 588,000원(B님 정산 내일 오전 9:00 → B님 정산)과 아직 보관 못 한 돈 168,000원(→ 아직 보관 못 한 돈). 제목 "가게를 닫기 전에 끝낼 일이 2개 있어요"', q:'아직 보관 못 한 돈이 있을 때 가게를 닫을 수 있나', i:'나 → 계정 → 가게 닫기', o:'B님 정산, 아직 보관 못 한 돈, 장부 내보내기', w:'탈퇴: 안 들어온 돈이 있음 (B, 알바생 탈퇴를 막는 조건과 짝)' } },
     { l:'입금이 안 된 뒤 다시 보냄', nwv:'v36', key:'m:payfail:fixed', run:() => { reset(); jump('home', ['home'], H); openModal('payfail', 'fixed'); },
       note:{ v71:'v71: 라이터 검토 고칠 것 4(v46 메모 9). 제목 "A님 월급 984,528원을 다시 보냈어요", 설명은 제목을 되풀이하지 않고 결과 "A님이 고친 받을 곳으로 들어갔어요"', v67:'v67: 월급이 나간 완료 화면이라 작은 사물 ic_coins가 커지며 떠오름 320ms(v14 완료 순간 목록에 더함)', v46:'v46: 이름표 "A님 11월분 인건비"를 용어집 말 "A님 11월분 월급"으로 (라이터 검토 9, 인건비는 가게 전체). 제목은 E10 틀 그대로이고 첫 줄이 다시 보낸 사실을 말함', v37:'v37: 금액 결과 화면 정렬(판단 v30-14)', v36:'v36: 새 화면 66(판단 11). A님이 오전 10:12에 받을 곳을 고치자 체무가 바로 다시 보낸 결과. 금액 결과 화면이라 작은 사물 ic_coins, 제목 E10 "A님 월급 984,528원이 나갔어요", 단계 셋(오전 9:00 입금 안 됨, A님이 받을 곳을 고침, 체무가 다시 보냄)', q:'A님이 받을 곳을 고친 뒤 월급이 나갔나', i:'알림 (A님 월급이 나갔어요)', o:'급여명세서 보기, 오늘로 돌아가기', w:'받을 곳 고치기: 월급이 안 들어온 뒤' } },
     { l:'채워 둔 돈을 꺼내지 못했을 때', nwv:'v37', key:'m:withdrawFail', run:() => { teamJump('vault', ['vault', 'withdraw']); openModal('withdrawFail'); },
@@ -3239,12 +3321,22 @@ const PANEL = [
     { l:'나: 알바 3명', nwv:'v68', key:'team/me/me', run:() => teamJump('me', ['me']),
       note:{ v68:'v68: 새 번호 78. 흐름도에서 들어오는 길이 없던 31 이번 달 인건비 리포트의 들어오는 길(나 탭의 이번 달 인건비)이 PANEL 밖 화면에 있어 보이지 않던 것. 18, 34의 탭 막대 나에서 열림', q:'가게 전체 인건비와 장부는 어디서 보나', i:'보관함: 알바 3명, 알바생 목록: 3명의 탭 막대 나', o:'이번 달 인건비 → 31, 장부 내보내기, 가게 정보, 가게 닫기', w:'내 정보' } },
   ]],
+  ['결정안과 맞춘 상태 (v74)', [
+    { l:'근무 확정 거래를 기다릴 때', nwv:'v74', key:'m:keptWait', run:() => { reset(); S.shift = 'kept'; jump('home', ['home'], H); openModal('keptWait'); },
+      note:{ v74:'v74: 새 번호 79. 시안에 없던 상태(v69 판단 2, 시연화면_상세 9절 2). 09 [확정하기]를 누른 뒤 근무 확정 거래(두 서명 확인, 채워 둔 돈에서 일당을 보관된 돈으로)가 끝날 때까지. 버튼 안 진행 표시 대신 10과 같은 전체 화면에서 둘째 단계가 지금(cur), 작은 사물 ic2_hourglass. 끝나면 10(1.4초 뒤, 시연 버전). 화면을 닫아도 거래는 이어지고 끝나면 알림', q:'확정하기를 누른 뒤 보관이 끝나기 전에는 무엇이 보이나', i:'근무 확정의 확정하기, 어제 확정 안 한 근무의 확정하기', o:'끝나면 확정 완료(10), 오늘로 돌아가기', w:'사장님 확정을 기다림 (끝나면 보관됨)' } },
+    { l:'아직 보관 못 한 돈: 다시 보관하는 거래를 기다릴 때', nwv:'v74', key:'m:shortWait', run:() => { reset(); jump('vault', ['vault', 'short'], J); S.shortPaid = true; openModal('shortWait'); },
+      note:{ v74:'v74: 새 번호 80. 시안에 없던 상태(v69 판단 4). 40 다 채우기 확인 창 뒤 채우기 거래와 보관 못 한 날의 보관이 끝날 때까지. 둘째 단계가 지금. 끝나면 45. "보관만 다시" 하는 거래는 12월 1일 거래 셋(채우기, 근무 확정과 보관, 급여일 입금)에 없어 시연은 모의 값(결정안 4의 2차 중도 정산)', q:'다 채운 뒤 B님 몫으로 보관되기 전에는 무엇이 보이나', i:'아직 보관 못 한 돈의 168,000원 채우기 확인 창', o:'끝나면 보관 완료(45), 보관함으로 돌아가기', w:'안 들어온 돈 (끝나면 보관됨)' } },
+    { l:'근로계약 올리기: 계약서 사진 찍기를 골랐을 때', nwv:'v74', key:'m:ob:1/photo', run:() => { reset(); jump('home', ['home'], H); S.obStep = 1; S.obSeg = 'photo'; openModal('ob'); },
+      note:{ v74:'v74: 새 번호 81. 시안에 없던 갈래(v69 판단 3, 시연화면_상세 9절 1). 01 세그먼트의 계약서 사진 찍기가 눌리게(radiogroup). 찍는 법 한 줄과 찍으면 읽는 네 가지(시급, 계약한 근무 시간, 주휴수당, 급여일), 읽은 값은 직접 쓰기 칸에서 고칠 수 있다는 한 줄. [계약서 찍기]는 시연 버전이라 직접 쓰기로 돌아가 토스트. 못 읽으면 51. 12월 1일 시연은 직접 쓰기만', q:'계약서를 사진으로 올리면 무엇을 읽나', i:'근로계약 올리기의 계약서 사진 찍기', o:'계약서 찍기 → 직접 쓰기 칸(읽은 값), 못 읽으면 51', w:'없음 (계약서를 올리는 쪽은 사장님)' } },
+    { l:'알림: A님이 확정 요청을 다시 보냈을 때', nwv:'v74', key:'haneul/home/notices/reask', run:() => { reset(); S.backlog = true; S.reAsked = true; jump('home', ['home', 'notices'], H); },
+      note:{ v74:'v74: 새 번호 82. 사건 표 E02b(확정 요청을 다시 보냄)가 사장님 앱에 없던 것(v41 판단 2). 알림 맨 위 줄이 사장님 앱 제목 틀 그대로 "A님이 11월 21일 근무 확정을 다시 요청했어요". 날짜는 알바생 앱 확정 요청을 다시 보낸 뒤(64)의 11월 21일. 늘 받는 알림(알림 설정 확정 요청 줄). 누르면 어제 확정 안 한 근무(12)', q:'A님이 확정을 다시 요청하면 어디서 보나', i:'A님이 확정 요청을 다시 보냄(알바생 앱), 오늘 탭의 알림 종', o:'알림 줄 → 어제 확정 안 한 근무(12)', w:'확정 요청을 다시 보낸 뒤' } },
+  ]],
 ];
 const PANEL_ITEMS = PANEL.flatMap(([, items]) => items);
 function currentKey() {
   if (S.dlg) return 'dlg:' + S.dlg;
   if (S.sheet) return 'sheet:' + S.sheet + (S.sheet === 'fill' && S.fillPick === 'self' ? ':self' : '');   // v66: 직접 쓰기
-  if (S.modal === 'ob') return 'm:ob:' + S.obStep + (S.obStep === 1 && S.photoFail ? '/photofail' : '') + (S.obEdit ? '/' + S.obEdit : '');   // v66: 칸으로 바뀐 줄
+  if (S.modal === 'ob') return 'm:ob:' + S.obStep + (S.obStep === 1 && S.photoFail ? '/photofail' : '') + (S.obStep === 1 && S.obSeg === 'photo' ? '/photo' : '') + (S.obEdit ? '/' + S.obEdit : '');   // v66: 칸으로 바뀐 줄
   if (S.modal) return 'm:' + S.modal + (S.modalV ? ':' + S.modalV : '');
   const t = topEntry();
   let k = `${S.team ? 'team' : S.persona}/${S.tab}/${t.id}`;
@@ -3256,6 +3348,7 @@ function currentKey() {
   if (t.id === 'vault' && S.loadFail) k += '/loadfail';   // v13
   if (t.id === 'staff' && S.noStaff) k += '/empty';   // v36: 52
   if (t.id === 'notices' && S.noNotices) k += '/empty';
+  if (t.id === 'notices' && S.reAsked) k += '/reask';   // v74: E02b
   if (t.id === 'notif' && S.phoneOff) k += '/phoneoff';   // v31
   if (t.id === 'close') k += '/' + S.closeCase + (S.closeCase === 'kept' && closeConds().length > 1 ? '/many' : '');   // v32, v36: 끝낼 일이 여럿
   return k;
