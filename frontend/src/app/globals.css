@@ -118,7 +118,7 @@ img { max-width: 100%; }
 .record-rows { margin: 20px 0 4px; }
 .data-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; font-size: .875rem; padding: 13px 0; border-bottom: 1px solid #efede9; }
 .data-row:last-child { border: 0; }
-.data-row > span { color: var(--muted); flex-shrink: 0; }
+.data-row > span { color: var(--muted); flex-shrink: 0; word-break: keep-all; }
 .data-row strong { text-align: right; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .callout { display: flex; align-items: flex-start; gap: 9px; padding: 16px; border-radius: 16px; color: var(--good); background: var(--good-soft); font-size: .875rem; line-height: 1.8; }
 .callout > svg { flex-shrink: 0; margin-top: 4px; }
