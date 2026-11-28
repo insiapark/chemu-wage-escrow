@@ -6,6 +6,7 @@ import type { Address } from "viem";
 import { ArrowUpRight, Bell, CalendarDays, Check, CheckCheck, ChevronRight, Clock3, Download, FileCheck2, FileText, Home, Info, LockKeyhole, MapPin, Play, RotateCcw, Settings2, ShieldCheck, Store, Upload, Wallet, X } from "lucide-react";
 import { DEMO } from "@/lib/fixtures";
 import { weeklyAllowance } from "@/lib/domain";
+import { won } from "@/lib/format";
 import { gateway, getPersistenceError, getServerSnapshot, getSnapshot, initializeStore, resetDemo, subscribe } from "@/lib/store";
 import { attendanceTypedData, verifyAttendanceSignature } from "@/lib/signatures";
 import { exportBundle, verifyBundle } from "@/lib/verification";
@@ -13,7 +14,6 @@ import type { DemoState, Role } from "@/lib/types";
 
 type View = "today" | "contract" | "clock" | "vault" | "pay" | "verify";
 type Run = (label: string, action: () => Promise<unknown>) => Promise<void>;
-const won = (n: number) => `₩${n.toLocaleString("ko-KR")}`;
 const short = (value: string) => `${value.slice(0, 6)}…${value.slice(-4)}`;
 const date = (value: string) => new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", month: "long", day: "numeric", hour: "numeric", minute: "numeric" }).format(new Date(value));
 const statusLabel = { scheduled: "남은 근무", working: "근무 중", pending: "확정 대기", locked: "보관됨", paid: "입금됨" };

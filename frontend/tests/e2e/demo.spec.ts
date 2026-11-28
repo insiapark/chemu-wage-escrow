@@ -26,7 +26,7 @@ async function lock(page: Page) {
   await page.getByRole("button", { name: "내 기록에 연습 서명하기" }).click();
   await expect(page.getByRole("button", { name: "확정하고 보관하기" })).toBeEnabled();
   await page.getByRole("button", { name: "확정하고 보관하기" }).click();
-  await expect(page.getByRole("heading", { name: "₩92,880 보관했어요" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "92,880원 보관했어요" })).toBeVisible();
 }
 
 test.beforeEach(async ({ page }) => { await page.goto("/"); await expect(page.getByRole("heading", { name: "오늘", exact: true })).toBeVisible(); });
@@ -35,7 +35,7 @@ test("contract, shared attendance, two signatures, lock, verification, persisten
   const errors: string[] = []; page.on("pageerror", error => errors.push(error.message));
   await lock(page);
   const second = await context.newPage(); await second.goto("/");
-  await expect(second.locator(".hero-amount")).toHaveText("₩984,528");
+  await expect(second.locator(".hero-amount")).toHaveText("984,528원");
   await second.close();
   await page.reload(); await nav(page, "기록 대조");
   await page.getByRole("button", { name: "현재 기록 불러오기" }).click();
@@ -50,7 +50,7 @@ test("contract, shared attendance, two signatures, lock, verification, persisten
   await page.getByRole("dialog").getByLabel("닫기", { exact: true }).click();
   await nav(page, "급여");
   await expect(page.getByRole("heading", { name: "연습 계좌에 들어왔어요" })).toBeVisible({ timeout: 30_000 });
-  await expect(page.locator(".pay-amount")).toHaveText("₩984,528");
+  await expect(page.locator(".pay-amount")).toHaveText("984,528원");
   expect(errors).toEqual([]);
 });
 
@@ -80,19 +80,19 @@ test("mobile navigation fits and reset requires confirmation", async ({ page }) 
   await role(page, "사장님"); await nav(page, "보관함");
   await page.getByLabel("채울 금액").fill("100000");
   await page.getByRole("button", { name: "연습 보관함 채우기" }).click();
-  await expect(page.getByText("₩550,000", { exact: true })).toBeVisible();
+  await expect(page.getByText("550,000원", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "시연 설정" }).click();
   await page.getByRole("button", { name: "시연 처음부터 시작", exact: true }).click();
   await page.getByRole("dialog").getByLabel("닫기", { exact: true }).click();
-  await expect(page.getByText("₩550,000", { exact: true })).toBeVisible();
+  await expect(page.getByText("550,000원", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "시연 설정" }).click();
   await page.getByRole("button", { name: "시연 처음부터 시작", exact: true }).click();
   await page.getByRole("button", { name: "처음부터 시작하기", exact: true }).click();
-  await expect(page.locator(".hero-amount")).toHaveText("₩891,648");
+  await expect(page.locator(".hero-amount")).toHaveText("891,648원");
 });
 
 test("desktop reference screenshot", async ({ page }) => {
-  await expect(page.locator(".hero-amount")).toHaveText("₩891,648");
+  await expect(page.locator(".hero-amount")).toHaveText("891,648원");
   await page.screenshot({ path: "test-results/desktop-home.png", fullPage: true });
 });
 
@@ -135,5 +135,5 @@ test("injected wallet signs the same EIP-712 record and handles user rejection",
   await role(page, "사장님");
   await page.getByRole("button", { name: "내 기록에 연습 서명하기" }).click();
   await page.getByRole("button", { name: "확정하고 보관하기" }).click();
-  await expect(page.getByRole("heading", { name: "₩92,880 보관했어요" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "92,880원 보관했어요" })).toBeVisible();
 });

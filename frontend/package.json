@@ -9,7 +9,7 @@
     "build": "next build --webpack",
     "start": "next start --hostname 127.0.0.1",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/domain.test.ts tests/sepolia.test.ts",
+    "test": "tsx --test tests/domain.test.ts tests/demo-flow.test.ts tests/sepolia.test.ts",
     "release:watch": "tsx scripts/watch-payday.ts",
     "evidence:verify": "tsx scripts/verify-evidence.ts",
     "test:e2e": "playwright test"
