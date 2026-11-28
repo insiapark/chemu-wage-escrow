@@ -5,11 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>체무 1분 시연</title>
 <!--
-  체무 1분 시연 v46 (v40 판을 복사해 v46 앱에 이음)
+  체무 1분 시연 v60 (v59 판을 복사해 v60 앱에 이음. 그림 검수 회차라 동작과 자막은 v59와 같음)
 
   앱 경로는 바로 아래 WORKER_APP, OWNER_APP 두 상수입니다. 같은 폴더의 worker.html, owner.html을 씁니다.
-  화면 번호(?i=N)는 두 앱 v46 PANEL 목록(알바생 앱 104개, 사장님 앱 69개)의 번호입니다. 새 화면은 PANEL 끝에 붙어 옛 번호가 그대로라,
+  화면 번호(?i=N)는 두 앱 v60 PANEL 목록(알바생 앱 104개, 사장님 앱 69개)의 번호입니다. 새 화면은 PANEL 끝에 붙어 옛 번호가 그대로라,
   v12 STEPS 번호가 지금도 같은 화면인지 PANEL 이름으로 하나씩 확인했습니다(v40, v46 _작업메모/worker.md 시연 단계 표). v46에서 PANEL 이름이 바뀐 화면(알바생 19, 26, 27, 62, 사장님 14, 15, 16, 39 등) 가운데 시연 단계에 쓰는 것은 사장님 39 하나입니다.
+  v58: 화면 번호는 v46과 같습니다. 11월 14일의 시점을 PANEL 이름에 붙인 화면(사장님 v47 13, 알바생 v58 18, 33)은 아래 표와 W_LABEL, O_LABEL도 같은 이름으로 맞췄습니다.
+  알바생 v58에서 3단계 출근하기(w11)는 2판 히어로 iso2_44, 11단계 돈이 움직이는 길(w52)은 v59부터 2판 네 칸입니다.
+  v59: 0단계는 표지 장면(../assets/scene_v2/scene_demo_cover.webp, 1600x900, 가운데 3분의 1이 빈 바탕)입니다. 제목은 그림의 빈 가운데 3분의 1(폭 33.3% ~ 66.8%)에 둡니다.
+  표지는 자동 재생이 시작되기 전 멈춤 화면이라 열어도 저절로 넘어가지 않고, 재생을 누르면 1단계부터 재생해요. 움직임 줄이기 설정이면 재생 버튼이 없고 다음 버튼으로 넘깁니다.
+  재생 중에 0단계로 돌아오면 멈춥니다. 표지 그림은 장식이라 alt="", aria-hidden="true"이고, 제목과 안내는 자막 칸의 읽기 글이 전합니다.
 
   단계 | 말하는 앱 | 말하는 화면 (PANEL 이름)      | 번호 | 다른 휴대폰 화면                 | 번호
   1    | 사장님    | 근로계약 올리기                | o1   | 알바생 계약 확인: 주휴수당 빠짐  | w6
@@ -17,17 +22,17 @@
   3    | 알바생    | 출근하기                       | w11  | 사장님 근로계약 올리기           | o1
   4    | 사장님    | 근무 확정                      | o9   | 알바생 퇴근, 일당 보관           | w15
   5    | 알바생    | 퇴근, 일당 보관                | w15  | 사장님 근무 확정                 | o9
-  6    | 사장님    | 시간 고치기                    | o13  | 알바생 사장님이 시간을 고침      | w18
-  7    | 알바생    | 사장님이 시간을 고침           | w18  | 사장님 시간 고치기               | o13
-  8    | 알바생    | 급여일 자동 입금               | w33  | 사장님 자동 입금 완료            | o28
+  6    | 사장님    | 시간 고치기 (11월 15일)        | o13  | 알바생 사장님이 시간을 고침 (11월 21일) | w18
+  7    | 알바생    | 사장님이 시간을 고침 (11월 21일) | w18 | 사장님 시간 고치기 (11월 15일)   | o13
+  8    | 알바생    | 급여일 자동 입금 (12월 10일, 결정 뒤) | w33 | 사장님 자동 입금 완료      | o28
   9    | 알바생    | 오늘: 안 들어온 돈             | w36  | 사장님 아직 보관 못 한 돈        | o40
   10   | 사장님    | 아직 보관 못 한 돈             | o40  | 알바생 오늘: 안 들어온 돈        | w36
   11   | 알바생    | 돈이 움직이는 길               | w52  | 사장님 아직 보관 못 한 돈        | o40
   12   | 사장님    | 기록 맞춰 보기                 | o39  | 알바생 돈이 움직이는 길          | w52
 
   자막: 해요체, 한 줄 20자 안팎 두 줄, 금액은 92,880원 꼴, 님에게, 용어집 말(보관, 받을 곳, 다르다고 알리기, 차이 나는 돈, 맞춰 보기).
-  사실은 두 앱 v46 화면 글과 하나하나 맞춘 것만 씁니다(작업메모 자막 대조 표). 0은 시작 화면, 13은 끝 화면.
-  주소 끝 ?step=N(0~13)으로 열면 그 단계에서 멈춘 채 열립니다(캡처용, v46/review/demo_cap/).
+  사실은 두 앱 v60 화면 글과 하나하나 맞춘 것만 씁니다(작업메모 자막 대조 표). 0은 표지, 13은 끝 화면.
+  주소 끝 ?step=N(0~13)으로 열면 그 단계에서 멈춘 채 열립니다(캡처용, v60/review/demo_cap/).
 -->
 <script>
 const WORKER_APP = 'worker.html';
@@ -68,7 +73,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* 판 전체: 무대, 자막, 조작 */
-.player{height:100vh;display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:var(--space-4);padding:20px var(--space-6) 20px}
+/* v59: 열을 화면 폭에 묶음. 좁은 창에서 진행 점 줄(최소 528px)이 판 전체를 631px로 넓히던 것을 진행 점 줄 안 가로 밀기로 */
+.player{height:100vh;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto auto;gap:var(--space-4);padding:20px var(--space-6) 20px}
 
 /* 무대 */
 .stage{grid-row:1;grid-column:1;position:relative;min-height:0;display:flex;align-items:center;justify-content:center}
@@ -92,10 +98,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .frames iframe.on{opacity:1;z-index:1}
 .frames iframe.top{z-index:2}
 
-/* 시작 화면과 끝 화면 */
+/* 끝 화면 */
 .card{grid-row:1 / 3;grid-column:1;display:none;align-items:center;justify-content:center;text-align:center;padding:0 var(--space-6)}
 .card p{font-size:2.5rem;font-weight:700;letter-spacing:-.03em;line-height:1.3}
-.player[data-mode="title"] .card,.player[data-mode="end"] .card{display:flex}
+.player[data-mode="end"] .card{display:flex}
+/* v59: 표지. 무대와 자막 자리를 함께 쓰는 16:9 장면, 제목은 그림의 빈 가운데 3분의 1(폭 33.3% ~ 66.8%)에. 그림 바탕 #F4F3F0이 화면 바탕과 같아 경계가 보이지 않음 [v59/그림_큰장면.md 3절, 7절] */
+.cover{grid-row:1 / 3;grid-column:1;display:none;align-items:center;justify-content:center;min-height:0;container-type:size}
+.player[data-mode="title"] .cover{display:flex}
+.cover-box{position:relative;width:min(100cqw, 100cqh * 16 / 9);aspect-ratio:16 / 9;container-type:inline-size}
+.cover-img{display:block;width:100%;height:100%;object-fit:contain}
+.cover-title{position:absolute;top:0;bottom:0;left:33.3%;width:33.5%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-3);text-align:center}
+.cover-title .ct{font-size:clamp(1rem, 4.4cqw, 3rem);font-weight:700;letter-spacing:-.03em;line-height:1.3;color:var(--fg-neutral)}
+.cover-title .cs{font-size:clamp(.8125rem, 1.5cqw, 1.0625rem);font-weight:600;line-height:1.5;color:var(--fg-neutral-secondary)}
 .player[data-mode="title"] .rig,.player[data-mode="end"] .rig{opacity:0}
 
 /* 자막 */
@@ -168,7 +182,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="side side-r" id="sideO" aria-hidden="true"><span>사장님 앱</span><span class="mark"></span></div>
     </div>
   </div>
-  <div class="card" aria-hidden="true"><p id="cardText">체무 1분 시연</p></div>
+  <div class="cover" aria-hidden="true">
+    <div class="cover-box">
+      <img class="cover-img" src="../assets/scene_v2/scene_demo_cover.webp" width="1600" height="900" alt="" aria-hidden="true">
+      <div class="cover-title"><p class="ct">체무 1분 시연</p><p class="cs" id="coverHint">재생을 누르면 시작해요</p></div>
+    </div>
+  </div>
+  <div class="card" aria-hidden="true"><p id="cardText">일한 날마다 일당을 먼저 보관해요</p></div>
 
   <section class="caption" aria-live="polite" aria-atomic="true">
     <p class="meta" aria-hidden="true"><span class="num" id="capNum">1 / 12</span><span class="app" id="capApp">사장님 앱</span></p>
@@ -191,9 +211,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 </main>
 
 <script>
-/* 단계표: 위 주석 표와 같음. w, o는 각 앱의 ?i 번호. 이름은 화면 읽기와 진행 점 이름에 씀(v46: 사장님 39 PANEL 이름도 기록 맞춰 보기로 바뀌어 화면 제목과 같음) */
-const W_LABEL = { 6: '계약 확인: 주휴수당 빠짐', 11: '출근하기', 15: '퇴근, 일당 보관', 18: '사장님이 시간을 고침', 33: '급여일 자동 입금', 36: '오늘: 안 들어온 돈', 52: '돈이 움직이는 길' };
-const O_LABEL = { 1: '근로계약 올리기', 9: '근무 확정', 13: '시간 고치기', 28: '자동 입금 완료', 39: '기록 맞춰 보기', 40: '아직 보관 못 한 돈' };
+/* 단계표: 위 주석 표와 같음. w, o는 각 앱의 ?i 번호. 이름은 화면 읽기와 진행 점 이름에 씀(v46: 사장님 39 PANEL 이름도 기록 맞춰 보기로 바뀌어 화면 제목과 같음)
+   v58: 알바생 18, 33과 사장님 13은 시점을 붙인 PANEL 이름 그대로 */
+const W_LABEL = { 6: '계약 확인: 주휴수당 빠짐', 11: '출근하기', 15: '퇴근, 일당 보관', 18: '사장님이 시간을 고침 (11월 21일)', 33: '급여일 자동 입금 (12월 10일, 결정 뒤)', 36: '오늘: 안 들어온 돈', 52: '돈이 움직이는 길' };
+const O_LABEL = { 1: '근로계약 올리기', 9: '근무 확정', 13: '시간 고치기 (11월 15일)', 28: '자동 입금 완료', 39: '기록 맞춰 보기', 40: '아직 보관 못 한 돈' };
 const STEPS = [
   { app: 'owner',  w: 6,  o: 1,  t: ['사장님이 근로계약서를 등록해요', '주휴수당은 체무가 법에 따라 계산해요'] },
   { app: 'worker', w: 6,  o: 1,  t: ['주휴수당 한 주 37,152원이 빠지면', '확정하기 전에 바로 보여요'] },
@@ -209,9 +230,11 @@ const STEPS = [
   { app: 'owner',  w: 52, o: 39, t: ['링크를 받은 사람은', '원래 기록과 고친 기록을 맞춰 봐요'] },
 ];
 const TITLE_TEXT = '체무 1분 시연';
+/* v59: 표지 안내. 움직임 줄이기면 재생 버튼이 없어 다음 버튼으로 */
+const coverHint = () => RM ? '다음을 누르면 시작해요' : '재생을 누르면 시작해요';
 const END_TEXT = '일한 날마다 일당을 먼저 보관해요';
 const APP_NAME = { worker: '알바생 앱', owner: '사장님 앱' };
-const STEP_MS = 5000, TITLE_MS = 2500, READY_MS = 700, LAST = STEPS.length + 1;
+const STEP_MS = 5000, READY_MS = 700, LAST = STEPS.length + 1;   // v59: 표지에서 기다리지 않으므로 TITLE_MS를 뺌
 
 const $ = s => document.querySelector(s);
 /* 자막 화면 읽기: 보이는 두 줄과 단계 번호는 숨기고, 시각과 거리는 말로 읽는 한 문장을 둠 (UX_WRITING_RULES 8절) */
@@ -294,8 +317,8 @@ function render() {
     $('#rig').removeAttribute('aria-hidden');
   } else {
     if (step === 0) { phW.show(STEPS[0].w); phO.show(STEPS[0].o); }
-    const txt = step === 0 ? TITLE_TEXT : END_TEXT;
-    $('#cardText').textContent = txt;
+    const txt = step === 0 ? `${TITLE_TEXT}. ${coverHint()}` : END_TEXT;
+    $('#coverHint').textContent = coverHint();
     $('#capSr').textContent = txt;
     $('#capL1').textContent = ''; $('#capL2').textContent = '';
     $('#rig').setAttribute('aria-hidden', 'true');
@@ -330,7 +353,7 @@ function draw() {
 function go(n) {
   step = Math.max(0, Math.min(LAST, n));
   elapsed = 0;
-  if (step === LAST) setPlaying(false);
+  if (step === LAST || step === 0) setPlaying(false);   // v59: 표지와 끝 화면에서는 멈춤
   render();
 }
 function next() { if (step < LAST) go(step + 1); }
@@ -341,8 +364,7 @@ function tick() {
   const now = performance.now();
   const dt = last == null ? 0 : now - last; last = now;
   if (phW.ready() && phO.ready()) elapsed += dt;   /* 화면이 다 바뀐 뒤부터 셈 */
-  const dur = step === 0 ? TITLE_MS : STEP_MS;
-  if (elapsed >= dur) go(step + 1); else draw();
+  if (elapsed >= STEP_MS) go(step + 1); else draw();
 }
 function setPlaying(on) {
   playing = on && !RM;
@@ -353,13 +375,14 @@ function setPlaying(on) {
 }
 function toggle() {
   if (playing) { setPlaying(false); return; }
-  if (step === LAST) go(1);
+  if (step === LAST || step === 0) go(1);   // v59: 표지에서 재생을 누르면 1단계부터
   setPlaying(true);
 }
 function applyRM() {
   RM = rmq.matches;
   $('#bPlay').hidden = RM;
   if (RM) setPlaying(false);
+  if (step === 0) render();   // v59: 표지 안내를 바꿈
 }
 
 $('#bPlay').addEventListener('click', toggle);
@@ -390,7 +413,7 @@ fit();
 applyRM();
 const start = FROZEN ? Math.max(0, Math.min(LAST, parseInt(params.get('step'), 10) || 0)) : 0;
 go(start);
-if (!FROZEN && !RM) setPlaying(true);
+/* v59: 표지가 자동 재생 전 멈춤 화면이라 열자마자 재생하지 않음. ?step=N(1 이상)으로 연 캡처도 멈춘 채 */
 </script>
 </body>
 </html>

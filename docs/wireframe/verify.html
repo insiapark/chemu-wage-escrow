@@ -9,7 +9,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
 <style>
 /* =========================================================
-   체무 기록 맞춰 보기 웹 페이지 v49: 사장님 앱 v49(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 캡처 회차, 보이는 글은 v48과 같음
+   체무 기록 맞춰 보기 웹 페이지 v60: 사장님 앱 v60(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 그림 검수 회차, 보이는 글은 v59와 같음
+   v59: 사장님 앱 v59(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 알바생, 사장님, 링크를 받은 사람 누구나 보는 페이지라
+        한쪽 시점 말을 두 기록의 차이로("5,160원 덜 받아요"를 "A님 기록과 5,160원 차이 나요"로, 파일의 차이 나는 돈 칸도 "원래 기록보다 5,160원 적어요" 꼴로). 두 앱 안의 말은 그대로
+   v58: 사장님 앱 v58(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 새 3D 그림(그림 배정표 2판 4절):
+        링크 기간 지남 히어로 iso_16(알바생 01 초대 링크와 같은 그림)을 2판 iso2_53으로, 다르다고 알림 카드 행 아이콘 ic_scale을 2판 ic2_scale로. 모든 그림에 width, height. 보이는 글은 v49와 같음
+   v49: 사장님 앱 v49(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 캡처 회차, 보이는 글은 v48과 같음
    v48: 사장님 앱 v48(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 점검 회차, 보이는 글은 v47과 같음
    v47: 사장님 앱 v47(owner.html 39)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. 보이는 글은 v46과 같음. 이 페이지의 11월 14일 시점은 다르다고 알린 뒤 결정 전(87,720원 보관, 차이 나는 5,160원은 따로 남김)이라 사장님 앱 14와 같음
    v46: 사장님 앱 v46(owner.html 39 기록 맞춰 보기)의 [받는 사람 화면 보기]가 여는 같은 폴더의 판. v46에서 바뀐 용어(결근으로 남기기, 채울 날짜 알리기, 한 사람 몫은 월급, PANEL 이름의 다르다고 알림과 기록 맞춰 보기)는 이 페이지에 쓰이지 않아 보이는 글은 v40과 같음
@@ -20,7 +25,7 @@
      블록체인 → 누구도 고칠 수 없는 기록, 해시와 지문 → 저장한 값, JSON → 기록 파일, 테스트넷 → 시연 버전
    - 상태마다 v13 에러 틀: 무엇이 됐는지(제목), 돈이 어디 있는지, 해결 방법, 해결 버튼 하나(물러나는 버튼은 닫기)
      ?state=match 일치, mismatch 다름, expired 링크 기간 지남, badfile 파일 형식이 맞지 않음. 쿼리가 없으면 페이지 기록을 맞춰 본 결과
-   - 그림: ../design/GRAPHIC_RULES.md. 한 메시지 상태(링크 기간 지남)에만 히어로 iso_16_link_expired 208px,
+   - 그림: ../design/GRAPHIC_RULES.md. 한 메시지 상태(링크 기간 지남)에만 히어로 iso2_53_share_expired 208px(v58부터, 전에는 iso_16),
      나머지는 행 아이콘(3D 아이콘 40px, 모서리 16 정사각 바탕). 모든 그림은 빈 alt와 aria-hidden
    - 이름과 계좌는 가린 값(A님, 박** 사장님, 국민은행 ***-21-3021). 시각과 금액은 사장님 앱 13, 14, 16, 39와 같은 값
    - 토큰과 접근성은 v9, v10 방식(44px 누르는 대상, :focus-visible 2px 보라 테두리, 움직임 줄이기)
@@ -224,7 +229,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
 .res .diff-n{margin-top:var(--space-3);font-size:var(--type-t7);font-weight:700;color:var(--fg-neutral)}
 .res .diff-n + dl{margin-top:var(--space-1)}
 
-/* 링크 기간 지남: 한 메시지 상태라 히어로 하나 (iso_16, 208px, 제목 위 가운데) */
+/* 링크 기간 지남: 한 메시지 상태라 히어로 하나 (v58부터 iso2_53, 208px, 제목 위 가운데) */
 .gone{max-width:520px;margin:0 auto;padding:var(--space-6) 0 var(--space-screen-bottom)}
 .hero{display:flex;justify-content:center;margin:0 0 var(--space-6);isolation:isolate;background:var(--bg-layer-basement)}
 .hero img{display:block;width:208px;height:208px;object-fit:contain;filter:brightness(1.06);mix-blend-mode:darken}
@@ -275,7 +280,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
       <!-- 왼쪽: 기록 -->
       <div class="col" role="region" aria-label="근무 기록">
         <section class="card" aria-labelledby="sumT">
-          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_calendar.webp" alt="" aria-hidden="true"></span>
+          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_calendar.webp" width="36" height="36" alt="" aria-hidden="true"></span>
             <div class="m"><p class="k">A님 · 11월 14일 토요일 근무</p><h2 class="big num" id="sumT">체무가 87,720원을 보관하고 있어요</h2></div></div>
           <p class="sub">차이 나는 5,160원은 사장님이 정할 때까지 따로 남겨 둬요.</p>
           <div class="tags"><span class="tag warn">다르다고 알림</span><span class="tag">고친 기록 1건</span></div>
@@ -286,7 +291,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
         </section>
 
         <section class="card" aria-labelledby="recT">
-          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_clock.webp" alt="" aria-hidden="true"></span>
+          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_clock.webp" width="36" height="36" alt="" aria-hidden="true"></span>
             <div class="m"><h2 class="card-h" id="recT">원래 기록과 고친 기록</h2></div></div>
           <table class="cmp">
             <caption class="sr">11월 14일 근무. 사장님이 퇴근, 일한 시간, 일당을 고쳤어요.</caption>
@@ -299,7 +304,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
               <tr><th scope="row">남긴 사람</th><td>A님</td><td>박** 사장님</td></tr>
             </tbody>
           </table>
-          <p class="line"><span>30분 줄었어요 · 0.5시간 × 시급 10,320원</span><b class="num">5,160원 덜 받아요</b></p>
+          <p class="line"><span>30분 줄었어요 · 0.5시간 × 시급 10,320원</span><b class="num">A님 기록과 5,160원 차이 나요</b></p>
           <p class="line"><span>원래 기록은 A님이 가게 30m 안에서 직접 눌렀어요.</span></p>
           <div class="quote">
             <div class="tags"><span class="tag warn">고친 이유</span></div>
@@ -310,7 +315,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
         </section>
 
         <section class="card" aria-labelledby="sigT">
-          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_check.webp" alt="" aria-hidden="true"></span>
+          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_check.webp" width="36" height="36" alt="" aria-hidden="true"></span>
             <div class="m"><h2 class="card-h" id="sigT">두 사람이 서명했어요</h2></div></div>
           <ul class="list">
             <li class="row"><span class="av" aria-hidden="true">A</span><span class="rm"><span class="rt">A님</span><span class="rs">원래 기록 · 11월 15일 오전 8:00</span></span><span class="tag ok">서명함</span></li>
@@ -319,7 +324,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
         </section>
 
         <section class="card" aria-labelledby="dspT">
-          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_scale.webp" alt="" aria-hidden="true"></span>
+          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_v2_web/ic2_scale.webp" width="36" height="36" alt="" aria-hidden="true"></span>
             <div class="m"><h2 class="card-h" id="dspT">A님이 퇴근 시간이 다르다고 알렸어요</h2></div></div>
           <div class="quote">
             <p>"다음 근무자가 늦게 와서 8시까지 있었어요"</p>
@@ -336,7 +341,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
       <!-- 오른쪽: 맞춰 보기 -->
       <div class="col" role="region" aria-label="기록 맞춰 보기">
         <section class="card" aria-labelledby="hashT">
-          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_magnifier.webp" alt="" aria-hidden="true"></span>
+          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_magnifier.webp" width="36" height="36" alt="" aria-hidden="true"></span>
             <div class="m"><h2 class="card-h" id="hashT">저장한 기록과 맞춰 보기</h2></div><span class="tag" id="hashTag">맞춰 보는 중</span></div>
           <p class="card-s">체무는 기록을 저장할 때 기록 글자로 계산한 값을 함께 남겨요. 글자 하나만 바뀌어도 값이 달라져요.</p>
           <ul class="list chk">
@@ -365,7 +370,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
         </section>
 
         <section class="card drop" id="fileCard" aria-labelledby="fileT">
-          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_export.webp" alt="" aria-hidden="true"></span>
+          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_export.webp" width="36" height="36" alt="" aria-hidden="true"></span>
             <div class="m"><h2 class="card-h" id="fileT">가진 파일과 맞춰 보기</h2></div></div>
           <p class="card-s">체무에서 받은 기록 파일을 고르면 저장한 기록과 같은지 바로 맞춰 봐요.</p>
           <p class="privacy"><span data-ic="lock" data-s="16"></span><span>고른 파일은 이 브라우저 안에서만 읽고 어디에도 보내지 않아요.</span></p>
@@ -378,7 +383,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
         </section>
 
         <section class="card" aria-labelledby="chainT">
-          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_shield.webp" alt="" aria-hidden="true"></span>
+          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_shield.webp" width="36" height="36" alt="" aria-hidden="true"></span>
             <div class="m"><h2 class="card-h" id="chainT">누구도 고칠 수 없는 기록</h2></div></div>
           <dl class="kvs">
             <div><dt>기록 번호</dt><dd class="mono" id="chainTx">0x4be1…92af</dd></div>
@@ -388,7 +393,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
         </section>
 
         <section class="card" aria-labelledby="linkT">
-          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_envelope.webp" alt="" aria-hidden="true"></span>
+          <div class="card-top"><span class="ri3"><img src="../assets/icon3d_web/ic_envelope.webp" width="36" height="36" alt="" aria-hidden="true"></span>
             <div class="m"><h2 class="card-h" id="linkT">공유 링크</h2></div></div>
           <ul class="list">
             <li class="row"><span class="rm"><span class="rt">만든 날부터 7일 동안 열려요</span><span class="rs">7일이 지나면 새 링크를 받아야 해요</span></span></li>
@@ -404,7 +409,7 @@ code,.raw pre{font-family:var(--mono);letter-spacing:0}
   <!-- 링크 기간 지남 (한 메시지 상태) -->
   <div id="gone" class="wrap" hidden>
     <section class="gone" aria-labelledby="goneT">
-      <div class="hero"><img src="../assets/iso_web/iso_16_link_expired.webp" alt="" aria-hidden="true"></div>
+      <div class="hero"><img src="../assets/iso_v2_web/iso2_53_share_expired.webp" width="208" height="208" alt="" aria-hidden="true"></div>
       <h1 id="goneT" tabindex="-1">링크를 열 수 있는 기간이 지났어요</h1>
       <p class="money">기록과 보관된 돈은 그대로 있어요.</p>
       <p class="s">링크를 보낸 사람에게 새 링크를 받으면 다시 볼 수 있어요.</p>
@@ -484,10 +489,10 @@ const ICONS = {
 };
 const ic = (n, size = 24) =>
   `<svg class="i" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${ICONS[n]}</svg>`;
-const ic3 = n => `<span class="ri3"><img src="../assets/icon3d_web/${n}.webp" alt="" aria-hidden="true"></span>`;
+const ic3 = n => `<span class="ri3"><img src="../assets/icon3d_web/${n}.webp" width="36" height="36" alt="" aria-hidden="true"></span>`;
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[c]);
-// 금액은 숫자 뒤 "원" (v24). 덜 받는 돈은 마이너스 기호 대신 말로
+// 금액은 숫자 뒤 "원" (v24). 차이 나는 돈은 마이너스 기호 대신 말로, 누가 덜 받는지가 아니라 두 기록의 차이로 (v59)
 const won = n => Math.round(n).toLocaleString('ko-KR') + '원';
 function paintIcons(root = document) {
   root.querySelectorAll('[data-ic]').forEach(el => { el.insertAdjacentHTML('afterbegin', ic(el.dataset.ic, +el.dataset.s || 24)); el.removeAttribute('data-ic'); });
@@ -580,7 +585,7 @@ const ampm = (h, m) => `${h < 12 ? '오전' : '오후'} ${h % 12 || 12}:${m}`;
 const fmtTime = s => { const m = /T(\d{2}):(\d{2})/.exec(s); return m ? ampm(+m[1], m[2]) : s; };
 const fmtDate = s => { const m = /^\d{4}-(\d{2})-(\d{2})/.exec(s); return m ? `${+m[1]}월 ${+m[2]}일` : s; };
 const FMT = { clockIn:fmtTime, clockOut:fmtTime, from:fmtTime, workDate:fmtDate, signedAt: s => `${fmtDate(s)} ${fmtTime(s)}`,
-  pay:won, hourlyWage:won, diff: v => v < 0 ? `${won(-v)} 덜 받아요` : `${won(v)} 더 받아요`, hours: v => `${v}시간`, breakMinutes: v => `${v}분`,
+  pay:won, hourlyWage:won, diff: v => v < 0 ? `원래 기록보다 ${won(-v)} 적어요` : v > 0 ? `원래 기록보다 ${won(v)} 많아요` : '원래 기록과 같아요', hours: v => `${v}시간`, breakMinutes: v => `${v}분`,
   kind: v => v === 'edit' ? '고친 기록' : v === 'original' ? '원래 기록' : v, prev: v => `${String(v).slice(0, 10)}…` };
 function show(k, v) {
   if (v === undefined) return '없음';
