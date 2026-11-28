@@ -36,27 +36,27 @@ export function transition(current: DemoState, command: DemoCommand, timestamp =
       s.contract.includesWeeklyAllowance = command.includesWeeklyAllowance;
       s.contract.status = "review";
       s.contract.revision += 1;
-      message = "사장님이 근로계약을 보냈어요";
+      message = s.contract.revision > 1 && command.includesWeeklyAllowance ? "사장님이 계약서에 주휴수당을 넣었어요" : "사장님이 근로계약을 보냈어요";
       break;
     }
     case "request-revision":
       requireCondition(s.contract.status === "review", "확인할 계약이 없어요.");
       s.contract.status = "revision-requested";
-      message = "A님이 계약 수정을 요청했어요";
+      message = "A님이 계약을 고쳐 달라고 요청했어요";
       break;
     case "agree-contract":
       requireCondition(s.contract.status === "review", "확인할 계약이 없어요.");
-      requireCondition(s.contract.includesWeeklyAllowance, "주휴수당을 포함한 계약을 먼저 받아 주세요.");
+      requireCondition(s.contract.includesWeeklyAllowance, "주휴수당이 들어간 계약을 받으면 확정할 수 있어요.");
       s.contract.status = "agreed";
-      message = "A님이 수정된 근로계약에 동의했어요";
+      message = "계약이 확정됐어요";
       break;
     case "check-in":
-      requireCondition(s.contract.status === "agreed", "근로계약에 먼저 동의해 주세요.");
+      requireCondition(s.contract.status === "agreed", "근로계약을 먼저 확정해 주세요.");
       requireCondition(s.attendance.status === "scheduled", "이미 출근 기록이 있어요.");
       requireCondition(Number.isFinite(command.distance) && command.distance >= 0 && command.distance <= 30, "가게 30m 안에서 출근할 수 있어요.");
       s.attendance.checkIn = DEMO.checkIn;
       s.attendance.status = "working";
-      message = "A님이 오후 10시에 출근했어요";
+      message = "A님이 오후 10:00에 출근했어요";
       break;
     case "check-out":
       requireCondition(s.attendance.status === "working", "출근 기록을 먼저 남겨 주세요.");
@@ -64,7 +64,7 @@ export function transition(current: DemoState, command: DemoCommand, timestamp =
       s.attendance.checkOut = DEMO.checkOut;
       s.attendance.wage = dailyWage(s.attendance.checkIn!, DEMO.checkOut, s.attendance.breakMinutes, s.attendance.hourlyWage);
       s.attendance.status = "pending";
-      message = "A님이 오전 8시에 퇴근했어요. 사장님 확정을 기다려요";
+      message = "A님이 오전 8:00에 퇴근했어요. 근무를 확정해 주세요";
       break;
     case "deposit":
       requireCondition(Number.isSafeInteger(command.amount) && command.amount > 0 && command.amount <= 10_000_000, "1원부터 1,000만 원까지 정수로 입력해 주세요.");

@@ -7,14 +7,14 @@ async function contract(page: Page) {
   await role(page, "사장님"); await nav(page, "근로계약");
   await page.getByRole("button", { name: "근로계약 보내기", exact: true }).click();
   await role(page, "알바생");
-  await expect(page.getByText("주휴수당 주 37,152원이 빠져 있어요", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "수정 요청하기" }).click();
+  await expect(page.getByRole("heading", { name: "주휴수당 한 주 37,152원이 빠져 있어요" })).toBeVisible();
+  await page.getByRole("button", { name: "고쳐 달라고 요청하기" }).click();
   await role(page, "사장님");
   await page.getByRole("checkbox").check();
-  await page.getByRole("button", { name: "고친 계약 보내기" }).click();
+  await page.getByRole("button", { name: "주휴수당 넣고 다시 보내기" }).click();
   await role(page, "알바생");
-  await page.getByRole("button", { name: "계약에 동의하기" }).click();
-  await expect(page.getByText("동의 완료", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "계약 확정하기" }).click();
+  await expect(page.getByRole("heading", { name: "계약이 확정됐어요" })).toBeVisible();
 }
 async function lock(page: Page) {
   await contract(page); await nav(page, "출퇴근");
@@ -37,14 +37,14 @@ test("contract, shared attendance, two signatures, lock, verification, persisten
   const second = await context.newPage(); await second.goto("/");
   await expect(second.locator(".hero-amount")).toHaveText("984,528원");
   await second.close();
-  await page.reload(); await nav(page, "기록 대조");
+  await page.reload(); await nav(page, "기록 맞춰 보기");
   await page.getByRole("button", { name: "현재 기록 불러오기" }).click();
-  await page.getByRole("button", { name: "기록 대조하기", exact: true }).click();
-  await expect(page.getByRole("heading", { name: "보관한 기록과 일치해요" })).toBeVisible();
+  await page.getByRole("button", { name: "이 기록 맞춰 보기", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "확정한 기록과 같아요" })).toBeVisible();
   const original = await page.getByLabel("기록 JSON").inputValue();
   await page.getByLabel("기록 JSON").fill(original.replace('"wage": 92880', '"wage": 1'));
-  await page.getByRole("button", { name: "기록 대조하기", exact: true }).click();
-  await expect(page.getByRole("heading", { name: "파일의 기록과 지문이 달라요" })).toBeVisible();
+  await page.getByRole("button", { name: "이 기록 맞춰 보기", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "저장한 기록과 달라요", exact: true })).toBeVisible();
   await page.getByRole("button", { name: "시연 설정" }).click();
   await page.getByRole("button", { name: "급여일을 20초 뒤로 정하기" }).click();
   await page.getByRole("dialog").getByLabel("닫기", { exact: true }).click();
