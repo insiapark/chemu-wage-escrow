@@ -1,0 +1,12933 @@
+{
+ "generated": "2026-11-28 15:29",
+ "tool": "v44/_gen/flow.mjs",
+ "worker": "worker_v75.html",
+ "owner": "owner_v75.html",
+ "demo": [
+  {
+   "n": 1,
+   "app": "owner",
+   "w": 6,
+   "o": 1,
+   "t": [
+    "사장님이 근로계약서를 등록해요",
+    "주휴수당은 체무가 법에 따라 계산해요"
+   ],
+   "prev": null,
+   "path": []
+  },
+  {
+   "n": 2,
+   "app": "worker",
+   "w": 6,
+   "o": 1,
+   "t": [
+    "주휴수당 한 주 37,152원이 빠지면",
+    "확정하기 전에 바로 보여요"
+   ],
+   "prev": null,
+   "path": []
+  },
+  {
+   "n": 3,
+   "app": "worker",
+   "w": 11,
+   "o": 1,
+   "t": [
+    "가게 30m 안에서 출근하면",
+    "기록이 A님과 사장님에게 똑같이 남아요"
+   ],
+   "prev": 6,
+   "path": [
+    [
+     6,
+     "주휴수당 없이 확정하기",
+     74
+    ],
+    [
+     74,
+     "주휴수당 없이 확정하기",
+     57
+    ],
+    [
+     57,
+     "오늘 화면 보기",
+     8
+    ],
+    [
+     8,
+     "출퇴근",
+     11
+    ]
+   ]
+  },
+  {
+   "n": 4,
+   "app": "owner",
+   "w": 15,
+   "o": 9,
+   "t": [
+    "사장님이 확정해 두 사람 서명이 모이면",
+    "체무가 일당 92,880원을 보관해요"
+   ],
+   "prev": 1,
+   "path": null
+  },
+  {
+   "n": 5,
+   "app": "worker",
+   "w": 15,
+   "o": 9,
+   "t": [
+    "보관된 92,880원은 급여일 전에",
+    "아무도 꺼낼 수 없어요"
+   ],
+   "prev": 11,
+   "path": [
+    [
+     11,
+     "출근하기",
+     14
+    ],
+    [
+     14,
+     "퇴근하기",
+     70
+    ],
+    [
+     70,
+     "퇴근하기",
+     21
+    ],
+    [
+     21,
+     "기다리면",
+     15
+    ]
+   ]
+  },
+  {
+   "n": 6,
+   "app": "owner",
+   "w": 18,
+   "o": 13,
+   "t": [
+    "퇴근을 오전 7:30으로 고치면",
+    "A님 앱에 고친 이유까지 바로 보여요"
+   ],
+   "prev": 9,
+   "path": [
+    [
+     9,
+     "시간 고치기",
+     13
+    ]
+   ]
+  },
+  {
+   "n": 7,
+   "app": "worker",
+   "w": 18,
+   "o": 13,
+   "t": [
+    "A님이 다르다고 알리면",
+    "차이 나는 5,160원은 따로 남겨 둬요"
+   ],
+   "prev": 15,
+   "path": [
+    [
+     15,
+     "오늘 화면 보기",
+     60
+    ],
+    [
+     60,
+     "11월 14일 토요일",
+     18
+    ]
+   ]
+  },
+  {
+   "n": 8,
+   "app": "worker",
+   "w": 33,
+   "o": 28,
+   "t": [
+    "급여일 오전 9:00에 누르지 않아도",
+    "월급 984,528원이 들어와요"
+   ],
+   "prev": 18,
+   "path": null
+  },
+  {
+   "n": 9,
+   "app": "worker",
+   "w": 36,
+   "o": 40,
+   "t": [
+    "일당이 안 들어오면",
+    "다음 날 오전 9:00에 알려 드려요"
+   ],
+   "prev": 33,
+   "path": null
+  },
+  {
+   "n": 10,
+   "app": "owner",
+   "w": 36,
+   "o": 40,
+   "t": [
+    "채울 돈이 모자라면 일부만 채우거나",
+    "채울 날짜를 B님에게 알려요"
+   ],
+   "prev": 13,
+   "path": null
+  },
+  {
+   "n": 11,
+   "app": "worker",
+   "w": 52,
+   "o": 40,
+   "t": [
+    "월급을 주는 사람은 사장님이에요",
+    "체무는 돈을 보관하고 기록을 남겨요"
+   ],
+   "prev": 36,
+   "path": null
+  },
+  {
+   "n": 12,
+   "app": "owner",
+   "w": 52,
+   "o": 39,
+   "t": [
+    "링크를 받은 사람은",
+    "원래 기록과 고친 기록을 맞춰 봐요"
+   ],
+   "prev": 40,
+   "path": null
+  }
+ ],
+ "apps": {
+  "worker": {
+   "nodes": [
+    {
+     "i": 0,
+     "label": "초대받고 가입",
+     "key": "m:onboarding",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "시작하기 (A)",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 1,
+     "label": "초대 링크 기간 지남",
+     "key": "m:onboarding:expired",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "시작하기 (A)",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 2,
+     "label": "휴대폰 본인 확인",
+     "key": "m:onboarding:verify",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "시작하기 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 3,
+     "label": "받을 곳 등록: 계좌 확인",
+     "key": "m:onboarding:receive",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "시작하기 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 4,
+     "label": "알림 허용: 휴대폰 알림 꺼짐",
+     "key": "m:onboarding:notioff",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "시작하기 (A)",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 5,
+     "label": "계약서가 아직 안 옴",
+     "key": "haneul/home/contract/none",
+     "tab": "home",
+     "layer": "화면",
+     "group": "시작하기 (A)",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 6,
+     "label": "계약 확인: 주휴수당 빠짐",
+     "key": "haneul/home/contract/missing",
+     "tab": "home",
+     "layer": "화면",
+     "group": "시작하기 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 7,
+     "label": "계약 확인: 고쳐진 계약",
+     "key": "haneul/home/contract/fixed",
+     "tab": "home",
+     "layer": "화면",
+     "group": "시작하기 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 8,
+     "label": "오늘: 보관된 돈 (11월 21일, 예상 월급은 결정 뒤)",
+     "key": "haneul/home/home",
+     "tab": "home",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 9,
+     "label": "이번 달 근무 달력 (11월 21일)",
+     "key": "haneul/home/cal",
+     "tab": "home",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 10,
+     "label": "일당 계산 풀이",
+     "key": "haneul/home/calc",
+     "tab": "home",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 11,
+     "label": "출근하기",
+     "key": "m:clock:before",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 12,
+     "label": "출근하기: 위치 꺼짐",
+     "key": "m:clock:locoff",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "A의 근무하는 날",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 13,
+     "label": "출근하기: 인터넷 끊김",
+     "key": "m:clock:offline",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "A의 근무하는 날",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 14,
+     "label": "근무 중",
+     "key": "m:clock:working",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 15,
+     "label": "퇴근, 일당 보관",
+     "key": "m:clock:done",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 16,
+     "label": "근무 기록 (11월 21일)",
+     "key": "haneul/work/work",
+     "tab": "work",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 17,
+     "label": "하루 상세",
+     "key": "haneul/work/day/h1115",
+     "tab": "work",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 18,
+     "label": "사장님이 시간을 고침 (11월 21일)",
+     "key": "haneul/work/day/h1114",
+     "tab": "work",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 19,
+     "label": "다르다고 알리기 (11월 21일)",
+     "key": "sheet:dispute",
+     "tab": "work",
+     "layer": "시트",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 20,
+     "label": "출근하기: 가게 30m 밖",
+     "key": "m:clock:far",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "A의 근무하는 날",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 21,
+     "label": "퇴근 뒤 확정 대기",
+     "key": "m:clock:pending",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 22,
+     "label": "확정이 하루 넘게 늦음",
+     "key": "haneul/home/day/today/late",
+     "tab": "home",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 23,
+     "label": "퇴근을 못 누르고 나옴",
+     "key": "haneul/home/noout",
+     "tab": "home",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 24,
+     "label": "휴게 1시간을 못 쉼",
+     "key": "haneul/home/norest",
+     "tab": "home",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 25,
+     "label": "근무 기록: 확인할 근무 없음",
+     "key": "haneul/work/work/empty",
+     "tab": "work",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 26,
+     "label": "다르다고 알린 결과: 내 기록으로 바뀜 (결정 뒤)",
+     "key": "haneul/home/dres/ok",
+     "tab": "home",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": true,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 27,
+     "label": "다르다고 알린 결과: 기록 그대로 둠 (다른 갈래)",
+     "key": "haneul/home/dres/no",
+     "tab": "home",
+     "layer": "화면",
+     "group": "A의 근무하는 날",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 28,
+     "label": "급여: 보관 현황",
+     "key": "haneul/pay/pay",
+     "tab": "pay",
+     "layer": "화면",
+     "group": "A의 급여일",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 29,
+     "label": "주휴수당 풀이",
+     "key": "haneul/pay/wcalc",
+     "tab": "pay",
+     "layer": "화면",
+     "group": "A의 급여일",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 30,
+     "label": "보관된 돈은 누가 꺼낼 수 있나요",
+     "key": "haneul/pay/who",
+     "tab": "pay",
+     "layer": "화면",
+     "group": "A의 급여일",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 31,
+     "label": "받을 곳 고르기",
+     "key": "sheet:receive",
+     "tab": "pay",
+     "layer": "시트",
+     "group": "A의 급여일",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 32,
+     "label": "급여일 아침 (오전 9시 전)",
+     "key": "m:paymorning",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "A의 급여일",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 33,
+     "label": "급여일 자동 입금 (12월 10일, 결정 뒤)",
+     "key": "m:payday",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "A의 급여일",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 34,
+     "label": "급여명세서",
+     "key": "haneul/pay/slip",
+     "tab": "pay",
+     "layer": "화면",
+     "group": "A의 급여일",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 35,
+     "label": "급여일: 자동 입금 실패",
+     "key": "m:payday:fail",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "A의 급여일",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 36,
+     "label": "오늘: 안 들어온 돈",
+     "key": "junho/home/home",
+     "tab": "home",
+     "layer": "화면",
+     "group": "B의 안 들어온 돈",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 37,
+     "label": "알림",
+     "key": "junho/home/notices",
+     "tab": "home",
+     "layer": "화면",
+     "group": "B의 안 들어온 돈",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 38,
+     "label": "안 들어온 돈",
+     "key": "junho/home/missing",
+     "tab": "home",
+     "layer": "화면",
+     "group": "B의 안 들어온 돈",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 39,
+     "label": "안 들어온 돈: 사장님이 날짜를 알림",
+     "key": "junho/home/missing/promised",
+     "tab": "home",
+     "layer": "화면",
+     "group": "B의 안 들어온 돈",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 40,
+     "label": "사장님에게 알리기 전 문자 보기",
+     "key": "sheet:nudge",
+     "tab": "home",
+     "layer": "시트",
+     "group": "B의 안 들어온 돈",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 41,
+     "label": "안 들어온 돈 알림 단계",
+     "key": "junho/home/stage",
+     "tab": "home",
+     "layer": "화면",
+     "group": "B의 안 들어온 돈",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 42,
+     "label": "보관 안 된 하루",
+     "key": "junho/home/day/j18",
+     "tab": "home",
+     "layer": "화면",
+     "group": "B의 안 들어온 돈",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 43,
+     "label": "기록 내보내기",
+     "key": "junho/home/export",
+     "tab": "home",
+     "layer": "화면",
+     "group": "B의 안 들어온 돈",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 44,
+     "label": "노동청 진정 안내",
+     "key": "junho/home/petition",
+     "tab": "home",
+     "layer": "화면",
+     "group": "B의 안 들어온 돈",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 45,
+     "label": "그만두고 정산",
+     "key": "junho/home/settle",
+     "tab": "home",
+     "layer": "화면",
+     "group": "B의 안 들어온 돈",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 46,
+     "label": "정산 받기 전 확인",
+     "key": "sheet:settle",
+     "tab": "home",
+     "layer": "시트",
+     "group": "B의 안 들어온 돈",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 47,
+     "label": "안 들어온 돈이 보관됨",
+     "key": "junho/home/missing/resolved",
+     "tab": "home",
+     "layer": "화면",
+     "group": "B의 안 들어온 돈",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 48,
+     "label": "오늘: 불러오는 중",
+     "key": "haneul/home/home/loading",
+     "tab": "home",
+     "layer": "화면",
+     "group": "공통",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 49,
+     "label": "오늘: 불러오지 못함",
+     "key": "haneul/home/home/loadfail",
+     "tab": "home",
+     "layer": "화면",
+     "group": "공통",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 50,
+     "label": "알림 (A, 11월 21일)",
+     "key": "haneul/home/notices",
+     "tab": "home",
+     "layer": "화면",
+     "group": "공통",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 51,
+     "label": "내 정보",
+     "key": "haneul/me/me",
+     "tab": "me",
+     "layer": "화면",
+     "group": "공통",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 52,
+     "label": "돈이 움직이는 길",
+     "key": "haneul/pay/flow",
+     "tab": "pay",
+     "layer": "화면",
+     "group": "설명 화면",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 53,
+     "label": "초대: 새 초대 요청함",
+     "key": "m:onboarding:expired:asked",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": false
+    },
+    {
+     "i": 54,
+     "label": "알림 허용: 알림 켜짐",
+     "key": "m:onboarding:alerts",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 55,
+     "label": "계약서 요청함",
+     "key": "haneul/home/contract/none/asked",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 56,
+     "label": "계약: 수정 요청함",
+     "key": "haneul/home/contract/requested",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 57,
+     "label": "계약: 확정됨",
+     "key": "haneul/home/contract/agreed",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 58,
+     "label": "오늘: 근무 중 (11월 21일, 예상 월급은 결정 뒤)",
+     "key": "haneul/home/home/working",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 59,
+     "label": "오늘: 퇴근 뒤 확정 대기 (11월 21일, 예상 월급은 결정 뒤)",
+     "key": "haneul/home/home/done/pending",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 60,
+     "label": "오늘: 퇴근 뒤 보관됨 (11월 21일, 예상 월급은 결정 뒤)",
+     "key": "haneul/home/home/done/kept",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 61,
+     "label": "오늘: 어제 퇴근 기록 없음 (11월 22일, 예상 월급은 결정 뒤)",
+     "key": "haneul/home/home/noout",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 62,
+     "label": "다르다고 알린 뒤 답 기다림 (결정 전)",
+     "key": "haneul/work/day/h1114/disputed",
+     "tab": "work",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 63,
+     "label": "주휴수당 하루 상세",
+     "key": "haneul/work/day/hw2",
+     "tab": "work",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 64,
+     "label": "확정 요청 다시 보낸 뒤",
+     "key": "haneul/home/day/today/late/asked",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 65,
+     "label": "퇴근 기록 보낸 뒤",
+     "key": "haneul/home/noout/sent",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 66,
+     "label": "휴게 확인 요청 보낸 뒤",
+     "key": "haneul/home/norest/sent",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (A)",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 67,
+     "label": "주휴수당 보관 전",
+     "key": "junho/home/day/jw3",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (B)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 68,
+     "label": "안 들어온 돈: 알림 보낸 뒤",
+     "key": "junho/home/missing/nudged",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (B)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 69,
+     "label": "정산 요청 뒤",
+     "key": "junho/home/settle/settled",
+     "tab": "home",
+     "layer": "화면",
+     "group": "누른 뒤 상태 (B)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 70,
+     "label": "퇴근 확인 창",
+     "key": "dlg:clockOutAsk",
+     "tab": "home",
+     "layer": "확인 창",
+     "group": "확인 창",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 71,
+     "label": "87,720원으로 확정 확인 창 (11월 21일)",
+     "key": "dlg:acceptEdit",
+     "tab": "work",
+     "layer": "확인 창",
+     "group": "확인 창",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 72,
+     "label": "기록 원본 보기 창",
+     "key": "dlg:txView",
+     "tab": "work",
+     "layer": "확인 창",
+     "group": "확인 창",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 73,
+     "label": "계약 수정 요청 확인 창",
+     "key": "dlg:contractRequest",
+     "tab": "home",
+     "layer": "확인 창",
+     "group": "확인 창",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 74,
+     "label": "주휴수당 없이 동의 확인 창",
+     "key": "dlg:contractAgreeWarn",
+     "tab": "home",
+     "layer": "확인 창",
+     "group": "확인 창",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 75,
+     "label": "계약 동의 확인 창",
+     "key": "dlg:contractAgree",
+     "tab": "home",
+     "layer": "확인 창",
+     "group": "확인 창",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 76,
+     "label": "계약서 요청 확인 창",
+     "key": "dlg:contractAsk",
+     "tab": "home",
+     "layer": "확인 창",
+     "group": "확인 창",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 77,
+     "label": "퇴근 시간 보내기 확인 창",
+     "key": "dlg:noOutSend",
+     "tab": "home",
+     "layer": "확인 창",
+     "group": "확인 창",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 78,
+     "label": "못 쉰 휴게 보내기 확인 창",
+     "key": "dlg:noRestSend",
+     "tab": "home",
+     "layer": "확인 창",
+     "group": "확인 창",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 79,
+     "label": "1350 전화 확인 창",
+     "key": "dlg:call",
+     "tab": "home",
+     "layer": "확인 창",
+     "group": "확인 창",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 80,
+     "label": "인증번호가 맞지 않음",
+     "key": "m:onboarding:verify:fail",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "에러와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 81,
+     "label": "계좌 주인 이름이 다름",
+     "key": "m:onboarding:receive:mismatch",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "에러와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 82,
+     "label": "퇴근할 때 위치를 못 찾음",
+     "key": "m:clock:outnoloc",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "에러와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 83,
+     "label": "받을 곳 바꾸기",
+     "key": "haneul/me/recv/normal/form",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v31 받을 곳, 알림 설정, 결근 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 84,
+     "label": "받을 곳 바꾸기: 본인 확인",
+     "key": "haneul/me/recv/normal/verify",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v31 받을 곳, 알림 설정, 결근 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 85,
+     "label": "받을 곳을 바꾼 뒤",
+     "key": "haneul/me/recv/normal/done",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v31 받을 곳, 알림 설정, 결근 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 86,
+     "label": "받을 곳 바꾸기: 급여일 아침",
+     "key": "haneul/home/recv/payday/form",
+     "tab": "home",
+     "layer": "화면",
+     "group": "v31 받을 곳, 알림 설정, 결근 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 87,
+     "label": "받을 곳 고치기: 월급이 안 들어온 뒤",
+     "key": "haneul/home/recv/fail/form",
+     "tab": "home",
+     "layer": "화면",
+     "group": "v31 받을 곳, 알림 설정, 결근 (A)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 88,
+     "label": "알림 설정",
+     "key": "haneul/me/notiset",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v31 받을 곳, 알림 설정, 결근 (A)",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 89,
+     "label": "알림 설정: 휴대폰 알림 꺼짐",
+     "key": "haneul/me/notiset/off",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v31 받을 곳, 알림 설정, 결근 (A)",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 90,
+     "label": "결근으로 남은 날 (가상: A의 11월 1일)",
+     "key": "haneul/work/day/h1101/absent",
+     "tab": "work",
+     "layer": "화면",
+     "group": "v31 받을 곳, 알림 설정, 결근 (A)",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 91,
+     "label": "로그아웃 확인 창",
+     "key": "dlg:logoutAsk",
+     "tab": "me",
+     "layer": "확인 창",
+     "group": "v32 로그아웃과 탈퇴",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 92,
+     "label": "탈퇴: 보관된 돈이 있음",
+     "key": "haneul/me/leave",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v32 로그아웃과 탈퇴",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 93,
+     "label": "탈퇴: 확정 대기 근무가 있음",
+     "key": "haneul/me/leave/pending",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v32 로그아웃과 탈퇴",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 94,
+     "label": "탈퇴: 다르다고 알린 뒤 (결정 전)",
+     "key": "haneul/me/leave/disputed",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v32 로그아웃과 탈퇴",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 95,
+     "label": "탈퇴: 안 들어온 돈이 있음 (B)",
+     "key": "junho/me/leave/missing",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v32 로그아웃과 탈퇴",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 96,
+     "label": "탈퇴: 월급이 안 들어옴",
+     "key": "haneul/me/leave/payfail",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v32 로그아웃과 탈퇴",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 97,
+     "label": "탈퇴: 남은 돈이 없음",
+     "key": "haneul/me/leave/clear",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v32 로그아웃과 탈퇴",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 98,
+     "label": "탈퇴 확인 창",
+     "key": "dlg:leaveAsk",
+     "tab": "me",
+     "layer": "확인 창",
+     "group": "v32 로그아웃과 탈퇴",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 99,
+     "label": "자주 묻는 질문",
+     "key": "haneul/me/help",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v33 도움말",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 100,
+     "label": "오늘: 처음 연 날 (계약 전)",
+     "key": "haneul/home/home/first",
+     "tab": "home",
+     "layer": "화면",
+     "group": "v34 처음 연 날",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 101,
+     "label": "알림: 알림이 없을 때",
+     "key": "haneul/home/notices/empty",
+     "tab": "home",
+     "layer": "화면",
+     "group": "v37 빠진 실패와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 102,
+     "label": "받을 곳 바꾸기: 계좌 주인 이름이 다름",
+     "key": "haneul/me/recv/normal/mismatch",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v37 빠진 실패와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 103,
+     "label": "다르다고 알리기: 보내지 못함 (11월 21일)",
+     "key": "sheet:disputeFail",
+     "tab": "work",
+     "layer": "시트",
+     "group": "v37 빠진 실패와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 104,
+     "label": "다르다고 알리기: 결근으로 남은 날 (가상: A의 11월 1일)",
+     "key": "sheet:disputeAbsent",
+     "tab": "work",
+     "layer": "시트",
+     "group": "v63 누르면 열리는 시트",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 105,
+     "label": "휴대폰 본인 확인: 인증번호를 다 넣지 않았을 때",
+     "key": "m:onboarding:verify/otp",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "v66 입력 화면",
+     "noIn": true,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 106,
+     "label": "휴대폰 본인 확인: 번호가 초대한 번호와 다를 때",
+     "key": "m:onboarding:verify/phone",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "v66 입력 화면",
+     "noIn": true,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 107,
+     "label": "받을 곳 바꾸기: 계좌번호를 다 넣지 않았을 때",
+     "key": "haneul/me/recv/normal/form/short",
+     "tab": "me",
+     "layer": "화면",
+     "group": "v66 입력 화면",
+     "noIn": true,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 108,
+     "label": "퇴근을 못 누르고 나옴: 출근보다 앞 시간을 골랐을 때",
+     "key": "haneul/home/noout/early",
+     "tab": "home",
+     "layer": "화면",
+     "group": "v66 입력 화면",
+     "noIn": true,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 109,
+     "label": "다르다고 알리기: 기타를 고르고 비워 뒀을 때 (11월 21일)",
+     "key": "sheet:dispute/empty",
+     "tab": "work",
+     "layer": "시트",
+     "group": "v66 입력 화면",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 110,
+     "label": "오늘 근무: 사장님 확정 기다림 (11월 21일)",
+     "key": "haneul/home/day/today",
+     "tab": "home",
+     "layer": "화면",
+     "group": "v68 이어지는 화면",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 111,
+     "label": "오늘 근무: 보관됨 (11월 21일)",
+     "key": "haneul/home/day/today/kept",
+     "tab": "home",
+     "layer": "화면",
+     "group": "v68 이어지는 화면",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 112,
+     "label": "결근으로 남은 날: 다르다고 알린 뒤 (가상: A의 11월 1일)",
+     "key": "haneul/work/day/h1101/disputed/absent",
+     "tab": "work",
+     "layer": "화면",
+     "group": "v68 이어지는 화면",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 113,
+     "label": "받을 곳 등록: 등록함",
+     "key": "m:onboarding:receive:ok",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "v74 결정안 사건 틀",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 114,
+     "label": "정산 받음 (B, 다음 날 오전 9:00)",
+     "key": "junho/home/settle/settled/paid",
+     "tab": "home",
+     "layer": "화면",
+     "group": "v74 결정안 사건 틀",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    }
+   ],
+   "edges": [
+    {
+     "from": 0,
+     "to": 2,
+     "kind": "버튼",
+     "labels": [
+      "초대 수락하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 1,
+     "to": 53,
+     "kind": "버튼",
+     "labels": [
+      "새 초대 요청하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님에게 새 초대를 요청했어요"
+     ]
+    },
+    {
+     "from": 2,
+     "to": 0,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 2,
+     "to": 3,
+     "kind": "버튼",
+     "labels": [
+      "본인 확인하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "본인 확인을 마쳤어요"
+     ]
+    },
+    {
+     "from": 3,
+     "to": 2,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 3,
+     "to": 113,
+     "kind": "자동",
+     "labels": [
+      "기다리면",
+      "은행 계좌로 받기 급여일에 바로 들어와요 뒤 기다림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 4,
+     "to": 3,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 4,
+     "to": 6,
+     "kind": "버튼",
+     "labels": [
+      "다음에"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 4,
+     "to": 54,
+     "kind": "버튼",
+     "labels": [
+      "알림 켜기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "알림을 켰어요"
+     ]
+    },
+    {
+     "from": 5,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 5,
+     "to": 76,
+     "kind": "버튼",
+     "labels": [
+      "사장님에게 계약서 요청하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 6,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 6,
+     "to": 10,
+     "kind": "행",
+     "labels": [
+      "일당"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 6,
+     "to": 73,
+     "kind": "버튼",
+     "labels": [
+      "고쳐 달라고 요청하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 6,
+     "to": 74,
+     "kind": "버튼",
+     "labels": [
+      "주휴수당 없이 확정하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 7,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 7,
+     "to": 10,
+     "kind": "행",
+     "labels": [
+      "일당"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 7,
+     "to": 75,
+     "kind": "버튼",
+     "labels": [
+      "계약 확정하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 9,
+     "kind": "버튼",
+     "labels": [
+      "이번 달 근무 달력 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 10,
+     "kind": "행",
+     "labels": [
+      "일당 92,880원 10시간 − 쉬는 시간…"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근",
+      "출근하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 16,
+     "kind": "버튼",
+     "labels": [
+      "전체 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 17,
+     "kind": "행",
+     "labels": [
+      "11월 15일 일요일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 18,
+     "kind": "행",
+     "labels": [
+      "11월 14일 토요일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "급여일까지 사장님도 꺼낼 수 없어요 급여일…"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 63,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 9,
+     "to": 17,
+     "kind": "행",
+     "labels": [
+      "11월 15일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 9,
+     "to": 18,
+     "kind": "행",
+     "labels": [
+      "11월 14일",
+      "고친 기록 1일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 9,
+     "to": 29,
+     "kind": "행",
+     "labels": [
+      "주휴수당 2주"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 9,
+     "to": 59,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 9,
+     "to": 110,
+     "kind": "행",
+     "labels": [
+      "11월 21일",
+      "확정 대기 1일"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 10,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 10,
+     "to": 29,
+     "kind": "행",
+     "labels": [
+      "체무가 주휴수당을 따로 보관해요"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 11,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 11,
+     "to": 14,
+     "kind": "버튼",
+     "labels": [
+      "출근하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "오후 9:58 출근을 기록했어요"
+     ]
+    },
+    {
+     "from": 12,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 12,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "위치 켜기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "위치를 켰어요. 출근할 수 있어요"
+     ]
+    },
+    {
+     "from": 13,
+     "to": 14,
+     "kind": "버튼",
+     "labels": [
+      "다시 연결하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "다시 연결했어요. 체무가 출근 기록을 보냈어요"
+     ]
+    },
+    {
+     "from": 13,
+     "to": 58,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 13,
+     "to": 70,
+     "kind": "버튼",
+     "labels": [
+      "퇴근하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 14,
+     "to": 58,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 14,
+     "to": 70,
+     "kind": "버튼",
+     "labels": [
+      "퇴근하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 15,
+     "to": 60,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 15,
+     "to": 60,
+     "kind": "버튼",
+     "labels": [
+      "오늘 화면 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 15,
+     "to": 111,
+     "kind": "버튼",
+     "labels": [
+      "오늘 근무 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 8,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 9,
+     "kind": "버튼",
+     "labels": [
+      "달력 보기 달력 보기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 17,
+     "kind": "행",
+     "labels": [
+      "11월 15일 일요일"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 18,
+     "kind": "행",
+     "labels": [
+      "11월 14일 토요일"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 63,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "같음",
+      "같은 꼴"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "to": 10,
+     "kind": "버튼",
+     "labels": [
+      "일당 계산 풀이 보기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "to": 16,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "to": 72,
+     "kind": "버튼",
+     "labels": [
+      "기록 원본 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 10,
+     "kind": "버튼",
+     "labels": [
+      "일당 계산 풀이 보기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 16,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 19,
+     "kind": "버튼",
+     "labels": [
+      "다르다고 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 71,
+     "kind": "버튼",
+     "labels": [
+      "87,720원으로 확정하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "to": 62,
+     "kind": "버튼",
+     "labels": [
+      "다르다고 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님에게 퇴근 시간이 다르다고 알렸어요"
+     ]
+    },
+    {
+     "from": 20,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 20,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "위치 다시 찾기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "가게에서 30m 안이라 출근할 수 있어요"
+     ]
+    },
+    {
+     "from": 21,
+     "to": 15,
+     "kind": "자동",
+     "labels": [
+      "기다리면"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님이 11월 21일 근무를 확정했어요. 92,880원을 보관했어요"
+     ]
+    },
+    {
+     "from": 21,
+     "to": 59,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 21,
+     "to": 59,
+     "kind": "버튼",
+     "labels": [
+      "오늘 화면 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 21,
+     "to": 110,
+     "kind": "버튼",
+     "labels": [
+      "오늘 근무 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 22,
+     "to": 10,
+     "kind": "버튼",
+     "labels": [
+      "일당 계산 풀이 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 22,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 22,
+     "to": 59,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 22,
+     "to": 64,
+     "kind": "버튼",
+     "labels": [
+      "확정 요청 다시 보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님에게 확정 요청을 다시 보냈어요"
+     ]
+    },
+    {
+     "from": 23,
+     "to": 61,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "다음에"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 23,
+     "to": 77,
+     "kind": "버튼",
+     "labels": [
+      "퇴근 시간 보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 24,
+     "to": 78,
+     "kind": "버튼",
+     "labels": [
+      "사장님에게 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 24,
+     "to": 111,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "다음에"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "to": 8,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "to": 9,
+     "kind": "버튼",
+     "labels": [
+      "달력 보기 달력 보기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "to": 16,
+     "kind": "버튼",
+     "labels": [
+      "전체 기록 보기",
+      "전체",
+      "보관됨"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 26,
+     "to": 50,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "알림 목록 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 27,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 27,
+     "to": 50,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 27,
+     "to": 79,
+     "kind": "행",
+     "labels": [
+      "고용노동부 상담 1 3 5 0"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 8,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 10,
+     "kind": "행",
+     "labels": [
+      "근무 5일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 29,
+     "kind": "행",
+     "labels": [
+      "주휴수당 2주",
+      "주휴수당은 어떻게 계산하나요?"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "보관된 돈은 누가 꺼낼 수 있나요?"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 31,
+     "kind": "행",
+     "labels": [
+      "은행 계좌로 받기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 34,
+     "kind": "행",
+     "labels": [
+      "10월분 월급",
+      "9월분 월급"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 52,
+     "kind": "행",
+     "labels": [
+      "돈은 어디서 어디로 움직이나요?"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 29,
+     "to": 28,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 29,
+     "to": 63,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "같은 꼴",
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 30,
+     "to": 28,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 30,
+     "to": 52,
+     "kind": "행",
+     "labels": [
+      "돈이 움직이는 길"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 30,
+     "to": 72,
+     "kind": "버튼",
+     "labels": [
+      "기록 원본 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 31,
+     "to": 28,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 31,
+     "to": 28,
+     "kind": "버튼",
+     "labels": [
+      "이 계좌로 받기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 31,
+     "to": 83,
+     "kind": "버튼",
+     "labels": [
+      "다른 계좌로 바꾸기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "to": 8,
+     "kind": "버튼",
+     "labels": [
+      "오늘 화면 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "to": 86,
+     "kind": "버튼",
+     "labels": [
+      "받을 곳 바꾸기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 33,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 33,
+     "to": 8,
+     "kind": "버튼",
+     "labels": [
+      "오늘 화면 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 33,
+     "to": 34,
+     "kind": "버튼",
+     "labels": [
+      "급여명세서 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "to": 28,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "to": 72,
+     "kind": "버튼",
+     "labels": [
+      "기록 원본 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 35,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 35,
+     "to": 87,
+     "kind": "버튼",
+     "labels": [
+      "받을 곳 고치기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 9,
+     "kind": "버튼",
+     "labels": [
+      "이번 달 근무 달력 보기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 16,
+     "kind": "버튼",
+     "labels": [
+      "전체 보기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "급여일까지 사장님도 꺼낼 수 없어요 급여일…"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 38,
+     "kind": "행",
+     "labels": [
+      "11월 18일부터 사흘 일당 126,000…"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 42,
+     "kind": "행",
+     "labels": [
+      "11월 20일 금요일",
+      "11월 19일 목요일",
+      "11월 18일 수요일"
+     ],
+     "how": [
+      "같은 꼴",
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 67,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 37,
+     "to": 36,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 37,
+     "to": 38,
+     "kind": "행",
+     "labels": [
+      "11월 18일부터 3일 동안 일당이 안 들…",
+      "이번 주 주휴수당 42,000원이 아직 안…"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 37,
+     "to": 42,
+     "kind": "행",
+     "labels": [
+      "11월 18일 일당 42,000원이 아직 …"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 36,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 40,
+     "kind": "행",
+     "labels": [
+      "사장님에게 알림 보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 41,
+     "kind": "행",
+     "labels": [
+      "사장님에게 다시 알릴 수 있어요"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 42,
+     "kind": "행",
+     "labels": [
+      "11월 20일 금요일",
+      "11월 19일 목요일",
+      "11월 18일 수요일"
+     ],
+     "how": [
+      "같은 꼴",
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 43,
+     "kind": "행",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 44,
+     "kind": "행",
+     "labels": [
+      "노동청 진정 안내"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 45,
+     "kind": "행",
+     "labels": [
+      "그만두고 정산 받기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 67,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 79,
+     "kind": "행",
+     "labels": [
+      "고용노동부 상담 1 3 5 0"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "to": 36,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "to": 40,
+     "kind": "행",
+     "labels": [
+      "사장님에게 알림 보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "to": 41,
+     "kind": "행",
+     "labels": [
+      "사장님에게 다시 알릴 수 있어요"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "to": 42,
+     "kind": "행",
+     "labels": [
+      "11월 20일 금요일",
+      "11월 19일 목요일",
+      "11월 18일 수요일"
+     ],
+     "how": [
+      "같은 꼴",
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "to": 43,
+     "kind": "행",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "to": 44,
+     "kind": "행",
+     "labels": [
+      "노동청 진정 안내"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "to": 45,
+     "kind": "행",
+     "labels": [
+      "그만두고 정산 받기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "to": 67,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "to": 79,
+     "kind": "행",
+     "labels": [
+      "고용노동부 상담 1 3 5 0"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 40,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 40,
+     "to": 68,
+     "kind": "버튼",
+     "labels": [
+      "문자 보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님에게 알림을 보냈어요"
+     ]
+    },
+    {
+     "from": 41,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 41,
+     "to": 40,
+     "kind": "버튼",
+     "labels": [
+      "사장님에게 다시 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 41,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 41,
+     "to": 44,
+     "kind": "버튼",
+     "labels": [
+      "진정 안내 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 42,
+     "to": 10,
+     "kind": "버튼",
+     "labels": [
+      "일당 계산 풀이 보기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 42,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 42,
+     "to": 38,
+     "kind": "버튼",
+     "labels": [
+      "안 들어온 돈 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "to": 44,
+     "kind": "행",
+     "labels": [
+      "이 PDF로 노동청에 진정하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 44,
+     "to": 43,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 44,
+     "to": 79,
+     "kind": "버튼",
+     "labels": [
+      "1350 상담하기 1 3 5 0 상담하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 45,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 45,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 45,
+     "to": 46,
+     "kind": "버튼",
+     "labels": [
+      "정산 받기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 46,
+     "to": 45,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 46,
+     "to": 69,
+     "kind": "버튼",
+     "labels": [
+      "정산 받기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님에게 그만둔다고 알렸어요"
+     ]
+    },
+    {
+     "from": 47,
+     "to": 36,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 47,
+     "to": 42,
+     "kind": "행",
+     "labels": [
+      "11월 18일 수요일"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 47,
+     "to": 67,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 48,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 48,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 48,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 48,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 48,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 49,
+     "to": 8,
+     "kind": "버튼",
+     "labels": [
+      "다시 불러오기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "근무 기록을 불러왔어요"
+     ]
+    },
+    {
+     "from": 49,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 49,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 49,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 49,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 49,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 50,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 50,
+     "to": 17,
+     "kind": "행",
+     "labels": [
+      "사장님이 11월 15일 근무를 확정했어요"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 50,
+     "to": 18,
+     "kind": "행",
+     "labels": [
+      "사장님이 11월 14일 퇴근 시간을 고쳤어요"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 50,
+     "to": 34,
+     "kind": "행",
+     "labels": [
+      "월급 984,528원이 들어왔어요"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 50,
+     "to": 63,
+     "kind": "행",
+     "labels": [
+      "체무가 주휴수당 37,152원을 보관했어요"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 6,
+     "kind": "행",
+     "labels": [
+      "근로계약서"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 8,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 29,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 43,
+     "kind": "행",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 45,
+     "kind": "행",
+     "labels": [
+      "그만두고 정산 받기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 79,
+     "kind": "행",
+     "labels": [
+      "고용노동부 상담 1 3 5 0"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 83,
+     "kind": "행",
+     "labels": [
+      "받을 곳"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 88,
+     "kind": "행",
+     "labels": [
+      "알림 설정"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 91,
+     "kind": "행",
+     "labels": [
+      "로그아웃하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 92,
+     "kind": "행",
+     "labels": [
+      "체무 탈퇴"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 99,
+     "kind": "행",
+     "labels": [
+      "자주 묻는 질문"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 52,
+     "to": 30,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 54,
+     "to": 3,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 54,
+     "to": 6,
+     "kind": "버튼",
+     "labels": [
+      "계약 확인하러 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 55,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 56,
+     "to": 7,
+     "kind": "자동",
+     "labels": [
+      "기다리면"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님이 계약서에 주휴수당을 넣었어요"
+     ]
+    },
+    {
+     "from": 56,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 56,
+     "to": 10,
+     "kind": "행",
+     "labels": [
+      "일당"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 57,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 57,
+     "to": 8,
+     "kind": "버튼",
+     "labels": [
+      "오늘 화면 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 57,
+     "to": 10,
+     "kind": "행",
+     "labels": [
+      "일당"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 9,
+     "kind": "버튼",
+     "labels": [
+      "이번 달 근무 달력 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 14,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근",
+      "퇴근하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 16,
+     "kind": "버튼",
+     "labels": [
+      "전체 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 17,
+     "kind": "행",
+     "labels": [
+      "11월 15일 일요일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 18,
+     "kind": "행",
+     "labels": [
+      "11월 14일 토요일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "급여일까지 사장님도 꺼낼 수 없어요 급여일…"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 63,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 9,
+     "kind": "버튼",
+     "labels": [
+      "이번 달 근무 달력 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 16,
+     "kind": "버튼",
+     "labels": [
+      "전체 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 17,
+     "kind": "행",
+     "labels": [
+      "11월 15일 일요일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 18,
+     "kind": "행",
+     "labels": [
+      "11월 14일 토요일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 21,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "급여일까지 사장님도 꺼낼 수 없어요 급여일…"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 63,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 110,
+     "kind": "행",
+     "labels": [
+      "확정 대기 9시간 일했어요 92,880원 …",
+      "11월 21일 토요일 오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 9,
+     "kind": "버튼",
+     "labels": [
+      "이번 달 근무 달력 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 15,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 16,
+     "kind": "버튼",
+     "labels": [
+      "전체 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 17,
+     "kind": "행",
+     "labels": [
+      "11월 15일 일요일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 18,
+     "kind": "행",
+     "labels": [
+      "11월 14일 토요일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "급여일까지 사장님도 꺼낼 수 없어요 급여일…"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 63,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 111,
+     "kind": "행",
+     "labels": [
+      "보관됨 9시간 일했어요 92,880원 사장…",
+      "11월 21일 토요일 오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 9,
+     "kind": "버튼",
+     "labels": [
+      "이번 달 근무 달력 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 10,
+     "kind": "행",
+     "labels": [
+      "일당 92,880원 10시간 − 쉬는 시간…"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근",
+      "출근하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 16,
+     "kind": "버튼",
+     "labels": [
+      "전체 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 17,
+     "kind": "행",
+     "labels": [
+      "11월 15일 일요일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 18,
+     "kind": "행",
+     "labels": [
+      "11월 14일 토요일"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 23,
+     "kind": "버튼",
+     "labels": [
+      "퇴근 시간 적기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "급여일까지 사장님도 꺼낼 수 없어요 급여일…"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 63,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 62,
+     "to": 10,
+     "kind": "버튼",
+     "labels": [
+      "일당 계산 풀이 보기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 62,
+     "to": 16,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 63,
+     "to": 16,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 63,
+     "to": 29,
+     "kind": "행",
+     "labels": [
+      "주휴수당이란? 한 주 15시간 이상 일하고…"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 64,
+     "to": 10,
+     "kind": "버튼",
+     "labels": [
+      "일당 계산 풀이 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 64,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 64,
+     "to": 59,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 65,
+     "to": 61,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 65,
+     "to": 61,
+     "kind": "버튼",
+     "labels": [
+      "오늘 화면 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 66,
+     "to": 111,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "오늘 근무 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 67,
+     "to": 29,
+     "kind": "행",
+     "labels": [
+      "주휴수당이란? 한 주 15시간 이상 일하고…"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 67,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 67,
+     "to": 38,
+     "kind": "버튼",
+     "labels": [
+      "안 들어온 돈 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 68,
+     "to": 36,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 68,
+     "to": 41,
+     "kind": "행",
+     "labels": [
+      "기록을 내보낼 수 있어요"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 68,
+     "to": 42,
+     "kind": "행",
+     "labels": [
+      "11월 20일 금요일",
+      "11월 19일 목요일",
+      "11월 18일 수요일"
+     ],
+     "how": [
+      "같은 꼴",
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 68,
+     "to": 43,
+     "kind": "행",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 68,
+     "to": 44,
+     "kind": "행",
+     "labels": [
+      "노동청 진정 안내"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 68,
+     "to": 45,
+     "kind": "행",
+     "labels": [
+      "그만두고 정산 받기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 68,
+     "to": 67,
+     "kind": "행",
+     "labels": [
+      "주휴수당"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 68,
+     "to": 79,
+     "kind": "행",
+     "labels": [
+      "고용노동부 상담 1 3 5 0"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 69,
+     "to": 36,
+     "kind": "버튼",
+     "labels": [
+      "오늘 화면 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 69,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 69,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 70,
+     "to": 14,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 70,
+     "to": 21,
+     "kind": "버튼",
+     "labels": [
+      "퇴근하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 71,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 71,
+     "to": 18,
+     "kind": "버튼",
+     "labels": [
+      "확정하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "87,720원으로 확정했어요"
+     ]
+    },
+    {
+     "from": 72,
+     "to": 17,
+     "kind": "버튼",
+     "labels": [
+      "기록 원본 열기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "기록을 열고 있어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 72,
+     "to": 17,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 73,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 73,
+     "to": 56,
+     "kind": "버튼",
+     "labels": [
+      "고쳐 달라고 요청하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님에게 고쳐 달라고 요청했어요"
+     ]
+    },
+    {
+     "from": 74,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 74,
+     "to": 57,
+     "kind": "버튼",
+     "labels": [
+      "주휴수당 없이 확정하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "계약이 확정됐어요"
+     ]
+    },
+    {
+     "from": 75,
+     "to": 7,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 75,
+     "to": 57,
+     "kind": "버튼",
+     "labels": [
+      "계약 확정하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "계약이 확정됐어요"
+     ]
+    },
+    {
+     "from": 76,
+     "to": 5,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 76,
+     "to": 55,
+     "kind": "버튼",
+     "labels": [
+      "계약서 요청하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님에게 계약서를 요청했어요"
+     ]
+    },
+    {
+     "from": 77,
+     "to": 23,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 77,
+     "to": 65,
+     "kind": "버튼",
+     "labels": [
+      "퇴근 시간 보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "퇴근 시간을 사장님에게 보냈어요"
+     ]
+    },
+    {
+     "from": 78,
+     "to": 24,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 66,
+     "kind": "버튼",
+     "labels": [
+      "못 쉰 시간 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "못 쉰 1시간을 사장님에게 알렸어요"
+     ]
+    },
+    {
+     "from": 79,
+     "to": 38,
+     "kind": "버튼",
+     "labels": [
+      "1350에 전화하기 1 3 5 0에 전화하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "1350에 전화를 걸고 있어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 79,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 80,
+     "to": 0,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 80,
+     "to": 2,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 80,
+     "to": 2,
+     "kind": "버튼",
+     "labels": [
+      "인증번호 다시 받기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "인증번호를 다시 보냈어요"
+     ]
+    },
+    {
+     "from": 81,
+     "to": 2,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 81,
+     "to": 3,
+     "kind": "버튼",
+     "labels": [
+      "받을 곳 다시 등록하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "은행에서 새 계좌 주인 이름을 확인하고 있어요"
+     ]
+    },
+    {
+     "from": 82,
+     "to": 14,
+     "kind": "버튼",
+     "labels": [
+      "위치 다시 찾기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "가게에서 30m 안이라 퇴근할 수 있어요"
+     ]
+    },
+    {
+     "from": 82,
+     "to": 58,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 83,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 83,
+     "to": 84,
+     "kind": "버튼",
+     "labels": [
+      "본인 확인하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 84,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 84,
+     "to": 85,
+     "kind": "버튼",
+     "labels": [
+      "받을 곳 바꾸기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 85,
+     "to": 8,
+     "kind": "버튼",
+     "labels": [
+      "오늘 화면 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 85,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 86,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 86,
+     "to": 84,
+     "kind": "버튼",
+     "labels": [
+      "본인 확인하기"
+     ],
+     "how": [
+      "같은 꼴"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 87,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 87,
+     "to": 84,
+     "kind": "버튼",
+     "labels": [
+      "본인 확인하기"
+     ],
+     "how": [
+      "같은 꼴"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 88,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 89,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 89,
+     "to": 88,
+     "kind": "버튼",
+     "labels": [
+      "알림 켜기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "알림을 켰어요"
+     ]
+    },
+    {
+     "from": 90,
+     "to": 16,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 90,
+     "to": 104,
+     "kind": "버튼",
+     "labels": [
+      "다르다고 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 91,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 91,
+     "to": 51,
+     "kind": "버튼",
+     "labels": [
+      "로그아웃하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "로그아웃했어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 92,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "보관된 돈"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 92,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 92,
+     "to": 45,
+     "kind": "행",
+     "labels": [
+      "그만두고 정산 받기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 92,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 93,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "보관된 돈"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 93,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 93,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 93,
+     "to": 110,
+     "kind": "행",
+     "labels": [
+      "확정 대기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 94,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "보관된 돈"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 94,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 94,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 94,
+     "to": 62,
+     "kind": "행",
+     "labels": [
+      "다르다고 알린 기록"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 95,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "보관된 돈"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 95,
+     "to": 38,
+     "kind": "행",
+     "labels": [
+      "안 들어온 돈"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 95,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 95,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 96,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 96,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 96,
+     "to": 87,
+     "kind": "행",
+     "labels": [
+      "급여일 입금"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 96,
+     "to": 87,
+     "kind": "버튼",
+     "labels": [
+      "받을 곳 고치기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 97,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 97,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 97,
+     "to": 98,
+     "kind": "버튼",
+     "labels": [
+      "탈퇴하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 98,
+     "to": 97,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 98,
+     "to": 97,
+     "kind": "버튼",
+     "labels": [
+      "탈퇴하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "탈퇴했어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 99,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 99,
+     "to": 79,
+     "kind": "행",
+     "labels": [
+      "고용노동부 상담 1 3 5 0"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 100,
+     "to": 6,
+     "kind": "버튼",
+     "labels": [
+      "계약서 확인하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 100,
+     "to": 11,
+     "kind": "버튼",
+     "labels": [
+      "출퇴근"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 100,
+     "to": 16,
+     "kind": "탭",
+     "labels": [
+      "기록"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 100,
+     "to": 28,
+     "kind": "탭",
+     "labels": [
+      "급여"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 100,
+     "to": 50,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 100,
+     "to": 51,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 101,
+     "to": 8,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 101,
+     "to": 88,
+     "kind": "버튼",
+     "labels": [
+      "알림 설정 보기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 102,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 102,
+     "to": 83,
+     "kind": "버튼",
+     "labels": [
+      "받을 곳 다시 등록하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 103,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 103,
+     "to": 62,
+     "kind": "버튼",
+     "labels": [
+      "다시 보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님에게 퇴근 시간이 다르다고 알렸어요"
+     ]
+    },
+    {
+     "from": 104,
+     "to": 90,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 104,
+     "to": 112,
+     "kind": "버튼",
+     "labels": [
+      "다르다고 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "사장님에게 근무 기록이 다르다고 알렸어요"
+     ]
+    },
+    {
+     "from": 105,
+     "to": 0,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 106,
+     "to": 0,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 107,
+     "to": 51,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 108,
+     "to": 61,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "다음에"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 109,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 109,
+     "to": 19,
+     "kind": "행",
+     "labels": [
+      "퇴근 시간이 달라요",
+      "출근 시간이 달라요",
+      "쉬는 시간이 달라요",
+      "일했는데 기록이 없어요"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 110,
+     "to": 10,
+     "kind": "버튼",
+     "labels": [
+      "일당 계산 풀이 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 110,
+     "to": 59,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 111,
+     "to": 10,
+     "kind": "버튼",
+     "labels": [
+      "일당 계산 풀이 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 111,
+     "to": 24,
+     "kind": "행",
+     "labels": [
+      "쉬는 시간에 못 쉬었나요? 알린 뒤 사장님…"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 111,
+     "to": 60,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 111,
+     "to": 72,
+     "kind": "버튼",
+     "labels": [
+      "기록 원본 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 112,
+     "to": 16,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 113,
+     "to": 2,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 113,
+     "to": 54,
+     "kind": "버튼",
+     "labels": [
+      "다음"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 114,
+     "to": 36,
+     "kind": "버튼",
+     "labels": [
+      "오늘 화면 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 114,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 114,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "기록 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    }
+   ],
+   "outside": [
+    {
+     "from": 8,
+     "label": "11월 8일 일요일",
+     "key": "haneul/home/day/h1108",
+     "title": "사장님이 11월 8일 일당 92,880원을 보관했어요"
+    },
+    {
+     "from": 9,
+     "label": "11월 1일",
+     "key": "haneul/home/day/h1101",
+     "title": "사장님이 11월 1일 일당 92,880원을 보관했어요"
+    },
+    {
+     "from": 9,
+     "label": "11월 7일",
+     "key": "haneul/home/day/h1107",
+     "title": "사장님이 11월 7일 일당 92,880원을 보관했어요"
+    },
+    {
+     "from": 9,
+     "label": "11월 8일",
+     "key": "haneul/home/day/h1108",
+     "title": "사장님이 11월 8일 일당 92,880원을 보관했어요"
+    },
+    {
+     "from": 16,
+     "label": "11월 8일 일요일",
+     "key": "haneul/work/day/h1108",
+     "title": "사장님이 11월 8일 일당 92,880원을 보관했어요"
+    },
+    {
+     "from": 16,
+     "label": "11월 7일 토요일",
+     "key": "haneul/work/day/h1107",
+     "title": "사장님이 11월 7일 일당 92,880원을 보관했어요"
+    },
+    {
+     "from": 16,
+     "label": "11월 1일 일요일",
+     "key": "haneul/work/day/h1101",
+     "title": "사장님이 11월 1일 일당 92,880원을 보관했어요"
+    },
+    {
+     "from": 37,
+     "label": "사장님이 11월 17일 근무를 확정했어요",
+     "key": "junho/home/day/j17",
+     "title": "사장님이 11월 17일 일당 42,000원을 보관했어요"
+    },
+    {
+     "from": 47,
+     "label": "11월 20일 금요일",
+     "key": "junho/home/day/j20",
+     "title": "사장님이 11월 20일 일당 42,000원을 보관했어요"
+    },
+    {
+     "from": 47,
+     "label": "11월 19일 목요일",
+     "key": "junho/home/day/j19",
+     "title": "사장님이 11월 19일 일당 42,000원을 보관했어요"
+    },
+    {
+     "from": 58,
+     "label": "11월 8일 일요일",
+     "key": "haneul/home/day/h1108",
+     "title": "사장님이 11월 8일 일당 92,880원을 보관했어요"
+    },
+    {
+     "from": 61,
+     "label": "11월 8일 일요일",
+     "key": "haneul/home/day/h1108",
+     "title": "사장님이 11월 8일 일당 92,880원을 보관했어요"
+    }
+   ],
+   "stay": [
+    {
+     "from": 2,
+     "label": "번호 고치기",
+     "toasts": []
+    },
+    {
+     "from": 2,
+     "label": "인증번호 다시 받기",
+     "toasts": [
+      "인증번호를 다시 보냈어요"
+     ]
+    },
+    {
+     "from": 8,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "label": "전체",
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "label": "확인 필요 1 1개",
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "label": "보관됨",
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "label": "기록",
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "label": "기록 원본 보기",
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "label": "퇴근 시간이 달라요",
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "label": "출근 시간이 달라요",
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "label": "쉬는 시간이 달라요",
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "label": "일했는데 기록이 없어요",
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "label": "기타",
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "label": "확인 필요",
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "label": "기록",
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "label": "급여",
+     "toasts": []
+    },
+    {
+     "from": 31,
+     "label": "은행 계좌로 받기 국민은행 ***-21-3…",
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "label": "PDF로 저장하기",
+     "toasts": [
+      "급여명세서를 PDF로 저장했어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 36,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 37,
+     "label": "모두 읽기",
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "label": "이번 달",
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "label": "최근 3개월",
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "label": "전체 기간",
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "label": "근로계약서",
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "label": "출퇴근 기록",
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "label": "사장님 확정 기록",
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "label": "보관 기록",
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "label": "안 들어온 돈",
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "label": "링크 복사하기",
+     "toasts": [
+      "링크를 복사했어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 43,
+     "label": "PDF로 저장하기",
+     "toasts": [
+      "근무 기록을 PDF로 저장했어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 44,
+     "label": "노동포털에서 진정하기",
+     "toasts": [
+      "노동포털을 열고 있어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 48,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 49,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 50,
+     "label": "모두 읽기",
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "label": "나",
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 62,
+     "label": "기록 원본 보기",
+     "toasts": []
+    },
+    {
+     "from": 84,
+     "label": "인증번호 다시 받기",
+     "toasts": [
+      "인증번호를 다시 보냈어요"
+     ]
+    },
+    {
+     "from": 88,
+     "label": "근무 전날 알림",
+     "toasts": [
+      "근무 전날 알림을 껐어요"
+     ]
+    },
+    {
+     "from": 88,
+     "label": "계약 소식",
+     "toasts": [
+      "계약 소식을 껐어요"
+     ]
+    },
+    {
+     "from": 88,
+     "label": "소식과 안내",
+     "toasts": [
+      "소식과 안내를 켰어요"
+     ]
+    },
+    {
+     "from": 89,
+     "label": "근무 전날 알림",
+     "toasts": [
+      "근무 전날 알림을 껐어요"
+     ]
+    },
+    {
+     "from": 89,
+     "label": "계약 소식",
+     "toasts": [
+      "계약 소식을 껐어요"
+     ]
+    },
+    {
+     "from": 89,
+     "label": "소식과 안내",
+     "toasts": [
+      "소식과 안내를 켰어요"
+     ]
+    },
+    {
+     "from": 100,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 103,
+     "label": "퇴근 시간이 달라요",
+     "toasts": []
+    },
+    {
+     "from": 103,
+     "label": "출근 시간이 달라요",
+     "toasts": []
+    },
+    {
+     "from": 103,
+     "label": "쉬는 시간이 달라요",
+     "toasts": []
+    },
+    {
+     "from": 103,
+     "label": "일했는데 기록이 없어요",
+     "toasts": []
+    },
+    {
+     "from": 103,
+     "label": "기타",
+     "toasts": []
+    },
+    {
+     "from": 104,
+     "label": "퇴근 시간이 달라요",
+     "toasts": []
+    },
+    {
+     "from": 104,
+     "label": "출근 시간이 달라요",
+     "toasts": []
+    },
+    {
+     "from": 104,
+     "label": "쉬는 시간이 달라요",
+     "toasts": []
+    },
+    {
+     "from": 104,
+     "label": "일했는데 기록이 없어요",
+     "toasts": []
+    },
+    {
+     "from": 104,
+     "label": "기타",
+     "toasts": []
+    },
+    {
+     "from": 105,
+     "label": "번호 고치기",
+     "toasts": []
+    },
+    {
+     "from": 105,
+     "label": "인증번호 다시 받기",
+     "toasts": [
+      "인증번호를 다시 보냈어요"
+     ]
+    },
+    {
+     "from": 106,
+     "label": "번호 고치기",
+     "toasts": []
+    },
+    {
+     "from": 106,
+     "label": "인증번호 다시 받기",
+     "toasts": [
+      "인증번호를 다시 보냈어요"
+     ]
+    },
+    {
+     "from": 109,
+     "label": "기타",
+     "toasts": []
+    },
+    {
+     "from": 113,
+     "label": "은행 계좌로 받기 급여일에 바로 들어와요",
+     "toasts": []
+    }
+   ]
+  },
+  "owner": {
+   "nodes": [
+    {
+     "i": 0,
+     "label": "가게 등록",
+     "key": "m:ob:0",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "시작하기",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 1,
+     "label": "근로계약 올리기",
+     "key": "m:ob:1",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "시작하기",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 2,
+     "label": "초대 보냄",
+     "key": "m:ob:2",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "시작하기",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 3,
+     "label": "A님이 계약 수정을 요청함",
+     "key": "haneul/staff/contract/requested",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "시작하기",
+     "noIn": true,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 4,
+     "label": "계약 확정",
+     "key": "haneul/staff/contract/agreed",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "시작하기",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 5,
+     "label": "알바생 3명 초대 상태",
+     "key": "team/staff/invites",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "시작하기",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 6,
+     "label": "오늘 (11월 21일)",
+     "key": "haneul/home/home/base",
+     "tab": "home",
+     "layer": "화면",
+     "group": "오늘",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 7,
+     "label": "오늘: 알바 3명",
+     "key": "team/home/home",
+     "tab": "home",
+     "layer": "화면",
+     "group": "오늘",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 8,
+     "label": "출근 알림 (11월 21일)",
+     "key": "haneul/home/home/push",
+     "tab": "home",
+     "layer": "화면",
+     "group": "오늘",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 9,
+     "label": "근무 확정",
+     "key": "haneul/home/confirm:today",
+     "tab": "home",
+     "layer": "화면",
+     "group": "오늘",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 10,
+     "label": "확정 완료",
+     "key": "m:kept",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "오늘",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 11,
+     "label": "확정 안 한 근무가 쌓였을 때",
+     "key": "haneul/home/home/backlog",
+     "tab": "home",
+     "layer": "화면",
+     "group": "오늘",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 12,
+     "label": "어제 확정 안 한 근무",
+     "key": "haneul/home/confirm:b1121",
+     "tab": "home",
+     "layer": "화면",
+     "group": "오늘",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 13,
+     "label": "시간 고치기 (11월 15일)",
+     "key": "haneul/staff/edit:h1114",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "기록 다루기",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 14,
+     "label": "다르다고 알림 받음 (결정 전)",
+     "key": "haneul/home/dispute:h1114",
+     "tab": "home",
+     "layer": "화면",
+     "group": "기록 다루기",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 15,
+     "label": "A님 기록으로 바꿈 (결정 뒤)",
+     "key": "m:resolved:worker",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "기록 다루기",
+     "noIn": true,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 16,
+     "label": "내 기록 그대로 둠 (다른 갈래)",
+     "key": "m:resolved:mine",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "기록 다루기",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 17,
+     "label": "보관함",
+     "key": "haneul/vault/vault",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "보관함",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 18,
+     "label": "보관함: 알바 3명",
+     "key": "team/vault/vault",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "보관함",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 19,
+     "label": "보관함 채우기",
+     "key": "sheet:fill",
+     "tab": "vault",
+     "layer": "시트",
+     "group": "보관함",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 20,
+     "label": "채워 둔 돈과 보관된 돈",
+     "key": "team/vault/explain",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "보관함",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 21,
+     "label": "돈이 움직이는 길",
+     "key": "team/vault/moneyflow",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "보관함",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 22,
+     "label": "다음 주 인건비가 모자랄 때",
+     "key": "team/vault/need",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "보관함",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 23,
+     "label": "자동 채우기 설정",
+     "key": "team/vault/autofill",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "보관함",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 24,
+     "label": "보관된 돈을 꺼내려 할 때",
+     "key": "dlg:lockA",
+     "tab": "vault",
+     "layer": "확인 창",
+     "group": "보관함",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 25,
+     "label": "급여일 하루 전 미리보기 (12월 9일, 결정 뒤)",
+     "key": "haneul/vault/payprev",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "급여일",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 26,
+     "label": "12월 10일 가게 전체 급여 (11월 21일에 본 예상)",
+     "key": "team/vault/payall",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "급여일",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 27,
+     "label": "주휴수당 계산",
+     "key": "team/vault/weekly",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "급여일",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 28,
+     "label": "자동 입금 완료",
+     "key": "m:payday",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "급여일",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 29,
+     "label": "입금이 안 됐을 때",
+     "key": "m:payfail",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "급여일",
+     "noIn": true,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 30,
+     "label": "급여명세서",
+     "key": "haneul/vault/slip:s10",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "급여일",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 31,
+     "label": "이번 달 인건비 리포트",
+     "key": "team/me/report",
+     "tab": "me",
+     "layer": "화면",
+     "group": "급여일",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 32,
+     "label": "장부 내보내기",
+     "key": "haneul/me/ledger",
+     "tab": "me",
+     "layer": "화면",
+     "group": "급여일",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 33,
+     "label": "알바생 목록 (11월 21일)",
+     "key": "haneul/staff/staff",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "알바생 관리",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 34,
+     "label": "알바생 목록: 3명",
+     "key": "team/staff/staff",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "알바생 관리",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 35,
+     "label": "반복 근무표",
+     "key": "team/staff/roster:C",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "알바생 관리",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 36,
+     "label": "결근으로 남기기",
+     "key": "team/staff/absent",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "알바생 관리",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 37,
+     "label": "알림",
+     "key": "haneul/home/notices",
+     "tab": "home",
+     "layer": "화면",
+     "group": "공통",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 38,
+     "label": "내 정보",
+     "key": "haneul/me/me",
+     "tab": "me",
+     "layer": "화면",
+     "group": "공통",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 39,
+     "label": "기록 맞춰 보기",
+     "key": "m:verify",
+     "tab": "me",
+     "layer": "전체 화면",
+     "group": "공통",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 40,
+     "label": "아직 보관 못 한 돈",
+     "key": "junho/vault/short",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "다른 가게: 동네 식당",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 41,
+     "label": "B님 앱에 보이는 안내",
+     "key": "junho/vault/alerts",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "다른 가게: 동네 식당",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 42,
+     "label": "채울 날짜 알리기",
+     "key": "junho/vault/paydate",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "다른 가게: 동네 식당",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 43,
+     "label": "날짜 알린 뒤",
+     "key": "junho/vault/paydate/sent",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "다른 가게: 동네 식당",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 44,
+     "label": "일부만 채운 뒤",
+     "key": "m:partDone",
+     "tab": "vault",
+     "layer": "전체 화면",
+     "group": "다른 가게: 동네 식당",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 45,
+     "label": "아직 보관 못 한 돈 보관 완료 (다 채운 뒤)",
+     "key": "m:shortDone",
+     "tab": "vault",
+     "layer": "전체 화면",
+     "group": "다른 가게: 동네 식당",
+     "noIn": true,
+     "noOut": true,
+     "backOnly": false
+    },
+    {
+     "i": 46,
+     "label": "그만둔 알바 정산 (채우기 전)",
+     "key": "junho/staff/settle",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "다른 가게: 동네 식당",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 47,
+     "label": "인터넷이 끊겼을 때",
+     "key": "m:offline",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "에러와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 48,
+     "label": "불러오지 못했을 때",
+     "key": "haneul/vault/vault/loadfail",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "에러와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 49,
+     "label": "근무 확정이 실패했을 때",
+     "key": "m:confirmFail",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "에러와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 50,
+     "label": "보관함 채우기가 안 됐을 때",
+     "key": "m:fillFail",
+     "tab": "vault",
+     "layer": "전체 화면",
+     "group": "에러와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 51,
+     "label": "계약서 사진을 못 읽었을 때",
+     "key": "m:ob:1/photofail",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "에러와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 52,
+     "label": "알바생이 아직 없을 때",
+     "key": "haneul/staff/staff/empty",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "에러와 빈 상태",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 53,
+     "label": "알림이 없을 때",
+     "key": "haneul/home/notices/empty",
+     "tab": "home",
+     "layer": "화면",
+     "group": "에러와 빈 상태",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 54,
+     "label": "알림 설정",
+     "key": "haneul/me/notif",
+     "tab": "me",
+     "layer": "화면",
+     "group": "설정과 도움",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 55,
+     "label": "알림 설정: 휴대폰 알림이 꺼져 있을 때",
+     "key": "haneul/me/notif/phoneoff",
+     "tab": "me",
+     "layer": "화면",
+     "group": "설정과 도움",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 56,
+     "label": "로그아웃 확인 창",
+     "key": "dlg:logout",
+     "tab": "me",
+     "layer": "확인 창",
+     "group": "설정과 도움",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 57,
+     "label": "가게 정보 바꾸기",
+     "key": "haneul/me/store",
+     "tab": "me",
+     "layer": "화면",
+     "group": "설정과 도움",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 58,
+     "label": "가게 닫기: 보관된 돈이 있을 때",
+     "key": "haneul/me/close/kept",
+     "tab": "me",
+     "layer": "화면",
+     "group": "설정과 도움",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 59,
+     "label": "가게 닫기: 채워 둔 돈만 있을 때",
+     "key": "haneul/me/close/fill",
+     "tab": "me",
+     "layer": "화면",
+     "group": "설정과 도움",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 60,
+     "label": "가게 닫기: 남은 돈이 없을 때",
+     "key": "haneul/me/close/none",
+     "tab": "me",
+     "layer": "화면",
+     "group": "설정과 도움",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 61,
+     "label": "가게 닫기 확인 창",
+     "key": "dlg:closeStore",
+     "tab": "me",
+     "layer": "확인 창",
+     "group": "설정과 도움",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 62,
+     "label": "자주 묻는 질문",
+     "key": "haneul/me/faq",
+     "tab": "me",
+     "layer": "화면",
+     "group": "설정과 도움",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 63,
+     "label": "처음 연 날: 알바생이 아직 없을 때",
+     "key": "haneul/home/home/firstday",
+     "tab": "home",
+     "layer": "화면",
+     "group": "새로 더한 화면",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 64,
+     "label": "가게 닫기: 끝낼 일이 여럿일 때 (결정 전)",
+     "key": "haneul/me/close/kept/many",
+     "tab": "me",
+     "layer": "화면",
+     "group": "새로 더한 화면",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 65,
+     "label": "가게 닫기: 동네 식당 아직 보관 못 한 돈",
+     "key": "junho/me/close/kept/many",
+     "tab": "me",
+     "layer": "화면",
+     "group": "새로 더한 화면",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 66,
+     "label": "입금이 안 된 뒤 다시 보냄",
+     "key": "m:payfail:fixed",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "새로 더한 화면",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 67,
+     "label": "채워 둔 돈을 꺼내지 못했을 때",
+     "key": "m:withdrawFail",
+     "tab": "vault",
+     "layer": "전체 화면",
+     "group": "새로 더한 화면",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 68,
+     "label": "자동 채우기가 안 됐을 때",
+     "key": "m:autoFail",
+     "tab": "vault",
+     "layer": "전체 화면",
+     "group": "새로 더한 화면",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 69,
+     "label": "채워 둔 돈 꺼내기",
+     "key": "team/vault/withdraw",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "누르면 열리는 화면 (v63)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 70,
+     "label": "일부만 먼저 채우기 확인 창",
+     "key": "dlg:part",
+     "tab": "vault",
+     "layer": "확인 창",
+     "group": "누르면 열리는 화면 (v63)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 71,
+     "label": "내 기록 그대로 두기 시트",
+     "key": "sheet:keepMine",
+     "tab": "home",
+     "layer": "시트",
+     "group": "누르면 열리는 화면 (v63)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 72,
+     "label": "채울 날짜 알리기: 남은 돈 (일부만 채운 뒤)",
+     "key": "junho/vault/paydate:rest",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "입력 화면 (v66)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 73,
+     "label": "가게 등록: 사업자등록번호가 맞지 않을 때",
+     "key": "m:ob:0/biz",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "입력 화면 (v66)",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": false
+    },
+    {
+     "i": 74,
+     "label": "근로계약 올리기: 시급이 최저임금보다 낮을 때",
+     "key": "m:ob:1/wage",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "입력 화면 (v66)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 75,
+     "label": "아직 보관 못 한 돈: 남은 돈보다 많이 넣었을 때",
+     "key": "junho/vault/short/over",
+     "tab": "vault",
+     "layer": "화면",
+     "group": "입력 화면 (v66)",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 76,
+     "label": "보관함 채우기: 직접 쓰기",
+     "key": "sheet:fill:self",
+     "tab": "vault",
+     "layer": "시트",
+     "group": "입력 화면 (v66)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 77,
+     "label": "계약 다시 보냄 (A님 동의 기다림)",
+     "key": "haneul/staff/contract/fixed",
+     "tab": "staff",
+     "layer": "화면",
+     "group": "길 잇기 (v68)",
+     "noIn": false,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 78,
+     "label": "나: 알바 3명",
+     "key": "team/me/me",
+     "tab": "me",
+     "layer": "화면",
+     "group": "길 잇기 (v68)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 79,
+     "label": "근무 확정 거래를 기다릴 때",
+     "key": "m:keptWait",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "결정안과 맞춘 상태 (v74)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 80,
+     "label": "아직 보관 못 한 돈: 다시 보관하는 거래를 기다릴 때",
+     "key": "m:shortWait",
+     "tab": "vault",
+     "layer": "전체 화면",
+     "group": "결정안과 맞춘 상태 (v74)",
+     "noIn": true,
+     "noOut": true,
+     "backOnly": true
+    },
+    {
+     "i": 81,
+     "label": "근로계약 올리기: 계약서 사진 찍기를 골랐을 때",
+     "key": "m:ob:1/photo",
+     "tab": "home",
+     "layer": "전체 화면",
+     "group": "결정안과 맞춘 상태 (v74)",
+     "noIn": false,
+     "noOut": false,
+     "backOnly": false
+    },
+    {
+     "i": 82,
+     "label": "알림: A님이 확정 요청을 다시 보냈을 때",
+     "key": "haneul/home/notices/reask",
+     "tab": "home",
+     "layer": "화면",
+     "group": "결정안과 맞춘 상태 (v74)",
+     "noIn": true,
+     "noOut": false,
+     "backOnly": false
+    }
+   ],
+   "edges": [
+    {
+     "from": 0,
+     "to": 1,
+     "kind": "버튼",
+     "labels": [
+      "가게 등록하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 0,
+     "to": 73,
+     "kind": "행",
+     "labels": [
+      "사업자등록번호"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 1,
+     "to": 0,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 1,
+     "to": 2,
+     "kind": "버튼",
+     "labels": [
+      "계약서 등록하고 초대하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 1,
+     "to": 74,
+     "kind": "행",
+     "labels": [
+      "시급"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 1,
+     "to": 81,
+     "kind": "버튼",
+     "labels": [
+      "계약서 사진 찍기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 2,
+     "to": 77,
+     "kind": "버튼",
+     "labels": [
+      "계약 상태 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 3,
+     "to": 33,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 4,
+     "to": 33,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 5,
+     "to": 1,
+     "kind": "버튼",
+     "labels": [
+      "알바생 초대하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 5,
+     "to": 34,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 6,
+     "to": 17,
+     "kind": "탭",
+     "labels": [
+      "보관함"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 6,
+     "to": 33,
+     "kind": "버튼",
+     "labels": [
+      "전체 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 6,
+     "to": 33,
+     "kind": "탭",
+     "labels": [
+      "알바생"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 6,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 6,
+     "to": 38,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 7,
+     "to": 18,
+     "kind": "탭",
+     "labels": [
+      "보관함"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 7,
+     "to": 22,
+     "kind": "행",
+     "labels": [
+      "다음 주 인건비는 268,272원을 더 채…"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 7,
+     "to": 34,
+     "kind": "버튼",
+     "labels": [
+      "전체 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 7,
+     "to": 34,
+     "kind": "탭",
+     "labels": [
+      "알바생"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 7,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 7,
+     "to": 78,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 6,
+     "kind": "푸시",
+     "labels": [
+      "체무 · 새싹편의점 연희점 체무, 새싹편의…"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 6,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 17,
+     "kind": "탭",
+     "labels": [
+      "보관함"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 33,
+     "kind": "버튼",
+     "labels": [
+      "전체 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 33,
+     "kind": "탭",
+     "labels": [
+      "알바생"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 8,
+     "to": 38,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 9,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 9,
+     "to": 13,
+     "kind": "버튼",
+     "labels": [
+      "시간 고치기"
+     ],
+     "how": [
+      "다른 항목"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 9,
+     "to": 79,
+     "kind": "버튼",
+     "labels": [
+      "확정하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 10,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기",
+      "오늘로 돌아가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 11,
+     "to": 12,
+     "kind": "행",
+     "labels": [
+      "A님"
+     ],
+     "how": [
+      "같음",
+      "같은 꼴"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 11,
+     "to": 17,
+     "kind": "탭",
+     "labels": [
+      "보관함"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 11,
+     "to": 33,
+     "kind": "탭",
+     "labels": [
+      "알바생"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 11,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 11,
+     "to": 38,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 12,
+     "to": 11,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 12,
+     "to": 13,
+     "kind": "버튼",
+     "labels": [
+      "시간 고치기"
+     ],
+     "how": [
+      "다른 항목"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 12,
+     "to": 79,
+     "kind": "버튼",
+     "labels": [
+      "확정하기"
+     ],
+     "how": [
+      "다른 항목"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 13,
+     "to": 33,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 13,
+     "to": 33,
+     "kind": "버튼",
+     "labels": [
+      "오전 7:30으로 고치기 오전 7시 30분…"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "A님 퇴근 시간을 오전 7:30으로 고쳤어요"
+     ]
+    },
+    {
+     "from": 14,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 14,
+     "to": 71,
+     "kind": "버튼",
+     "labels": [
+      "내 기록 그대로 두기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 15,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기",
+      "오늘로 돌아가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기",
+      "오늘로 돌아가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 16,
+     "to": 39,
+     "kind": "버튼",
+     "labels": [
+      "기록 맞춰 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "to": 6,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "to": 19,
+     "kind": "버튼",
+     "labels": [
+      "보관함 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "to": 21,
+     "kind": "버튼",
+     "labels": [
+      "돈이 움직이는 길 보기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "to": 25,
+     "kind": "행",
+     "labels": [
+      "12월 10일 급여일 미리 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "to": 33,
+     "kind": "탭",
+     "labels": [
+      "알바생"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "to": 38,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 7,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 19,
+     "kind": "버튼",
+     "labels": [
+      "보관함 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 20,
+     "kind": "행",
+     "labels": [
+      "두 돈 비교표"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 21,
+     "kind": "버튼",
+     "labels": [
+      "돈이 움직이는 길 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 22,
+     "kind": "행",
+     "labels": [
+      "채우면 다음 주 3명 몫이 모두 보관돼요"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 23,
+     "kind": "행",
+     "labels": [
+      "자동 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 26,
+     "kind": "행",
+     "labels": [
+      "12월 10일에 나갈 인건비"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 34,
+     "kind": "탭",
+     "labels": [
+      "알바생"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 69,
+     "kind": "행",
+     "labels": [
+      "지금 꺼낼 수 있는 돈"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "to": 78,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "to": 17,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "to": 17,
+     "kind": "버튼",
+     "labels": [
+      "222,912원 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "222,912원을 채웠어요"
+     ]
+    },
+    {
+     "from": 19,
+     "to": 76,
+     "kind": "행",
+     "labels": [
+      "직접 쓰기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 20,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 21,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 22,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 22,
+     "to": 19,
+     "kind": "버튼",
+     "labels": [
+      "268,272원 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 22,
+     "to": 23,
+     "kind": "버튼",
+     "labels": [
+      "자동 채우기 설정하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 23,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "다음에"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 23,
+     "to": 18,
+     "kind": "버튼",
+     "labels": [
+      "자동 채우기 켜기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "자동 채우기를 켰어요"
+     ]
+    },
+    {
+     "from": 24,
+     "to": 69,
+     "kind": "버튼",
+     "labels": [
+      "채워 둔 돈 꺼내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "채워 둔 돈 450,000원 안에서 꺼낼 수 있어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 24,
+     "to": 69,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "to": 17,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 25,
+     "to": 30,
+     "kind": "버튼",
+     "labels": [
+      "명세서 미리 보기"
+     ],
+     "how": [
+      "다른 항목"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 26,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 26,
+     "to": 27,
+     "kind": "행",
+     "labels": [
+      "주휴수당 계산"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 26,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "A님"
+     ],
+     "how": [
+      "같은 꼴"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 27,
+     "to": 26,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 27,
+     "to": 36,
+     "kind": "행",
+     "labels": [
+      "결근한 주에는 붙지 않아요"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기",
+      "오늘로 돌아가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 28,
+     "to": 30,
+     "kind": "버튼",
+     "labels": [
+      "급여명세서 보기"
+     ],
+     "how": [
+      "다른 항목"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 29,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기",
+      "오늘로 돌아가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 30,
+     "to": 17,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 30,
+     "to": 32,
+     "kind": "버튼",
+     "labels": [
+      "장부 내보내기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 31,
+     "to": 32,
+     "kind": "버튼",
+     "labels": [
+      "장부 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 31,
+     "to": 78,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 33,
+     "to": 1,
+     "kind": "행",
+     "labels": [
+      "알바생 초대하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 33,
+     "to": 4,
+     "kind": "행",
+     "labels": [
+      "A님"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 33,
+     "to": 6,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 33,
+     "to": 17,
+     "kind": "탭",
+     "labels": [
+      "보관함"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 33,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 33,
+     "to": 38,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "to": 4,
+     "kind": "행",
+     "labels": [
+      "A님",
+      "C님",
+      "D님"
+     ],
+     "how": [
+      "다른 사람",
+      "같은 꼴"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "to": 5,
+     "kind": "행",
+     "labels": [
+      "알바생 초대하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "to": 7,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "to": 18,
+     "kind": "탭",
+     "labels": [
+      "보관함"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "to": 27,
+     "kind": "행",
+     "labels": [
+      "주휴수당 계산"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "to": 35,
+     "kind": "행",
+     "labels": [
+      "반복 근무표"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "to": 78,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 35,
+     "to": 34,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 35,
+     "to": 34,
+     "kind": "버튼",
+     "labels": [
+      "매주 반복으로 넣기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "C님 근무를 매주 반복으로 넣었어요"
+     ]
+    },
+    {
+     "from": 36,
+     "to": 34,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "다음에"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 36,
+     "to": 34,
+     "kind": "버튼",
+     "labels": [
+      "결근으로 남기기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "C님 11월 24일 근무를 결근으로 남겼어요"
+     ]
+    },
+    {
+     "from": 37,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 37,
+     "to": 17,
+     "kind": "행",
+     "labels": [
+      "다음 주 예상 인건비는 222,912원이에요"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 37,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "A님 월급 984,528원이 나갔어요"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 6,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 17,
+     "kind": "탭",
+     "labels": [
+      "보관함"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 19,
+     "kind": "행",
+     "labels": [
+      "사업자 계좌"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 32,
+     "kind": "행",
+     "labels": [
+      "장부 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 33,
+     "kind": "탭",
+     "labels": [
+      "알바생"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 39,
+     "kind": "행",
+     "labels": [
+      "기록 맞춰 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 54,
+     "kind": "행",
+     "labels": [
+      "알림 설정"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 56,
+     "kind": "행",
+     "labels": [
+      "로그아웃"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 57,
+     "kind": "행",
+     "labels": [
+      "가게 정보"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 58,
+     "kind": "행",
+     "labels": [
+      "가게 닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "to": 62,
+     "kind": "행",
+     "labels": [
+      "자주 묻는 질문"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 40,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같은 꼴"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 40,
+     "to": 41,
+     "kind": "버튼",
+     "labels": [
+      "B님 앱에 보이는 안내 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 40,
+     "to": 70,
+     "kind": "버튼",
+     "labels": [
+      "126,000원 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 41,
+     "to": 40,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 41,
+     "to": 42,
+     "kind": "행",
+     "labels": [
+      "채울 날짜 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 41,
+     "to": 70,
+     "kind": "행",
+     "labels": [
+      "일부만 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 42,
+     "to": 40,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "다음에"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 42,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "채울 날짜 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "B님에게 12월 1일까지 채운다고 알렸어요"
+     ]
+    },
+    {
+     "from": 43,
+     "to": 40,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "보관 못 한 돈으로 돌아가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 43,
+     "to": 70,
+     "kind": "행",
+     "labels": [
+      "나눠 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 44,
+     "to": 40,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 44,
+     "to": 72,
+     "kind": "버튼",
+     "labels": [
+      "채울 날짜 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 46,
+     "to": 42,
+     "kind": "버튼",
+     "labels": [
+      "채울 날짜 알리기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 46,
+     "to": 70,
+     "kind": "버튼",
+     "labels": [
+      "일부만 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 47,
+     "to": 9,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 47,
+     "to": 79,
+     "kind": "버튼",
+     "labels": [
+      "다시 연결하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 48,
+     "to": 6,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 48,
+     "to": 17,
+     "kind": "버튼",
+     "labels": [
+      "다시 불러오기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "다시 불러왔어요"
+     ]
+    },
+    {
+     "from": 48,
+     "to": 33,
+     "kind": "탭",
+     "labels": [
+      "알바생"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 48,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 48,
+     "to": 38,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 49,
+     "to": 9,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 49,
+     "to": 79,
+     "kind": "버튼",
+     "labels": [
+      "다시 확정하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 50,
+     "to": 17,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 50,
+     "to": 17,
+     "kind": "버튼",
+     "labels": [
+      "다시 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "222,912원을 채웠어요"
+     ]
+    },
+    {
+     "from": 51,
+     "to": 0,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 1,
+     "kind": "버튼",
+     "labels": [
+      "직접 쓰기로 넣기",
+      "다시 찍기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 51,
+     "to": 1,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 52,
+     "to": 1,
+     "kind": "버튼",
+     "labels": [
+      "알바생 초대하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 52,
+     "to": 17,
+     "kind": "탭",
+     "labels": [
+      "보관함"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 52,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 52,
+     "to": 38,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 52,
+     "to": 63,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 53,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 53,
+     "to": 54,
+     "kind": "버튼",
+     "labels": [
+      "알림 설정 보기"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 54,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 55,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 55,
+     "to": 54,
+     "kind": "버튼",
+     "labels": [
+      "알림 켜기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "휴대폰 알림을 켰어요"
+     ]
+    },
+    {
+     "from": 56,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 56,
+     "to": 38,
+     "kind": "버튼",
+     "labels": [
+      "로그아웃하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "로그아웃했어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 57,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 57,
+     "to": 38,
+     "kind": "버튼",
+     "labels": [
+      "가게 정보 바꾸기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "가게 정보를 바꿨어요"
+     ]
+    },
+    {
+     "from": 58,
+     "to": 25,
+     "kind": "행",
+     "labels": [
+      "보관된 돈"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 32,
+     "kind": "버튼",
+     "labels": [
+      "장부 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 58,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 59,
+     "to": 60,
+     "kind": "버튼",
+     "labels": [
+      "채워 둔 돈 꺼내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "450,000원을 사업자 계좌로 꺼냈어요"
+     ]
+    },
+    {
+     "from": 60,
+     "to": 32,
+     "kind": "버튼",
+     "labels": [
+      "장부 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 60,
+     "to": 61,
+     "kind": "버튼",
+     "labels": [
+      "가게 닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 60,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 61,
+     "to": 60,
+     "kind": "버튼",
+     "labels": [
+      "가게 닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "가게를 닫았어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 62,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 63,
+     "to": 1,
+     "kind": "버튼",
+     "labels": [
+      "알바생 초대하기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 63,
+     "to": 17,
+     "kind": "탭",
+     "labels": [
+      "보관함"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 63,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 63,
+     "to": 38,
+     "kind": "탭",
+     "labels": [
+      "나"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 63,
+     "to": 52,
+     "kind": "탭",
+     "labels": [
+      "알바생"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 64,
+     "to": 9,
+     "kind": "행",
+     "labels": [
+      "확정 대기 근무 1건"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 64,
+     "to": 14,
+     "kind": "행",
+     "labels": [
+      "다르다고 알린 기록"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 64,
+     "to": 25,
+     "kind": "행",
+     "labels": [
+      "보관된 돈"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 64,
+     "to": 32,
+     "kind": "버튼",
+     "labels": [
+      "장부 내보내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 64,
+     "to": 38,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 65,
+     "to": 32,
+     "kind": "버튼",
+     "labels": [
+      "장부 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 65,
+     "to": 40,
+     "kind": "행",
+     "labels": [
+      "아직 보관 못 한 돈"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 65,
+     "to": 46,
+     "kind": "행",
+     "labels": [
+      "보관된 돈"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 66,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기",
+      "오늘로 돌아가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 66,
+     "to": 30,
+     "kind": "버튼",
+     "labels": [
+      "급여명세서 보기"
+     ],
+     "how": [
+      "다른 항목"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 67,
+     "to": 69,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 67,
+     "to": 69,
+     "kind": "버튼",
+     "labels": [
+      "다시 꺼내기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "채워 둔 돈 450,000원 안에서 꺼낼 수 있어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 68,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 68,
+     "to": 19,
+     "kind": "버튼",
+     "labels": [
+      "268,272원 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 69,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 69,
+     "to": 24,
+     "kind": "행",
+     "labels": [
+      "A님 몫",
+      "C님 몫",
+      "D님 몫"
+     ],
+     "how": [
+      "같음",
+      "같은 꼴"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 70,
+     "to": 40,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 70,
+     "to": 44,
+     "kind": "버튼",
+     "labels": [
+      "126,000원 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 71,
+     "to": 14,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 71,
+     "to": 16,
+     "kind": "버튼",
+     "labels": [
+      "이유 남기고 그대로 두기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 72,
+     "to": 40,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "다음에"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 72,
+     "to": 43,
+     "kind": "버튼",
+     "labels": [
+      "채울 날짜 알리기"
+     ],
+     "how": [
+      "같은 꼴"
+     ],
+     "toasts": [
+      "B님에게 12월 1일까지 채운다고 알렸어요"
+     ]
+    },
+    {
+     "from": 74,
+     "to": 0,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 74,
+     "to": 1,
+     "kind": "버튼",
+     "labels": [
+      "직접 쓰기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 74,
+     "to": 81,
+     "kind": "버튼",
+     "labels": [
+      "계약서 사진 찍기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 75,
+     "to": 18,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같은 꼴"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 75,
+     "to": 40,
+     "kind": "행",
+     "labels": [
+      "다 채우기",
+      "채울 날짜 알리기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 75,
+     "to": 41,
+     "kind": "버튼",
+     "labels": [
+      "B님 앱에 보이는 안내 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 76,
+     "to": 17,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 76,
+     "to": 17,
+     "kind": "버튼",
+     "labels": [
+      "268,272원 채우기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": [
+      "268,272원을 채웠어요"
+     ]
+    },
+    {
+     "from": 76,
+     "to": 19,
+     "kind": "행",
+     "labels": [
+      "다음 주 예상 인건비",
+      "2주 예상 인건비"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 77,
+     "to": 33,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기",
+      "알바생 목록으로 돌아가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 7,
+     "kind": "탭",
+     "labels": [
+      "오늘"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 18,
+     "kind": "탭",
+     "labels": [
+      "보관함"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 19,
+     "kind": "행",
+     "labels": [
+      "사업자 계좌"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 31,
+     "kind": "행",
+     "labels": [
+      "이번 달 인건비"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 32,
+     "kind": "행",
+     "labels": [
+      "장부 내보내기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 34,
+     "kind": "탭",
+     "labels": [
+      "알바생"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 37,
+     "kind": "버튼",
+     "labels": [
+      "알림"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 39,
+     "kind": "행",
+     "labels": [
+      "기록 맞춰 보기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 54,
+     "kind": "행",
+     "labels": [
+      "알림 설정"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 56,
+     "kind": "행",
+     "labels": [
+      "로그아웃"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 57,
+     "kind": "행",
+     "labels": [
+      "가게 정보"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 58,
+     "kind": "행",
+     "labels": [
+      "가게 닫기"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "to": 62,
+     "kind": "행",
+     "labels": [
+      "자주 묻는 질문"
+     ],
+     "how": [
+      "다른 사람"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 79,
+     "to": 6,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기",
+      "오늘로 돌아가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 79,
+     "to": 10,
+     "kind": "자동",
+     "labels": [
+      "기다리면"
+     ],
+     "how": [
+      "같음",
+      "다른 항목"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 80,
+     "to": 75,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "닫기",
+      "보관 못 한 돈으로 돌아가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 81,
+     "to": 0,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 81,
+     "to": 1,
+     "kind": "버튼",
+     "labels": [
+      "직접 쓰기",
+      "계약서 찍기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 82,
+     "to": 11,
+     "kind": "뒤로·닫기",
+     "labels": [
+      "뒤로 가기"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 82,
+     "to": 12,
+     "kind": "행",
+     "labels": [
+      "A님이 11월 21일 근무 확정을 다시 요…"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 82,
+     "to": 17,
+     "kind": "행",
+     "labels": [
+      "다음 주 예상 인건비는 222,912원이에요"
+     ],
+     "how": [
+      "같음"
+     ],
+     "toasts": []
+    },
+    {
+     "from": 82,
+     "to": 30,
+     "kind": "행",
+     "labels": [
+      "A님 월급 984,528원이 나갔어요"
+     ],
+     "how": [
+      "다른 탭"
+     ],
+     "toasts": []
+    }
+   ],
+   "outside": [
+    {
+     "from": 45,
+     "label": "닫기",
+     "key": "junho/vault/vault",
+     "title": "B님 몫을 모두 보관했어요"
+    },
+    {
+     "from": 45,
+     "label": "보관함으로 돌아가기",
+     "key": "junho/vault/vault",
+     "title": "B님 몫을 모두 보관했어요"
+    },
+    {
+     "from": 46,
+     "label": "뒤로 가기",
+     "key": "junho/staff/staff",
+     "title": "알바생 1명이 일하고 있어요"
+    },
+    {
+     "from": 46,
+     "label": "알바생 목록으로 돌아가기",
+     "key": "junho/staff/staff",
+     "title": "알바생 1명이 일하고 있어요"
+    },
+    {
+     "from": 65,
+     "label": "뒤로 가기",
+     "key": "junho/me/me",
+     "title": "알바생 1명과 일하고 있어요"
+    }
+   ],
+   "stay": [
+    {
+     "from": 1,
+     "label": "직접 쓰기",
+     "toasts": []
+    },
+    {
+     "from": 2,
+     "label": "초대 다시 보내기",
+     "toasts": [
+      "A님에게 초대 문자를 다시 보냈어요"
+     ]
+    },
+    {
+     "from": 3,
+     "label": "주휴수당 넣고 다시 보내기",
+     "toasts": []
+    },
+    {
+     "from": 5,
+     "label": "초대 다시 보내기",
+     "toasts": [
+      "D님에게 초대 문자를 다시 보냈어요"
+     ]
+    },
+    {
+     "from": 6,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 7,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 11,
+     "label": "2건 확정하기",
+     "toasts": []
+    },
+    {
+     "from": 11,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 14,
+     "label": "A님 기록으로 바꾸기",
+     "toasts": []
+    },
+    {
+     "from": 17,
+     "label": "보관함",
+     "toasts": []
+    },
+    {
+     "from": 18,
+     "label": "보관함",
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "label": "다음 주 예상 인건비",
+     "toasts": []
+    },
+    {
+     "from": 19,
+     "label": "2주 예상 인건비",
+     "toasts": []
+    },
+    {
+     "from": 30,
+     "label": "PDF 저장하기",
+     "toasts": [
+      "급여명세서를 PDF로 저장했어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 32,
+     "label": "11월",
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "label": "최근 3개월",
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "label": "올해",
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "label": "근무표",
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "label": "임금대장",
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "label": "고친 기록 1건",
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "label": "보관과 입금 기록",
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "label": "급여명세서",
+     "toasts": []
+    },
+    {
+     "from": 32,
+     "label": "엑셀로 저장하기",
+     "toasts": [
+      "장부를 엑셀 파일로 저장했어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 32,
+     "label": "PDF로 저장하기",
+     "toasts": [
+      "장부를 PDF로 저장했어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 33,
+     "label": "알바생",
+     "toasts": []
+    },
+    {
+     "from": 34,
+     "label": "알바생",
+     "toasts": []
+    },
+    {
+     "from": 37,
+     "label": "모두 읽기",
+     "toasts": []
+    },
+    {
+     "from": 37,
+     "label": "A님 퇴근 시간을 오전 7시 30분으로 고…",
+     "toasts": []
+    },
+    {
+     "from": 37,
+     "label": "A님 11월 15일 일당 92,880원을 …",
+     "toasts": []
+    },
+    {
+     "from": 37,
+     "label": "A님 주휴수당 37,152원을 보관했어요",
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "label": "고용노동부 상담 1 3 5 0",
+     "toasts": []
+    },
+    {
+     "from": 38,
+     "label": "나",
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "label": "링크 끄기",
+     "toasts": []
+    },
+    {
+     "from": 39,
+     "label": "링크 복사하기",
+     "toasts": [
+      "링크를 복사했어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 39,
+     "label": "받는 사람 화면 보기",
+     "toasts": []
+    },
+    {
+     "from": 40,
+     "label": "다 채우기",
+     "toasts": []
+    },
+    {
+     "from": 40,
+     "label": "일부만 채우기",
+     "toasts": []
+    },
+    {
+     "from": 40,
+     "label": "채울 날짜 알리기",
+     "toasts": []
+    },
+    {
+     "from": 41,
+     "label": "168,000원 다 채우기",
+     "toasts": []
+    },
+    {
+     "from": 48,
+     "label": "보관함",
+     "toasts": []
+    },
+    {
+     "from": 52,
+     "label": "알바생",
+     "toasts": []
+    },
+    {
+     "from": 54,
+     "label": "알바생이 출근할 때",
+     "toasts": [
+      "출근 알림을 껐어요"
+     ]
+    },
+    {
+     "from": 54,
+     "label": "근무 전날 알림",
+     "toasts": [
+      "근무 전날 알림을 껐어요"
+     ]
+    },
+    {
+     "from": 54,
+     "label": "계약 소식",
+     "toasts": [
+      "계약 소식 알림을 껐어요"
+     ]
+    },
+    {
+     "from": 54,
+     "label": "소식과 안내",
+     "toasts": [
+      "소식과 안내 알림을 껐어요"
+     ]
+    },
+    {
+     "from": 55,
+     "label": "알바생이 출근할 때",
+     "toasts": [
+      "출근 알림을 껐어요"
+     ]
+    },
+    {
+     "from": 55,
+     "label": "근무 전날 알림",
+     "toasts": [
+      "근무 전날 알림을 껐어요"
+     ]
+    },
+    {
+     "from": 55,
+     "label": "계약 소식",
+     "toasts": [
+      "계약 소식 알림을 껐어요"
+     ]
+    },
+    {
+     "from": 55,
+     "label": "소식과 안내",
+     "toasts": [
+      "소식과 안내 알림을 껐어요"
+     ]
+    },
+    {
+     "from": 62,
+     "label": "고용노동부 상담 1 3 5 0",
+     "toasts": []
+    },
+    {
+     "from": 63,
+     "label": "오늘",
+     "toasts": []
+    },
+    {
+     "from": 69,
+     "label": "채워 둔 돈 꺼내기",
+     "toasts": [
+      "채워 둔 돈 450,000원 안에서 꺼낼 수 있어요 (시연 버전)"
+     ]
+    },
+    {
+     "from": 75,
+     "label": "일부만 채우기",
+     "toasts": []
+    },
+    {
+     "from": 75,
+     "label": "168,000원 다 채우기",
+     "toasts": []
+    },
+    {
+     "from": 76,
+     "label": "직접 쓰기",
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "label": "고용노동부 상담 1 3 5 0",
+     "toasts": []
+    },
+    {
+     "from": 78,
+     "label": "나",
+     "toasts": []
+    },
+    {
+     "from": 81,
+     "label": "계약서 사진 찍기",
+     "toasts": []
+    },
+    {
+     "from": 82,
+     "label": "모두 읽기",
+     "toasts": []
+    },
+    {
+     "from": 82,
+     "label": "A님 퇴근 시간을 오전 7시 30분으로 고…",
+     "toasts": []
+    },
+    {
+     "from": 82,
+     "label": "A님 11월 15일 일당 92,880원을 …",
+     "toasts": []
+    },
+    {
+     "from": 82,
+     "label": "A님 주휴수당 37,152원을 보관했어요",
+     "toasts": []
+    }
+   ]
+  }
+ },
+ "xlink": [
+  {
+   "worker": 0,
+   "owner": 1,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 0,
+   "owner": 2,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 0,
+   "owner": 5,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 0,
+   "owner": 52,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 0,
+   "owner": 63,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 1,
+   "owner": 5,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 2,
+   "owner": 5,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 3,
+   "owner": 5,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 3,
+   "owner": 25,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 4,
+   "owner": 37,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 4,
+   "owner": 55,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 5,
+   "owner": 1,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 5,
+   "owner": 5,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 6,
+   "owner": 1,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 6,
+   "owner": 3,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 6,
+   "owner": 74,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 7,
+   "owner": 1,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 7,
+   "owner": 4,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 7,
+   "owner": 5,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 7,
+   "owner": 77,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 8,
+   "owner": 6,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 8,
+   "owner": 7,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 8,
+   "owner": 9,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 8,
+   "owner": 10,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 8,
+   "owner": 17,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 8,
+   "owner": 28,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 9,
+   "owner": 6,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 9,
+   "owner": 35,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 9,
+   "owner": 36,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 9,
+   "owner": 37,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 10,
+   "owner": 27,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 10,
+   "owner": 31,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 11,
+   "owner": 6,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 11,
+   "owner": 8,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 12,
+   "owner": 6,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 13,
+   "owner": 6,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 14,
+   "owner": 6,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 15,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 15,
+   "owner": 10,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 15,
+   "owner": 17,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 16,
+   "owner": 6,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 16,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 16,
+   "owner": 11,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 16,
+   "owner": 31,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 16,
+   "owner": 33,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 16,
+   "owner": 34,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 17,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 17,
+   "owner": 15,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 17,
+   "owner": 17,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 17,
+   "owner": 39,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 18,
+   "owner": 13,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 19,
+   "owner": 14,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 20,
+   "owner": 6,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 21,
+   "owner": 9,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 21,
+   "owner": 47,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 21,
+   "owner": 49,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 22,
+   "owner": 12,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 23,
+   "owner": 12,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 23,
+   "owner": 13,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 24,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 24,
+   "owner": 13,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 25,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 26,
+   "owner": 14,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 26,
+   "owner": 15,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 27,
+   "owner": 14,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 27,
+   "owner": 16,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 27,
+   "owner": 32,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 27,
+   "owner": 71,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 28,
+   "owner": 17,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 28,
+   "owner": 18,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 28,
+   "owner": 25,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 28,
+   "owner": 26,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 29,
+   "owner": 27,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 29,
+   "owner": 36,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 30,
+   "owner": 20,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 30,
+   "owner": 21,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 30,
+   "owner": 24,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 31,
+   "owner": 25,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 32,
+   "owner": 26,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 33,
+   "owner": 25,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 33,
+   "owner": 28,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 33,
+   "owner": 54,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 34,
+   "owner": 30,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 35,
+   "owner": 25,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 35,
+   "owner": 29,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 35,
+   "owner": 66,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 36,
+   "owner": 40,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 37,
+   "owner": 37,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 37,
+   "owner": 40,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 37,
+   "owner": 45,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 37,
+   "owner": 54,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 37,
+   "owner": 82,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 38,
+   "owner": 40,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 38,
+   "owner": 41,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 38,
+   "owner": 44,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 38,
+   "owner": 54,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 38,
+   "owner": 70,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 38,
+   "owner": 75,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 38,
+   "owner": 80,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 39,
+   "owner": 40,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 39,
+   "owner": 42,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 39,
+   "owner": 43,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 39,
+   "owner": 72,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 40,
+   "owner": 37,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 40,
+   "owner": 40,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 41,
+   "owner": 37,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 41,
+   "owner": 40,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 41,
+   "owner": 41,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 42,
+   "owner": 40,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 43,
+   "owner": 31,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 43,
+   "owner": 32,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 44,
+   "owner": 32,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 44,
+   "owner": 37,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 45,
+   "owner": 46,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 46,
+   "owner": 46,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 47,
+   "owner": 17,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 47,
+   "owner": 40,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 47,
+   "owner": 45,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 48,
+   "owner": 6,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 49,
+   "owner": 6,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 49,
+   "owner": 48,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 50,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 50,
+   "owner": 13,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 50,
+   "owner": 25,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 51,
+   "owner": 1,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 51,
+   "owner": 33,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 51,
+   "owner": 34,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 51,
+   "owner": 38,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 51,
+   "owner": 78,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 52,
+   "owner": 17,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 52,
+   "owner": 21,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 53,
+   "owner": 5,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 54,
+   "owner": 37,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 55,
+   "owner": 1,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 56,
+   "owner": 1,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 57,
+   "owner": 4,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 57,
+   "owner": 5,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 58,
+   "owner": 6,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 59,
+   "owner": 9,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 60,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 60,
+   "owner": 10,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 60,
+   "owner": 17,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 61,
+   "owner": 12,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 62,
+   "owner": 14,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 63,
+   "owner": 27,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 64,
+   "owner": 12,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 65,
+   "owner": 12,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 65,
+   "owner": 13,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 66,
+   "owner": 13,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 67,
+   "owner": 40,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 68,
+   "owner": 37,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 68,
+   "owner": 40,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 69,
+   "owner": 46,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 70,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 71,
+   "owner": 13,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 72,
+   "owner": 39,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 73,
+   "owner": 1,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 74,
+   "owner": 1,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 75,
+   "owner": 5,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 76,
+   "owner": 1,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 77,
+   "owner": 12,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 78,
+   "owner": 13,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 80,
+   "owner": 5,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 81,
+   "owner": 5,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 82,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 83,
+   "owner": 37,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 85,
+   "owner": 37,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 86,
+   "owner": 25,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 87,
+   "owner": 29,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 87,
+   "owner": 66,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 88,
+   "owner": 54,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 89,
+   "owner": 54,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 89,
+   "owner": 55,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 90,
+   "owner": 36,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 91,
+   "owner": 56,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 92,
+   "owner": 58,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 92,
+   "owner": 64,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 93,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 93,
+   "owner": 64,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 94,
+   "owner": 14,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 94,
+   "owner": 64,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 95,
+   "owner": 40,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 95,
+   "owner": 65,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 96,
+   "owner": 29,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 97,
+   "owner": 60,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 98,
+   "owner": 61,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 99,
+   "owner": 62,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 100,
+   "owner": 1,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": [
+    "알바생 앱"
+   ]
+  },
+  {
+   "worker": 100,
+   "owner": 63,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": [
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 101,
+   "owner": 53,
+   "from": [
+    "알바생 주석",
+    "사장님 주석"
+   ],
+   "embedded": [
+    "알바생 앱",
+    "사장님 앱"
+   ]
+  },
+  {
+   "worker": 104,
+   "owner": 14,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 105,
+   "owner": 5,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 106,
+   "owner": 5,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 108,
+   "owner": 12,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 109,
+   "owner": 14,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 110,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 110,
+   "owner": 79,
+   "from": [
+    "사장님 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 111,
+   "owner": 9,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 112,
+   "owner": 14,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 113,
+   "owner": 37,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": []
+  },
+  {
+   "worker": 114,
+   "owner": 46,
+   "from": [
+    "알바생 주석"
+   ],
+   "embedded": []
+  }
+ ]
+}
