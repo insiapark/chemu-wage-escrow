@@ -1,4 +1,5 @@
 import { DEMO } from "./fixtures";
+import { monthDay, won } from "./format";
 import type { DemoCommand, DemoState } from "./types";
 
 export class DemoError extends Error {
@@ -70,7 +71,7 @@ export function transition(current: DemoState, command: DemoCommand, timestamp =
       requireCondition(Number.isSafeInteger(command.amount) && command.amount > 0 && command.amount <= 10_000_000, "1원부터 1,000만 원까지 정수로 입력해 주세요.");
       s.available += command.amount;
       receipt("deposit", command.amount);
-      message = `${command.amount.toLocaleString("ko-KR")}원을 연습 보관함에 채웠어요`;
+      message = `${won(command.amount)}을 연습 보관함에 채웠어요`;
       break;
     case "sign": {
       requireCondition(s.attendance.status === "pending", "퇴근한 기록에 서명할 수 있어요.");
@@ -86,7 +87,7 @@ export function transition(current: DemoState, command: DemoCommand, timestamp =
       requireCondition(s.attendance.status === "pending", "확정 대기 중인 근무가 없어요.");
       requireCondition(s.signatures.worker && s.signatures.employer, "두 사람의 근무 기록 서명이 필요해요.");
       requireCondition(!s.usedNonces.includes(s.attendance.nonce), "이미 확정한 근무예요.");
-      requireCondition(s.available >= s.attendance.wage, "채워 둔 돈이 모자라요. 보관함을 먼저 채워 주세요.");
+      requireCondition(s.available >= s.attendance.wage, `채워 둔 돈이 모자라요. ${won(s.attendance.wage - s.available)}을 더 채우면 돼요.`);
       requireCondition(/^[0-9a-f]{64}$/.test(command.recordHash), "기록 지문을 다시 만들어 주세요.");
       s.available -= s.attendance.wage;
       s.locked += s.attendance.wage;
@@ -95,7 +96,7 @@ export function transition(current: DemoState, command: DemoCommand, timestamp =
       s.recordHash = command.recordHash;
       s.sealedRecord = command.sealedRecord;
       receipt("lock", s.attendance.wage);
-      message = "A님의 일당 92,880원을 보관했어요";
+      message = `사장님이 ${monthDay(s.attendance.workDate)} 근무를 확정했어요. 체무가 ${won(s.attendance.wage)}을 보관했어요`;
       break;
     case "set-payday":
       requireCondition(s.received === 0, "이미 입금된 시연이에요. 처음부터 시작해 주세요.");
@@ -111,7 +112,7 @@ export function transition(current: DemoState, command: DemoCommand, timestamp =
       s.locked = 0;
       s.attendance.status = "paid";
       receipt("release", s.received);
-      message = "급여가 연습 계좌에 들어왔어요";
+      message = `월급 ${won(s.received)}이 들어왔어요`;
       break;
   }
   s.events.unshift({ id: `event:${s.events.length + 1}`, message, createdAt: timestamp });
