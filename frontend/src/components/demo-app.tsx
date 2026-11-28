@@ -79,7 +79,7 @@ export function DemoApp({ initialView = "today" }: { initialView?: View }) {
       const current = getSnapshot();
       if (current.attendance.status !== "locked" || Date.now() < Date.parse(current.payday) || busy.current || autoRelease.current) return;
       autoRelease.current = true;
-      void run(roleRef.current === "employer" ? `A님 월급 ${won(current.locked)}이 나갔어요` : `월급 ${won(current.locked)}이 들어왔어요`, () => gateway.execute({ type: "release", now: new Date().toISOString() })).finally(() => { autoRelease.current = false; });
+      void run(roleRef.current === "employer" ? `A님 월급 ${won(current.locked)}이 나갔어요` : `월급 ${won(current.locked)}이 들어왔어요`, () => gateway.releaseDue(new Date().toISOString())).finally(() => { autoRelease.current = false; });
     }, 500);
     return () => clearInterval(timer);
   }, []);

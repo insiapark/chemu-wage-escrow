@@ -12,6 +12,7 @@ export interface EscrowGateway {
   execute(command: DemoCommand): Promise<DemoState>;
   signSample(role: Role): Promise<DemoState>;
   lock(): Promise<DemoState>;
+  releaseDue(now: string): Promise<DemoState>;
 }
 
 /** Replace this boundary with HTTP/viem implementations after agreeing ABI and persistence. */
@@ -21,12 +22,13 @@ export class MockEscrowGateway implements EscrowGateway {
   constructor(private repository: StateRepository, private delayMs = 200) {}
   failNext(message = "연결이 잠시 끊겼어요. 기록과 보관된 돈은 그대로예요. 다시 시도해 주세요.") { this.failure = message; }
   clearFailure() { this.failure = null; }
-  private run(operation: (state: DemoState) => Promise<DemoCommand> | DemoCommand) {
+  private run(operation: (state: DemoState) => Promise<DemoCommand | null> | DemoCommand | null) {
     const work = this.queue.then(async () => {
       if (this.delayMs) await new Promise(resolve => setTimeout(resolve, this.delayMs));
       if (this.failure) { const message = this.failure; this.failure = null; throw new DemoError(message); }
       const state = this.repository.read();
       const command = await operation(state);
+      if (!command) return state;
       if (command.type === "sign") {
         const verified = await verifyAttendanceSignature(state, command.role, command.value.signature, command.value.mode);
         if (verified.payloadDigest !== command.value.payloadDigest) throw new DemoError("서명한 뒤에 기록이 달라졌어요. 다시 서명해 주세요.");
@@ -50,6 +52,8 @@ export class MockEscrowGateway implements EscrowGateway {
     return work;
   }
   execute(command: DemoCommand) { return this.run(() => command); }
+  /** Payday timer entry point. Another window of the same browser may already have paid; that is not an error. */
+  releaseDue(now: string) { return this.run(state => state.attendance.status === "paid" ? null : { type: "release", now }); }
   signSample(role: Role) { return this.run(async state => ({ type: "sign", role, value: await sampleSignature(state, role) })); }
   lock() {
     return this.run(async state => {

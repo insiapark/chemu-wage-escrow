@@ -52,3 +52,20 @@ test("short funds say exactly how much more to fill", () => {
   s.signatures = { worker: {} as never, employer: {} as never };
   assert.throws(() => transition(s, { type: "lock", recordHash: "a".repeat(64), sealedRecord: "{}" }), /12,880원을 더 채우면 돼요/);
 });
+test("payday timer in a second window does not error after the first window paid", async () => {
+  let state = createInitialState();
+  const repo = { read: () => state, write: (next: typeof state) => { state = next; } };
+  const api = new MockEscrowGateway(repo, 0);
+  await api.execute({ type: "submit-contract", hourlyWage: DEMO.hourlyWage, includesWeeklyAllowance: true });
+  await api.execute({ type: "agree-contract" });
+  await api.execute({ type: "check-in", distance: 12 });
+  await api.execute({ type: "check-out", distance: 12 });
+  await api.signSample("worker");
+  await api.signSample("employer");
+  await api.lock();
+  await assert.rejects(api.releaseDue("2026-12-10T08:59:00+09:00"), /급여일/);
+  const [first, second] = await Promise.all([api.releaseDue(state.payday), api.releaseDue(state.payday)]);
+  assert.equal(first.received, DEMO.payroll);
+  assert.equal(second.received, DEMO.payroll);
+  assert.equal(state.receipts.filter(r => r.kind === "release").length, 1);
+});
